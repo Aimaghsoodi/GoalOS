@@ -46,7 +46,7 @@ export function parseISODate(dateString: string): Date {
 export function isValidISODate(dateString: string): boolean {
   try {
     const date = new Date(dateString);
-    return date instanceof Date && !isNaN(date.getTime()) && dateString === date.toISOString();
+    return date instanceof Date && !isNaN(date.getTime());
   } catch {
     return false;
   }

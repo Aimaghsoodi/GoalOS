@@ -237,6 +237,10 @@ describe('QueryEngine', () => {
       priority: { level: 'medium' }
     });
 
+    // Ensure distinct timestamps for deterministic sorting
+    goal1.createdAt = '2020-01-01T00:00:00.000Z';
+    goal2.createdAt = '2021-01-01T00:00:00.000Z';
+
     const sorted = QueryEngine.sortByCreated([goal2, goal1], true);
     expect(sorted[0].id).toBe(goal1.id);
   });

@@ -119,7 +119,7 @@ describe('MergeEngine', () => {
       version: 1
     });
 
-    const result = MergeEngine.merge(goal1, graph2.toJSON().goals[0], 'most_restrictive');
+    const result = MergeEngine.merge(graph1.toJSON(), graph2.toJSON(), 'most_restrictive');
     const merged = result.merged.goals.find(g => g.id === goal1.id);
 
     // Should have earlier deadline and higher priority

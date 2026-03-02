@@ -224,7 +224,7 @@ export class PriorityEngine {
   static compare(goalA: Goal, goalB: Goal): number {
     const scoreA = goalA.priority.score ?? this.calculateScore(goalA);
     const scoreB = goalB.priority.score ?? this.calculateScore(goalB);
-    return scoreB - scoreA; // Higher scores first
+    return scoreA - scoreB; // Positive when A has higher priority
   }
 
   /**

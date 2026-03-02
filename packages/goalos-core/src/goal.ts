@@ -30,8 +30,10 @@ export class GoalClass {
    */
   static create(input: Omit<Goal, 'id' | 'createdAt' | 'updatedAt' | 'version'>): Goal {
     const now = getCurrentTimestamp();
+    // Allow runtime override of auto-generated fields (used by merge/import)
+    const extra = input as Record<string, unknown>;
     const goal: Goal = {
-      id: generateGoalId(),
+      id: typeof extra.id === 'string' && extra.id ? extra.id as string : generateGoalId(),
       title: input.title,
       description: input.description,
       parentId: input.parentId || null,
@@ -46,11 +48,11 @@ export class GoalClass {
       domain: input.domain,
       dependencies: input.dependencies || [],
       permissions: input.permissions || [],
-      createdAt: now,
-      updatedAt: now,
+      createdAt: typeof extra.createdAt === 'string' && extra.createdAt ? extra.createdAt as string : now,
+      updatedAt: typeof extra.updatedAt === 'string' && extra.updatedAt ? extra.updatedAt as string : now,
       completedAt: undefined,
       createdBy: input.createdBy,
-      version: 1,
+      version: typeof extra.version === 'number' ? extra.version as number : 1,
       metadata: input.metadata || {}
     };
 

@@ -155,7 +155,7 @@ describe('GoalClass', () => {
     });
 
     const days = GoalClass.daysUntilDeadline(futureGoal);
-    expect(days).toBeBeDefined();
+    expect(days).toBeDefined();
     expect(days).toBeGreaterThanOrEqual(4);
   });
 

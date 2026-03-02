@@ -67,14 +67,15 @@ export class DependencyResolver {
    * Get all enabling goals (goals that enable this one)
    */
   static getEnablers(goal: Goal, goals: Goal[]): Goal[] {
-    const goalMap = buildGoalMap(goals);
     const enablers: Goal[] = [];
 
-    for (const dep of goal.dependencies || []) {
-      if (dep.type === 'enables') {
-        const depGoal = goalMap.get(dep.targetGoalId);
-        if (depGoal) {
-          enablers.push(depGoal);
+    // Find all goals that have an 'enables' dependency pointing to this goal
+    for (const other of goals) {
+      if (other.id === goal.id) continue;
+      for (const dep of other.dependencies || []) {
+        if (dep.type === 'enables' && dep.targetGoalId === goal.id) {
+          enablers.push(other);
+          break;
         }
       }
     }
