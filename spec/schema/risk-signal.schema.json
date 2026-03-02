@@ -1,0 +1,164 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://failsafe.io/schema/risk-signal.schema.json",
+  "title": "FailSafe Risk Signal",
+  "description": "Schema for risk signals and warnings that may precede failures",
+  "type": "object",
+  "required": [
+    "signalId",
+    "timestamp",
+    "signalType",
+    "severity",
+    "description"
+  ],
+  "properties": {
+    "signalId": {
+      "type": "string",
+      "pattern": "^signal_[a-zA-Z0-9_-]{8,}$",
+      "description": "Unique signal identifier"
+    },
+    "timestamp": {
+      "type": "string",
+      "format": "date-time",
+      "description": "When signal was detected"
+    },
+    "signalType": {
+      "type": "string",
+      "enum": [
+        "anomaly",
+        "threshold_breach",
+        "pattern_change",
+        "configuration_drift",
+        "resource_constraint",
+        "behavioral_change",
+        "undefined_behavior",
+        "compliance_gap",
+        "quality_degradation"
+      ],
+      "description": "Type of risk signal"
+    },
+    "severity": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 5,
+      "description": "Signal severity if it becomes a failure"
+    },
+    "likelihood": {
+      "type": "string",
+      "enum": [
+        "certain",
+        "likely",
+        "moderate",
+        "unlikely",
+        "minimal"
+      ],
+      "description": "Likelihood of this signal leading to failure"
+    },
+    "description": {
+      "type": "string",
+      "minLength": 10,
+      "maxLength": 5000,
+      "description": "Detailed signal description"
+    },
+    "metrics": {
+      "type": "object",
+      "description": "Metrics or measurements associated with signal",
+      "properties": {
+        "threshold": {
+          "type": "number",
+          "description": "Threshold value if threshold-based"
+        },
+        "currentValue": {
+          "type": "number",
+          "description": "Current measured value"
+        },
+        "percentageAboveThreshold": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100
+        }
+      }
+    },
+    "affectedSystems": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Systems or components affected by signal"
+    },
+    "potentialFailureCategories": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": [
+          "legal",
+          "medical",
+          "financial",
+          "coding",
+          "factual",
+          "reasoning",
+          "temporal"
+        ]
+      },
+      "description": "Failure categories this signal might lead to"
+    },
+    "detectedBy": {
+      "type": "string",
+      "description": "Monitor, system, or person that detected signal"
+    },
+    "detectionMethod": {
+      "type": "string",
+      "enum": [
+        "automated_monitoring",
+        "manual_inspection",
+        "code_review",
+        "testing",
+        "user_report",
+        "audit",
+        "anomaly_detection"
+      ]
+    },
+    "actionTaken": {
+      "type": "string",
+      "enum": [
+        "alert_issued",
+        "escalation_triggered",
+        "investigation_started",
+        "monitoring_increased",
+        "none"
+      ]
+    },
+    "recommendations": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Recommended actions"
+    },
+    "relatedFailures": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "pattern": "^fail_[a-zA-Z0-9_-]{8,}$"
+      },
+      "description": "Failures potentially related to this signal"
+    },
+    "estimatedTimeToFailure": {
+      "type": "string",
+      "description": "Estimated time until signal becomes failure (e.g., '24 hours', 'days')"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "active",
+        "investigating",
+        "resolved",
+        "false_positive",
+        "monitoring"
+      ]
+    },
+    "metadata": {
+      "type": "object"
+    }
+  }
+}

@@ -1,0 +1,96 @@
+{
+  "id": "graph_test001",
+  "version": "0.1.0",
+  "owner": "user_123",
+  "name": "My Goals",
+  "description": "A test intent graph",
+  "goals": [
+    {
+      "id": "goal_root001",
+      "title": "Launch new business",
+      "description": "Start a new software business",
+      "parentId": null,
+      "status": "active",
+      "priority": {
+        "level": "high",
+        "score": 80,
+        "reason": "Critical for career transition"
+      },
+      "successCriteria": [
+        "Website live",
+        "First customer acquired",
+        "Revenue target met"
+      ],
+      "deadline": "2025-12-31T23:59:59Z",
+      "timeHorizon": "this_year",
+      "estimatedEffort": {
+        "value": 40,
+        "unit": "weeks"
+      },
+      "motivation": "Build sustainable income",
+      "tags": ["business", "startup"],
+      "domain": "work",
+      "dependencies": [],
+      "permissions": [],
+      "createdAt": "2025-01-01T00:00:00Z",
+      "updatedAt": "2025-02-01T00:00:00Z",
+      "version": 1,
+      "metadata": {}
+    },
+    {
+      "id": "goal_child001",
+      "title": "Build landing page",
+      "description": "Create marketing website",
+      "parentId": "goal_root001",
+      "status": "active",
+      "priority": {
+        "level": "high",
+        "score": 75
+      },
+      "successCriteria": ["Mobile responsive", "Conversions tracked"],
+      "deadline": "2025-06-30T23:59:59Z",
+      "timeHorizon": "this_quarter",
+      "estimatedEffort": {
+        "value": 80,
+        "unit": "hours"
+      },
+      "tags": ["website", "marketing"],
+      "domain": "work",
+      "dependencies": [],
+      "permissions": [],
+      "createdAt": "2025-01-15T00:00:00Z",
+      "updatedAt": "2025-02-01T00:00:00Z",
+      "version": 1,
+      "metadata": {}
+    },
+    {
+      "id": "goal_child002",
+      "title": "Set up payments",
+      "description": "Integrate payment processing",
+      "parentId": "goal_root001",
+      "status": "planned",
+      "priority": {
+        "level": "high",
+        "score": 70
+      },
+      "tags": ["payments", "integration"],
+      "domain": "work",
+      "dependencies": [
+        {
+          "type": "requires",
+          "targetGoalId": "goal_child001",
+          "description": "Need landing page first"
+        }
+      ],
+      "permissions": [],
+      "createdAt": "2025-01-15T00:00:00Z",
+      "updatedAt": "2025-02-01T00:00:00Z",
+      "version": 1,
+      "metadata": {}
+    }
+  ],
+  "defaultPermissions": [],
+  "createdAt": "2025-01-01T00:00:00Z",
+  "updatedAt": "2025-02-01T00:00:00Z",
+  "metadata": {}
+}

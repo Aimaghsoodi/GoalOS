@@ -1,0 +1,100 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://agentspec.io/schema/capability.schema.json",
+  "title": "Capability Schema",
+  "description": "Schema for defining agent capabilities (what an agent is allowed to do)",
+  "type": "object",
+  "required": ["name", "resources", "actions"],
+  "additionalProperties": false,
+  "properties": {
+    "name": {
+      "type": "string",
+      "pattern": "^[a-z0-9_]+$",
+      "minLength": 1,
+      "maxLength": 63,
+      "description": "Unique identifier for this capability"
+    },
+    "resources": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      },
+      "minItems": 1,
+      "description": "Resources this capability can access (files, database, api, etc.)"
+    },
+    "actions": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": ["read", "write", "delete", "execute", "create", "list", "search", "manage"]
+      },
+      "minItems": 1,
+      "description": "Operations allowed on resources"
+    },
+    "limit": {
+      "oneOf": [
+        {
+          "type": "string",
+          "pattern": "^[0-9]+(MB|GB|KB|b|req|items|/min|/hour|/day)$",
+          "description": "Size or rate limit (e.g., '100MB', '1000req/hour')"
+        },
+        {
+          "type": "string",
+          "pattern": "^[0-9]+(s|min|hour|day|week)$",
+          "description": "Time limit (e.g., '30s', '1hour')"
+        },
+        {
+          "type": "integer",
+          "minimum": 1,
+          "description": "Count limit"
+        }
+      ],
+      "description": "Size, rate, count, or time limit per operation"
+    },
+    "timeout": {
+      "type": "string",
+      "pattern": "^[0-9]+(s|min|hour)$",
+      "description": "Maximum execution time (e.g., '30s', '5min')"
+    },
+    "conditions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["type"],
+        "additionalProperties": true,
+        "properties": {
+          "type": {
+            "type": "string",
+            "enum": [
+              "time_of_day",
+              "user_role",
+              "environment",
+              "ip_range",
+              "custom"
+            ],
+            "description": "Type of condition"
+          },
+          "value": {
+            "oneOf": [
+              { "type": "string" },
+              { "type": "array", "items": { "type": "string" } },
+              { "type": "object" }
+            ],
+            "description": "Condition value or range"
+          }
+        }
+      },
+      "description": "Conditions under which this capability applies (AND logic)"
+    },
+    "description": {
+      "type": "string",
+      "description": "Human-readable description of this capability"
+    },
+    "metadata": {
+      "type": "object",
+      "additionalProperties": true,
+      "description": "Optional metadata key-value pairs"
+    }
+  }
+}

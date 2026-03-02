@@ -1,0 +1,242 @@
+{
+  "id": "graph_career_transition_ds_to_ai",
+  "version": "0.1.0",
+  "owner": "john.smith@email.com",
+  "name": "Data Science to AI Entrepreneur Transition",
+  "description": "18-month plan to transition from data scientist to AI startup founder",
+  "createdAt": "2026-01-01T10:00:00Z",
+  "updatedAt": "2026-02-28T14:00:00Z",
+  "goals": [
+    {
+      "id": "goal_transition_success",
+      "title": "Successfully Transition to AI Entrepreneur",
+      "description": "Complete 18-month transition from DS role to founding AI company",
+      "status": "active",
+      "priority": {
+        "level": "critical",
+        "score": 100,
+        "reason": "Life-changing career goal"
+      },
+      "domain": "personal",
+      "tags": ["career", "entrepreneurship", "ai"],
+      "deadline": "2027-08-31T23:59:59Z",
+      "timeHorizon": "long_term",
+      "motivation": "Build something meaningful in AI and achieve entrepreneurial independence",
+      "successCriteria": [
+        "Company registered and funded",
+        "First paying customer",
+        "Team of 3+ people",
+        "Fully transitioned from previous role"
+      ],
+      "createdAt": "2026-01-01T10:00:00Z",
+      "updatedAt": "2026-02-28T14:00:00Z",
+      "version": 1
+    },
+    {
+      "id": "goal_skill_development",
+      "title": "Build Entrepreneurial Skills",
+      "description": "Develop skills required to run a successful startup",
+      "parentId": "goal_transition_success",
+      "status": "active",
+      "priority": {
+        "level": "high",
+        "score": 85,
+        "reason": "Foundation for everything else"
+      },
+      "domain": "personal",
+      "tags": ["learning", "business", "soft-skills"],
+      "deadline": "2026-12-31T23:59:59Z",
+      "timeHorizon": "this_year",
+      "estimatedEffort": {
+        "value": 200,
+        "unit": "hours"
+      },
+      "motivation": "Close gaps between being a great data scientist and a great founder",
+      "successCriteria": [
+        "Completed Y Combinator Startup School",
+        "Read 15+ entrepreneurship books",
+        "Mentored by 2+ experienced founders",
+        "Comfortable with fundraising and sales"
+      ],
+      "createdAt": "2026-01-01T10:00:00Z",
+      "updatedAt": "2026-02-28T14:00:00Z",
+      "version": 1
+    },
+    {
+      "id": "goal_market_research",
+      "title": "Validate AI Market Opportunity",
+      "description": "Conduct thorough market research and validation of AI business idea",
+      "parentId": "goal_transition_success",
+      "status": "active",
+      "priority": {
+        "level": "critical",
+        "score": 95,
+        "reason": "Core business validation before quitting job"
+      },
+      "domain": "work",
+      "tags": ["research", "validation", "market-analysis"],
+      "deadline": "2026-06-30T23:59:59Z",
+      "timeHorizon": "this_quarter",
+      "estimatedEffort": {
+        "value": 100,
+        "unit": "hours"
+      },
+      "motivation": "Ensure there's real market demand before committing full time",
+      "successCriteria": [
+        "Interviewed 50+ potential customers",
+        "Created detailed TAM analysis",
+        "Identified 3+ use cases with strong demand",
+        "Validated pricing model"
+      ],
+      "createdAt": "2026-01-01T10:00:00Z",
+      "updatedAt": "2026-02-28T14:00:00Z",
+      "version": 1
+    },
+    {
+      "id": "goal_mvp_development",
+      "title": "Build and Launch MVP",
+      "description": "Create minimal viable product and get first paying customers",
+      "parentId": "goal_transition_success",
+      "status": "planned",
+      "priority": {
+        "level": "critical",
+        "score": 100,
+        "reason": "Revenue is critical for funding transition"
+      },
+      "domain": "work",
+      "tags": ["product", "mvp", "launch"],
+      "deadline": "2026-09-30T23:59:59Z",
+      "timeHorizon": "this_quarter",
+      "estimatedEffort": {
+        "value": 300,
+        "unit": "hours"
+      },
+      "motivation": "Prove business model with real customers",
+      "successCriteria": [
+        "MVP deployed to production",
+        "5+ paying customers acquired",
+        "Monthly recurring revenue > $5,000",
+        "NPS score > 50"
+      ],
+      "dependencies": [
+        {
+          "type": "requires",
+          "targetGoalId": "goal_market_research",
+          "description": "Need market validation before building"
+        },
+        {
+          "type": "requires",
+          "targetGoalId": "goal_skill_development",
+          "description": "Need product sense and business skills"
+        }
+      ],
+      "createdAt": "2026-01-01T10:00:00Z",
+      "updatedAt": "2026-02-28T14:00:00Z",
+      "version": 1
+    },
+    {
+      "id": "goal_fundraising",
+      "title": "Secure Seed Funding",
+      "description": "Raise $500K-$1M in seed round to fund team and growth",
+      "parentId": "goal_transition_success",
+      "status": "planned",
+      "priority": {
+        "level": "high",
+        "score": 80,
+        "reason": "Necessary for scaling the team"
+      },
+      "domain": "work",
+      "tags": ["fundraising", "finance", "growth"],
+      "deadline": "2027-03-31T23:59:59Z",
+      "timeHorizon": "long_term",
+      "estimatedEffort": {
+        "value": 150,
+        "unit": "hours"
+      },
+      "motivation": "Access capital for hiring and growth",
+      "successCriteria": [
+        "Deck completed and refined",
+        "Meetings with 50+ VCs",
+        "Warm intros from reputable sources",
+        "Term sheet signed"
+      ],
+      "dependencies": [
+        {
+          "type": "requires",
+          "targetGoalId": "goal_mvp_development",
+          "description": "Need working product and traction"
+        }
+      ],
+      "createdAt": "2026-01-01T10:00:00Z",
+      "updatedAt": "2026-02-28T14:00:00Z",
+      "version": 1
+    },
+    {
+      "id": "goal_current_job_transition",
+      "title": "Manage Current Job Transition",
+      "description": "Gracefully transition out of current data science role",
+      "parentId": "goal_transition_success",
+      "status": "active",
+      "priority": {
+        "level": "high",
+        "score": 75,
+        "reason": "Important for maintaining relationships and references"
+      },
+      "domain": "work",
+      "tags": ["career", "transition", "professionalism"],
+      "deadline": "2026-06-30T23:59:59Z",
+      "timeHorizon": "this_quarter",
+      "estimatedEffort": {
+        "value": 20,
+        "unit": "hours"
+      },
+      "motivation": "Leave on good terms with strong references for future",
+      "successCriteria": [
+        "2+ months notice given",
+        "Successfully trained replacement",
+        "Knowledge transfer complete",
+        "Strong recommendations from manager"
+      ],
+      "dependencies": [
+        {
+          "type": "requires",
+          "targetGoalId": "goal_mvp_development",
+          "description": "Must have viable business before leaving job"
+        }
+      ],
+      "createdAt": "2026-01-01T10:00:00Z",
+      "updatedAt": "2026-02-28T14:00:00Z",
+      "version": 1
+    },
+    {
+      "id": "goal_network_building",
+      "title": "Build Founder Network",
+      "description": "Develop relationships with other founders, mentors, and investors",
+      "parentId": "goal_transition_success",
+      "status": "active",
+      "priority": {
+        "level": "high",
+        "score": 80,
+        "reason": "Network is critical for startup success"
+      },
+      "domain": "personal",
+      "tags": ["networking", "mentorship", "community"],
+      "deadline": "2027-08-31T23:59:59Z",
+      "timeHorizon": "long_term",
+      "estimatedEffort": {
+        "value": 100,
+        "unit": "hours"
+      },
+      "motivation": "Create support system and open doors for opportunities",
+      "successCriteria": [
+        "Attend 10+ startup events",
+        "Develop relationships with 5+ mentors",
+        "Join founder community (YC/Kabuki/etc)",
+        "Active in AI startup Twitter community"
+      ],
+      "createdAt": "2026-01-01T10:00:00Z",
+      "updatedAt": "2026-02-28T14:00:00Z",
+      "version": 1
+    }
+  ]
+}

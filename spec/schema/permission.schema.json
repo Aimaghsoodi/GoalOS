@@ -1,0 +1,60 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://goalos.dev/schemas/permission.schema.json",
+  "title": "Permission",
+  "description": "Permission grant for an agent to perform actions on goals",
+  "type": "object",
+  "required": ["agentId", "capabilities"],
+  "properties": {
+    "agentId": {
+      "type": "string",
+      "description": "Unique identifier of the agent (tool name, user ID, or service name)",
+      "minLength": 1,
+      "maxLength": 255
+    },
+    "capabilities": {
+      "type": "array",
+      "description": "List of capabilities granted to the agent",
+      "items": {
+        "type": "string",
+        "enum": ["read", "write", "complete", "create_sub_goals", "reprioritize"]
+      },
+      "minItems": 1,
+      "uniqueItems": true
+    },
+    "scope": {
+      "type": "object",
+      "description": "Scoping constraints on the permission",
+      "properties": {
+        "goalIds": {
+          "type": "array",
+          "description": "List of specific goal IDs the agent can access (null = all goals)",
+          "items": {
+            "type": "string",
+            "pattern": "^goal_[a-zA-Z0-9_-]+$"
+          },
+          "minItems": 1,
+          "uniqueItems": true
+        },
+        "domains": {
+          "type": "array",
+          "description": "List of domains the agent can access (null = all domains)",
+          "items": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 100
+          },
+          "minItems": 1,
+          "uniqueItems": true
+        },
+        "maxDepth": {
+          "type": "integer",
+          "description": "Maximum nesting depth of goals the agent can access",
+          "minimum": 0
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}

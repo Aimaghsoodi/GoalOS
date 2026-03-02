@@ -1,0 +1,23 @@
+name = "goalos-api"
+type = "javascript"
+main = "src/index.ts"
+compatibility_date = "2024-01-01"
+workers_dev = true
+
+[[rules]]
+type = "CompiledContentType"
+globs = ["**/*.wasm"]
+fallthrough = true
+
+[env.production]
+name = "goalos-api-prod"
+workers_dev = false
+route = "goalos.example.com/*"
+
+[[env.production.r2_buckets]]
+binding = "GOALOS_BUCKET"
+bucket_name = "goalos-graphs"
+
+[env.development]
+name = "goalos-api-dev"
+vars = { ENVIRONMENT = "development" }

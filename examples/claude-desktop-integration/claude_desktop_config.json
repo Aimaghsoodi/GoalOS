@@ -1,0 +1,12 @@
+{
+  "mcpServers": {
+    "goalos": {
+      "command": "goalos-mcp",
+      "args": ["--storage", "file"],
+      "env": {
+        "GOALOS_GRAPH_PATH": "~/.goalos/graph.json",
+        "GOALOS_LOG_LEVEL": "info"
+      }
+    }
+  }
+}

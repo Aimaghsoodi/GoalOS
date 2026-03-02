@@ -1,0 +1,245 @@
+{
+  "id": "graph_content_creator_growth",
+  "version": "0.1.0",
+  "owner": "creator@example.com",
+  "name": "Multi-Platform Content Creation Pipeline",
+  "description": "Scaling content creation across TikTok, YouTube, blog, and brand partnerships",
+  "createdAt": "2026-01-15T08:00:00Z",
+  "updatedAt": "2026-02-28T12:00:00Z",
+  "goals": [
+    {
+      "id": "goal_content_empire",
+      "title": "Build Content Creation Empire",
+      "description": "Scale to 1M+ followers across platforms and generate $50K+/month revenue",
+      "status": "active",
+      "priority": {
+        "level": "critical",
+        "score": 100,
+        "reason": "Core business objective"
+      },
+      "domain": "work",
+      "tags": ["content", "growth", "monetization"],
+      "deadline": "2026-12-31T23:59:59Z",
+      "timeHorizon": "this_year",
+      "motivation": "Build sustainable income from content creation",
+      "successCriteria": [
+        "500K+ total followers across platforms",
+        "50+ brand partnerships executed",
+        "Monthly revenue exceeds $50,000",
+        "Content operations systemized"
+      ],
+      "createdAt": "2026-01-15T08:00:00Z",
+      "updatedAt": "2026-02-28T12:00:00Z",
+      "version": 1
+    },
+    {
+      "id": "goal_tiktok_growth",
+      "title": "Grow TikTok to 300K Followers",
+      "description": "Scale TikTok presence from current 50K to 300K followers",
+      "parentId": "goal_content_empire",
+      "status": "active",
+      "priority": {
+        "level": "critical",
+        "score": 95,
+        "reason": "Primary platform for discovery and growth"
+      },
+      "domain": "work",
+      "tags": ["tiktok", "growth", "short-form-video"],
+      "deadline": "2026-06-30T23:59:59Z",
+      "timeHorizon": "this_quarter",
+      "estimatedEffort": {
+        "value": 200,
+        "unit": "hours"
+      },
+      "motivation": "TikTok algorithm rewards consistent, engaging creators",
+      "successCriteria": [
+        "Post 5x per week consistently",
+        "Average 100K+ views per video",
+        "10%+ engagement rate",
+        "1000+ comments per video average"
+      ],
+      "createdAt": "2026-01-15T08:00:00Z",
+      "updatedAt": "2026-02-28T12:00:00Z",
+      "version": 1
+    },
+    {
+      "id": "goal_youtube_channel",
+      "title": "Launch and Grow YouTube Channel",
+      "description": "Create YouTube channel with high-quality long-form content",
+      "parentId": "goal_content_empire",
+      "status": "active",
+      "priority": {
+        "level": "high",
+        "score": 85,
+        "reason": "Long-form content builds audience depth"
+      },
+      "domain": "work",
+      "tags": ["youtube", "long-form-video", "monetization"],
+      "deadline": "2026-09-30T23:59:59Z",
+      "timeHorizon": "this_quarter",
+      "estimatedEffort": {
+        "value": 150,
+        "unit": "hours"
+      },
+      "motivation": "YouTube monetization and deeper audience engagement",
+      "successCriteria": [
+        "Channel monetized (1000 subs, 4000 watch hours)",
+        "Weekly video uploads",
+        "Average 50K views per video",
+        "Repurpose TikTok content into long-form"
+      ],
+      "dependencies": [
+        {
+          "type": "requires",
+          "targetGoalId": "goal_tiktok_growth",
+          "description": "Can repurpose TikTok content for YouTube"
+        }
+      ],
+      "createdAt": "2026-01-15T08:00:00Z",
+      "updatedAt": "2026-02-28T12:00:00Z",
+      "version": 1
+    },
+    {
+      "id": "goal_blog_seo",
+      "title": "Build Blog with SEO Traffic",
+      "description": "Create blog generating 50K+ monthly organic visits",
+      "parentId": "goal_content_empire",
+      "status": "active",
+      "priority": {
+        "level": "high",
+        "score": 80,
+        "reason": "Organic traffic is stable, long-term asset"
+      },
+      "domain": "work",
+      "tags": ["blog", "seo", "organic-traffic"],
+      "deadline": "2026-12-31T23:59:59Z",
+      "timeHorizon": "this_year",
+      "estimatedEffort": {
+        "value": 100,
+        "unit": "hours"
+      },
+      "motivation": "Build sustainable traffic independent of algorithm changes",
+      "successCriteria": [
+        "Publish 2+ SEO-optimized posts weekly",
+        "Target 100+ high-intent keywords",
+        "Achieve 50K monthly organic traffic",
+        "Average position < 10 for target keywords"
+      ],
+      "createdAt": "2026-01-15T08:00:00Z",
+      "updatedAt": "2026-02-28T12:00:00Z",
+      "version": 1
+    },
+    {
+      "id": "goal_brand_partnerships",
+      "title": "Establish Brand Partnership Pipeline",
+      "description": "Build relationships with brands for sponsored content deals",
+      "parentId": "goal_content_empire",
+      "status": "active",
+      "priority": {
+        "level": "high",
+        "score": 85,
+        "reason": "Primary revenue source"
+      },
+      "domain": "work",
+      "tags": ["partnerships", "monetization", "sponsorships"],
+      "deadline": "2026-12-31T23:59:59Z",
+      "timeHorizon": "this_year",
+      "estimatedEffort": {
+        "value": 120,
+        "unit": "hours"
+      },
+      "motivation": "Diversify revenue and build sustainable business",
+      "successCriteria": [
+        "Partner with 50+ brands total (mix of sizes)",
+        "Average $2,000+ per brand deal",
+        "$50,000+ monthly from sponsorships",
+        "Long-term retainer agreements with 5+ brands"
+      ],
+      "dependencies": [
+        {
+          "type": "requires",
+          "targetGoalId": "goal_tiktok_growth",
+          "description": "Need audience size to attract brands"
+        }
+      ],
+      "createdAt": "2026-01-15T08:00:00Z",
+      "updatedAt": "2026-02-28T12:00:00Z",
+      "version": 1
+    },
+    {
+      "id": "goal_content_systems",
+      "title": "Build Content Production Systems",
+      "description": "Create efficient content production and publishing workflows",
+      "parentId": "goal_content_empire",
+      "status": "active",
+      "priority": {
+        "level": "high",
+        "score": 75,
+        "reason": "Critical to scale without burnout"
+      },
+      "domain": "work",
+      "tags": ["systems", "automation", "efficiency"],
+      "deadline": "2026-04-30T23:59:59Z",
+      "timeHorizon": "this_month",
+      "estimatedEffort": {
+        "value": 60,
+        "unit": "hours"
+      },
+      "motivation": "Enable sustainable growth without working 24/7",
+      "successCriteria": [
+        "Content calendar 4 weeks ahead",
+        "Batch recording system established",
+        "Editing workflow automated (Descript, Adobe)",
+        "Cross-posting to all platforms automated",
+        "Hire VA for community management"
+      ],
+      "createdAt": "2026-01-15T08:00:00Z",
+      "updatedAt": "2026-02-28T12:00:00Z",
+      "version": 1
+    },
+    {
+      "id": "goal_audience_engagement",
+      "title": "Build Engaged Community",
+      "description": "Develop loyal audience through community building",
+      "parentId": "goal_content_empire",
+      "status": "active",
+      "priority": {
+        "level": "high",
+        "score": 70,
+        "reason": "Engaged audience = better algorithm performance"
+      },
+      "domain": "work",
+      "tags": ["community", "engagement", "loyalty"],
+      "deadline": "2026-12-31T23:59:59Z",
+      "timeHorizon": "this_year",
+      "estimatedEffort": {
+        "value": 80,
+        "unit": "hours"
+      },
+      "motivation": "Loyal audience is resilient to algorithm changes",
+      "successCriteria": [
+        "Discord community with 10K+ members",
+        "Weekly AMAs or live streams",
+        "Email list with 50K+ subscribers",
+        "User-generated content campaigns",
+        "Monthly exclusive content for paid members"
+      ],
+      "createdAt": "2026-01-15T08:00:00Z",
+      "updatedAt": "2026-02-28T12:00:00Z",
+      "version": 1
+    }
+  ],
+  "defaultPermissions": [
+    {
+      "agentId": "content-calendar-bot",
+      "capabilities": ["read", "write"],
+      "scope": {
+        "domains": ["work"]
+      }
+    },
+    {
+      "agentId": "analytics-tracker",
+      "capabilities": ["read"]
+    }
+  ]
+}

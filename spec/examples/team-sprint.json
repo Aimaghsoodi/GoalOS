@@ -1,0 +1,231 @@
+{
+  "id": "graph_engineering_sprint_q1",
+  "version": "0.1.0",
+  "owner": "team@acmecorp.com",
+  "name": "Q1 Engineering Sprint Goals",
+  "description": "Quarterly sprint goals for the AI Infrastructure Engineering team at ACME Corp",
+  "createdAt": "2026-01-15T09:00:00Z",
+  "updatedAt": "2026-02-28T16:00:00Z",
+  "goals": [
+    {
+      "id": "goal_q1_sprint_lead",
+      "title": "Q1 Engineering Sprint Success",
+      "description": "Deliver core AI infrastructure improvements and team objectives for Q1 2026",
+      "status": "active",
+      "priority": {
+        "level": "critical",
+        "score": 100,
+        "reason": "Quarterly OKR"
+      },
+      "domain": "work",
+      "tags": ["okr", "quarterly", "engineering"],
+      "deadline": "2026-03-31T23:59:59Z",
+      "timeHorizon": "this_quarter",
+      "motivation": "Achieve quarterly business objectives and team growth",
+      "successCriteria": [
+        "All three main initiatives completed",
+        "100% code review time < 24 hours",
+        "Zero critical production incidents",
+        "Team velocity increased by 15%"
+      ],
+      "createdAt": "2026-01-15T09:00:00Z",
+      "updatedAt": "2026-02-28T16:00:00Z",
+      "version": 1
+    },
+    {
+      "id": "goal_async_processing_engine",
+      "title": "Build Async Processing Engine",
+      "description": "Implement distributed async task processing for long-running AI inferences",
+      "parentId": "goal_q1_sprint_lead",
+      "status": "active",
+      "priority": {
+        "level": "critical",
+        "score": 95,
+        "reason": "Blocks other initiatives and improves system scalability"
+      },
+      "domain": "work",
+      "tags": ["backend", "performance", "async"],
+      "deadline": "2026-03-15T23:59:59Z",
+      "timeHorizon": "this_month",
+      "estimatedEffort": {
+        "value": 120,
+        "unit": "hours"
+      },
+      "createdBy": "engineer_lead@acmecorp.com",
+      "motivation": "Enable processing of 10x more concurrent requests",
+      "successCriteria": [
+        "Support 1000+ concurrent tasks",
+        "Average latency < 500ms",
+        "Persistence to database implemented",
+        "95%+ test coverage for engine"
+      ],
+      "createdAt": "2026-01-15T09:00:00Z",
+      "updatedAt": "2026-02-28T16:00:00Z",
+      "version": 1
+    },
+    {
+      "id": "goal_observability_suite",
+      "title": "Implement Observability Suite",
+      "description": "Add comprehensive logging, metrics, and tracing to production systems",
+      "parentId": "goal_q1_sprint_lead",
+      "status": "active",
+      "priority": {
+        "level": "high",
+        "score": 80,
+        "reason": "Critical for operational reliability"
+      },
+      "domain": "work",
+      "tags": ["devops", "monitoring", "observability"],
+      "deadline": "2026-03-20T23:59:59Z",
+      "timeHorizon": "this_month",
+      "estimatedEffort": {
+        "value": 80,
+        "unit": "hours"
+      },
+      "createdBy": "devops_engineer@acmecorp.com",
+      "motivation": "Reduce mean time to detect and resolve issues",
+      "successCriteria": [
+        "Prometheus metrics exported from all services",
+        "Jaeger tracing integrated",
+        "ELK stack centralized logging",
+        "Grafana dashboards for key metrics",
+        "Alert rules for critical thresholds"
+      ],
+      "dependencies": [
+        {
+          "type": "enables",
+          "targetGoalId": "goal_async_processing_engine",
+          "description": "Will monitor the new async engine"
+        }
+      ],
+      "createdAt": "2026-01-15T09:00:00Z",
+      "updatedAt": "2026-02-28T16:00:00Z",
+      "version": 1
+    },
+    {
+      "id": "goal_security_audit",
+      "title": "Security Audit & Hardening",
+      "description": "Conduct comprehensive security audit and implement recommendations",
+      "parentId": "goal_q1_sprint_lead",
+      "status": "planned",
+      "priority": {
+        "level": "high",
+        "score": 85,
+        "reason": "Enterprise customers require security compliance"
+      },
+      "domain": "work",
+      "tags": ["security", "compliance", "audit"],
+      "deadline": "2026-03-31T23:59:59Z",
+      "timeHorizon": "this_quarter",
+      "estimatedEffort": {
+        "value": 100,
+        "unit": "hours"
+      },
+      "createdBy": "security_lead@acmecorp.com",
+      "motivation": "Meet SOC2 requirements for enterprise customers",
+      "successCriteria": [
+        "Third-party security audit completed",
+        "All critical findings remediated",
+        "SOC2 Type II certification path started",
+        "Security documentation updated"
+      ],
+      "createdAt": "2026-01-15T09:00:00Z",
+      "updatedAt": "2026-02-28T16:00:00Z",
+      "version": 1
+    },
+    {
+      "id": "goal_async_tests",
+      "title": "Comprehensive Testing for Async Engine",
+      "description": "Write unit, integration, and load tests for async processing",
+      "parentId": "goal_async_processing_engine",
+      "status": "active",
+      "priority": {
+        "level": "critical",
+        "score": 90,
+        "reason": "Core system reliability depends on test coverage"
+      },
+      "domain": "work",
+      "tags": ["testing", "qa", "reliability"],
+      "deadline": "2026-03-15T23:59:59Z",
+      "timeHorizon": "this_month",
+      "estimatedEffort": {
+        "value": 60,
+        "unit": "hours"
+      },
+      "createdBy": "qa_engineer@acmecorp.com",
+      "motivation": "Ensure system stability under load",
+      "successCriteria": [
+        "95%+ code coverage",
+        "Load test: 10000 tasks/second",
+        "Chaos engineering tests pass",
+        "Documentation of test scenarios"
+      ],
+      "dependencies": [
+        {
+          "type": "requires",
+          "targetGoalId": "goal_async_processing_engine",
+          "description": "Must test implemented engine"
+        }
+      ],
+      "createdAt": "2026-01-15T09:00:00Z",
+      "updatedAt": "2026-02-28T16:00:00Z",
+      "version": 1
+    },
+    {
+      "id": "goal_documentation_update",
+      "title": "Update Technical Documentation",
+      "description": "Create comprehensive documentation for new systems and APIs",
+      "parentId": "goal_q1_sprint_lead",
+      "status": "active",
+      "priority": {
+        "level": "medium",
+        "score": 65,
+        "reason": "Important for onboarding and maintainability"
+      },
+      "domain": "work",
+      "tags": ["documentation", "knowledge-sharing"],
+      "deadline": "2026-03-25T23:59:59Z",
+      "timeHorizon": "this_month",
+      "estimatedEffort": {
+        "value": 40,
+        "unit": "hours"
+      },
+      "createdBy": "tech_writer@acmecorp.com",
+      "motivation": "Enable team and future hires to understand systems",
+      "successCriteria": [
+        "Async engine architecture documented",
+        "API documentation complete",
+        "Runbooks for common operational tasks",
+        "Onboarding guide for new engineers"
+      ],
+      "dependencies": [
+        {
+          "type": "requires",
+          "targetGoalId": "goal_async_processing_engine",
+          "description": "Document the new async system"
+        },
+        {
+          "type": "requires",
+          "targetGoalId": "goal_observability_suite",
+          "description": "Document observability setup"
+        }
+      ],
+      "createdAt": "2026-01-15T09:00:00Z",
+      "updatedAt": "2026-02-28T16:00:00Z",
+      "version": 1
+    }
+  ],
+  "defaultPermissions": [
+    {
+      "agentId": "jira-sync",
+      "capabilities": ["read", "write"],
+      "scope": {
+        "domains": ["work"]
+      }
+    },
+    {
+      "agentId": "slack-notifications",
+      "capabilities": ["read"]
+    }
+  ]
+}

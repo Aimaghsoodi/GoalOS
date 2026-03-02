@@ -1,0 +1,19 @@
+{
+  "name": "goalos-cloudflare-worker",
+  "version": "0.1.0",
+  "description": "GoalOS API on Cloudflare Workers",
+  "main": "src/index.ts",
+  "scripts": {
+    "deploy": "wrangler deploy",
+    "dev": "wrangler dev",
+    "test": "node --test tests/*.test.js"
+  },
+  "dependencies": {
+    "@goalos/core": "^0.1.0"
+  },
+  "devDependencies": {
+    "wrangler": "^3.0.0",
+    "typescript": "^5.3.0",
+    "@types/cloudflare": "^1.0.0"
+  }
+}

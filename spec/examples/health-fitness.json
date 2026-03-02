@@ -1,0 +1,278 @@
+{
+  "id": "graph_health_fitness_2026",
+  "version": "0.1.0",
+  "owner": "user@example.com",
+  "name": "Health and Fitness Goals 2026",
+  "description": "Comprehensive health transformation and fitness goals with measurable success criteria",
+  "createdAt": "2026-01-01T07:00:00Z",
+  "updatedAt": "2026-02-28T18:00:00Z",
+  "goals": [
+    {
+      "id": "goal_health_transformation",
+      "title": "Complete Health Transformation",
+      "description": "Achieve optimal health across physical, mental, and nutritional dimensions",
+      "status": "active",
+      "priority": {
+        "level": "critical",
+        "score": 100,
+        "reason": "Health is foundation for all other goals"
+      },
+      "domain": "personal",
+      "tags": ["health", "fitness", "wellness", "transformation"],
+      "deadline": "2026-12-31T23:59:59Z",
+      "timeHorizon": "this_year",
+      "motivation": "Live longer, stronger, and more energetically to pursue all other life goals",
+      "successCriteria": [
+        "Reach 12% body fat (from current 22%)",
+        "Squat 315 lbs for 5 reps",
+        "Bench press 225 lbs for 5 reps",
+        "Run 5K in under 20 minutes",
+        "Sleep 7-9 hours nightly for 90% of days",
+        "Eliminate processed foods from diet"
+      ],
+      "createdAt": "2026-01-01T07:00:00Z",
+      "updatedAt": "2026-02-28T18:00:00Z",
+      "version": 1
+    },
+    {
+      "id": "goal_strength_training",
+      "title": "Build Strength Through Structured Training",
+      "description": "Follow periodized strength training program for 12 months",
+      "parentId": "goal_health_transformation",
+      "status": "active",
+      "priority": {
+        "level": "critical",
+        "score": 95,
+        "reason": "Core component of transformation"
+      },
+      "domain": "personal",
+      "tags": ["fitness", "strength", "training"],
+      "deadline": "2026-12-31T23:59:59Z",
+      "timeHorizon": "this_year",
+      "estimatedEffort": {
+        "value": 400,
+        "unit": "hours"
+      },
+      "motivation": "Build muscle, increase metabolism, improve bone density",
+      "successCriteria": [
+        "Train 4-5 days per week consistently",
+        "Squat: 225 → 315 lbs (5 rep max)",
+        "Bench Press: 185 → 225 lbs (5 rep max)",
+        "Deadlift: 315 → 405 lbs (5 rep max)",
+        "Complete 12-month periodized program",
+        "Track all workouts with data"
+      ],
+      "createdAt": "2026-01-01T07:00:00Z",
+      "updatedAt": "2026-02-28T18:00:00Z",
+      "version": 1
+    },
+    {
+      "id": "goal_cardio_endurance",
+      "title": "Improve Cardiovascular Endurance",
+      "description": "Develop aerobic capacity and running performance",
+      "parentId": "goal_health_transformation",
+      "status": "active",
+      "priority": {
+        "level": "high",
+        "score": 80,
+        "reason": "Important for longevity and health"
+      },
+      "domain": "personal",
+      "tags": ["fitness", "cardio", "running"],
+      "deadline": "2026-12-31T23:59:59Z",
+      "timeHorizon": "this_year",
+      "estimatedEffort": {
+        "value": 150,
+        "unit": "hours"
+      },
+      "motivation": "Reduce resting heart rate, improve VO2 max, increase stamina",
+      "successCriteria": [
+        "Run 3x per week",
+        "5K time: current 22:30 → 19:30 (sub-20)",
+        "10K time: 47:00 → 40:00",
+        "Resting heart rate: 68 → 55 bpm",
+        "Complete one half-marathon race"
+      ],
+      "dependencies": [
+        {
+          "type": "related",
+          "targetGoalId": "goal_strength_training",
+          "description": "Balance strength with cardio training"
+        }
+      ],
+      "createdAt": "2026-01-01T07:00:00Z",
+      "updatedAt": "2026-02-28T18:00:00Z",
+      "version": 1
+    },
+    {
+      "id": "goal_nutrition_protocol",
+      "title": "Implement Optimized Nutrition Plan",
+      "description": "Follow science-based nutrition protocol for body composition",
+      "parentId": "goal_health_transformation",
+      "status": "active",
+      "priority": {
+        "level": "critical",
+        "score": 90,
+        "reason": "Nutrition is 70% of body composition results"
+      },
+      "domain": "personal",
+      "tags": ["nutrition", "diet", "food"],
+      "deadline": "2026-12-31T23:59:59Z",
+      "timeHorizon": "this_year",
+      "estimatedEffort": {
+        "value": 100,
+        "unit": "hours"
+      },
+      "motivation": "Fuel body properly for performance and composition goals",
+      "successCriteria": [
+        "Track macros (protein, carbs, fats) daily",
+        "Consume 1g protein per lb bodyweight",
+        "Maintain 500 calorie deficit for fat loss",
+        "Eliminate sugar and processed foods",
+        "Meal prep every Sunday for week",
+        "Stay hydrated: 100+ oz water daily"
+      ],
+      "createdAt": "2026-01-01T07:00:00Z",
+      "updatedAt": "2026-02-28T18:00:00Z",
+      "version": 1
+    },
+    {
+      "id": "goal_sleep_optimization",
+      "title": "Optimize Sleep Quality and Quantity",
+      "description": "Develop sleep hygiene and consistency for recovery",
+      "parentId": "goal_health_transformation",
+      "status": "active",
+      "priority": {
+        "level": "high",
+        "score": 85,
+        "reason": "Sleep is critical for recovery and health"
+      },
+      "domain": "personal",
+      "tags": ["sleep", "recovery", "health"],
+      "deadline": "2026-12-31T23:59:59Z",
+      "timeHorizon": "this_year",
+      "estimatedEffort": {
+        "value": 30,
+        "unit": "hours"
+      },
+      "motivation": "Optimize recovery, cognitive function, and hormonal health",
+      "successCriteria": [
+        "Sleep 7-9 hours nightly for 90%+ of nights",
+        "Consistent bedtime: 10:30 PM",
+        "Consistent wake time: 6:30 AM",
+        "Sleep tracking via Apple Watch/Oura",
+        "No screens after 9:00 PM",
+        "Core temp: cool bedroom, quality mattress"
+      ],
+      "createdAt": "2026-01-01T07:00:00Z",
+      "updatedAt": "2026-02-28T18:00:00Z",
+      "version": 1
+    },
+    {
+      "id": "goal_mental_health",
+      "title": "Improve Mental Health and Mindfulness",
+      "description": "Build mental resilience and emotional well-being",
+      "parentId": "goal_health_transformation",
+      "status": "active",
+      "priority": {
+        "level": "high",
+        "score": 75,
+        "reason": "Mental health underpins physical health"
+      },
+      "domain": "personal",
+      "tags": ["mental-health", "mindfulness", "meditation"],
+      "deadline": "2026-12-31T23:59:59Z",
+      "timeHorizon": "this_year",
+      "estimatedEffort": {
+        "value": 200,
+        "unit": "hours"
+      },
+      "motivation": "Reduce stress, increase focus, improve emotional regulation",
+      "successCriteria": [
+        "Meditate 20 minutes daily",
+        "Therapy sessions 2x per month",
+        "Complete meditation course",
+        "Journal 5 minutes daily",
+        "Stress management score: 7+/10"
+      ],
+      "createdAt": "2026-01-01T07:00:00Z",
+      "updatedAt": "2026-02-28T18:00:00Z",
+      "version": 1
+    },
+    {
+      "id": "goal_health_tracking",
+      "title": "Establish Health Tracking Systems",
+      "description": "Setup comprehensive health metrics tracking",
+      "parentId": "goal_health_transformation",
+      "status": "active",
+      "priority": {
+        "level": "medium",
+        "score": 65,
+        "reason": "What gets measured gets managed"
+      },
+      "domain": "personal",
+      "tags": ["tracking", "data", "accountability"],
+      "deadline": "2026-03-31T23:59:59Z",
+      "timeHorizon": "this_month",
+      "estimatedEffort": {
+        "value": 15,
+        "unit": "hours"
+      },
+      "motivation": "Enable data-driven optimization of health interventions",
+      "successCriteria": [
+        "Body weight tracked daily",
+        "Body composition measured weekly (DEXA)",
+        "Fitness metrics tracked (run times, lifts)",
+        "Sleep data from wearable",
+        "Weekly health dashboard review",
+        "Monthly metrics summary"
+      ],
+      "createdAt": "2026-01-01T07:00:00Z",
+      "updatedAt": "2026-02-28T18:00:00Z",
+      "version": 1
+    },
+    {
+      "id": "goal_body_fat_reduction",
+      "title": "Reduce Body Fat to 12%",
+      "description": "Achieve lean physique through diet and training",
+      "parentId": "goal_health_transformation",
+      "status": "active",
+      "priority": {
+        "level": "critical",
+        "score": 92,
+        "reason": "Primary measurable transformation goal"
+      },
+      "domain": "personal",
+      "tags": ["body-composition", "fat-loss"],
+      "deadline": "2026-09-30T23:59:59Z",
+      "timeHorizon": "this_quarter",
+      "estimatedEffort": {
+        "value": 500,
+        "unit": "hours"
+      },
+      "motivation": "Achieve visible abs and optimal body composition for health",
+      "successCriteria": [
+        "Current: 22% body fat → 12% body fat",
+        "Lose 40 lbs of pure fat",
+        "Gain 10 lbs of muscle",
+        "Maintain strength during cut",
+        "Before/after photos for documentation"
+      ],
+      "dependencies": [
+        {
+          "type": "requires",
+          "targetGoalId": "goal_nutrition_protocol",
+          "description": "Diet is primary driver of fat loss"
+        },
+        {
+          "type": "requires",
+          "targetGoalId": "goal_strength_training",
+          "description": "Preserve muscle during fat loss"
+        }
+      ],
+      "createdAt": "2026-01-01T07:00:00Z",
+      "updatedAt": "2026-02-28T18:00:00Z",
+      "version": 1
+    }
+  ]
+}

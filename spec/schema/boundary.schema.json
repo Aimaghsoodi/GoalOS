@@ -1,0 +1,93 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://agentspec.io/schema/boundary.schema.json",
+  "title": "Boundary Schema",
+  "description": "Schema for defining boundary constraints (what an agent cannot do)",
+  "type": "object",
+  "required": ["name", "applies_to"],
+  "additionalProperties": false,
+  "properties": {
+    "name": {
+      "type": "string",
+      "pattern": "^[a-z0-9_]+$",
+      "minLength": 1,
+      "maxLength": 63,
+      "description": "Unique identifier for this boundary"
+    },
+    "applies_to": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "minItems": 1,
+      "description": "Which capabilities this boundary constrains (by name)"
+    },
+    "deny_patterns": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Regular expressions or patterns that trigger denial"
+    },
+    "deny_domains": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": [
+          "healthcare",
+          "medical",
+          "financial",
+          "legal",
+          "personal",
+          "educational",
+          "governmental",
+          "military",
+          "commercial",
+          "custom"
+        ]
+      },
+      "description": "Domain categories that are off-limits"
+    },
+    "deny_if": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["condition"],
+        "additionalProperties": false,
+        "properties": {
+          "condition": {
+            "type": "string",
+            "description": "Condition string to evaluate"
+          },
+          "reason": {
+            "type": "string",
+            "description": "Reason why this condition causes denial"
+          }
+        }
+      },
+      "description": "Conditional denial rules (deny if condition is true)"
+    },
+    "context_required": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Additional context required before allowing access (e.g., manager_approval, user_consent)"
+    },
+    "severity": {
+      "type": "string",
+      "enum": ["info", "warning", "critical"],
+      "default": "warning",
+      "description": "Severity level of boundary violation"
+    },
+    "description": {
+      "type": "string",
+      "description": "Human-readable description of this boundary and why it exists"
+    },
+    "metadata": {
+      "type": "object",
+      "additionalProperties": true,
+      "description": "Optional metadata key-value pairs"
+    }
+  }
+}

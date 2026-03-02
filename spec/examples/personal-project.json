@@ -1,0 +1,209 @@
+{
+  "id": "graph_personal_ai_startup_001",
+  "version": "0.1.0",
+  "owner": "user@example.com",
+  "name": "Launch OpenClaw AI Business",
+  "description": "Complete roadmap for launching a sovereign AI agents platform for client infrastructure",
+  "createdAt": "2026-02-01T10:00:00Z",
+  "updatedAt": "2026-02-28T15:30:00Z",
+  "goals": [
+    {
+      "id": "goal_root_launch_openclaw",
+      "title": "Launch OpenClaw",
+      "description": "Launch a fully functional AI agents platform with public availability and documentation",
+      "status": "active",
+      "priority": {
+        "level": "critical",
+        "score": 100,
+        "reason": "Core business objective with market opportunity"
+      },
+      "domain": "work",
+      "tags": ["product", "launch", "core-initiative"],
+      "deadline": "2026-06-30T23:59:59Z",
+      "timeHorizon": "this_quarter",
+      "motivation": "Build the foundational infrastructure for sovereign AI agents on client infrastructure",
+      "successCriteria": [
+        "Public GitHub repository with 100+ stars",
+        "Working demo with 3+ integrations",
+        "Documentation covering core concepts and API",
+        "Landing page with clear value proposition"
+      ],
+      "createdAt": "2026-02-01T10:00:00Z",
+      "updatedAt": "2026-02-28T15:30:00Z",
+      "version": 1
+    },
+    {
+      "id": "goal_build_landing_page",
+      "title": "Build Landing Page",
+      "description": "Create professional landing page showcasing OpenClaw's capabilities and value proposition",
+      "parentId": "goal_root_launch_openclaw",
+      "status": "active",
+      "priority": {
+        "level": "high",
+        "score": 85,
+        "reason": "Critical for first impression and user acquisition"
+      },
+      "domain": "work",
+      "tags": ["marketing", "web", "landing-page"],
+      "deadline": "2026-03-15T23:59:59Z",
+      "timeHorizon": "this_month",
+      "estimatedEffort": {
+        "value": 40,
+        "unit": "hours"
+      },
+      "motivation": "Convert visitors to users and generate leads",
+      "successCriteria": [
+        "Page deployed on custom domain",
+        "Mobile responsive design",
+        "Clear CTA for GitHub and documentation",
+        "SEO optimized"
+      ],
+      "createdAt": "2026-02-01T10:00:00Z",
+      "updatedAt": "2026-02-28T15:30:00Z",
+      "version": 1
+    },
+    {
+      "id": "goal_write_manifesto",
+      "title": "Write Manifesto Blog Post",
+      "description": "Write compelling 3000-word manifesto explaining why intent graphs are necessary and how GoalOS solves the problem",
+      "parentId": "goal_root_launch_openclaw",
+      "status": "active",
+      "priority": {
+        "level": "high",
+        "score": 80,
+        "reason": "Establishes thought leadership and differentiates from competitors"
+      },
+      "domain": "work",
+      "tags": ["content", "marketing", "thought-leadership"],
+      "deadline": "2026-03-10T23:59:59Z",
+      "timeHorizon": "this_month",
+      "estimatedEffort": {
+        "value": 12,
+        "unit": "hours"
+      },
+      "motivation": "Help the market understand the problem we're solving",
+      "successCriteria": [
+        "2500+ words covering problem, solution, use cases",
+        "Published on main website and Medium",
+        "Shared in relevant communities (HN, Reddit, Twitter)",
+        "Clear narrative arc and compelling tone"
+      ],
+      "createdAt": "2026-02-01T10:00:00Z",
+      "updatedAt": "2026-02-28T15:30:00Z",
+      "version": 1
+    },
+    {
+      "id": "goal_setup_payments",
+      "title": "Set Up Payments & Monetization",
+      "description": "Implement payment infrastructure for future commercial offerings",
+      "parentId": "goal_root_launch_openclaw",
+      "status": "planned",
+      "priority": {
+        "level": "medium",
+        "score": 60,
+        "reason": "Important for long-term viability but not blocking launch"
+      },
+      "domain": "work",
+      "tags": ["infrastructure", "monetization", "stripe"],
+      "deadline": "2026-04-30T23:59:59Z",
+      "timeHorizon": "this_quarter",
+      "estimatedEffort": {
+        "value": 20,
+        "unit": "hours"
+      },
+      "motivation": "Enable revenue generation for enterprise customers",
+      "successCriteria": [
+        "Stripe integration working",
+        "Subscription tiers defined",
+        "Invoicing system implemented",
+        "Payment documentation complete"
+      ],
+      "dependencies": [
+        {
+          "type": "requires",
+          "targetGoalId": "goal_build_landing_page",
+          "description": "Need landing page to showcase pricing"
+        }
+      ],
+      "createdAt": "2026-02-01T10:00:00Z",
+      "updatedAt": "2026-02-28T15:30:00Z",
+      "version": 1
+    },
+    {
+      "id": "goal_community_outreach",
+      "title": "Community Outreach & Partnerships",
+      "description": "Build partnerships and awareness through community engagement",
+      "parentId": "goal_root_launch_openclaw",
+      "status": "active",
+      "priority": {
+        "level": "high",
+        "score": 75,
+        "reason": "Early users and feedback are critical for product-market fit"
+      },
+      "domain": "work",
+      "tags": ["marketing", "partnerships", "community"],
+      "deadline": "2026-05-31T23:59:59Z",
+      "timeHorizon": "this_quarter",
+      "estimatedEffort": {
+        "value": 80,
+        "unit": "hours"
+      },
+      "motivation": "Get early adopters and generate word-of-mouth momentum",
+      "successCriteria": [
+        "Partnerships with 3+ AI tool makers",
+        "Presence in 5+ relevant communities",
+        "Guest posts on 2+ major tech blogs",
+        "100+ GitHub stars from community engagement"
+      ],
+      "dependencies": [
+        {
+          "type": "requires",
+          "targetGoalId": "goal_write_manifesto",
+          "description": "Need compelling story to pitch partnerships"
+        }
+      ],
+      "createdAt": "2026-02-01T10:00:00Z",
+      "updatedAt": "2026-02-28T15:30:00Z",
+      "version": 1
+    },
+    {
+      "id": "goal_claude_desktop_integration",
+      "title": "Claude Desktop Integration Demo",
+      "description": "Create working demo of GoalOS integrated with Claude Desktop via MCP",
+      "parentId": "goal_root_launch_openclaw",
+      "status": "active",
+      "priority": {
+        "level": "critical",
+        "score": 95,
+        "reason": "Primary demo for launch and differentiation"
+      },
+      "domain": "work",
+      "tags": ["demo", "integration", "mcp"],
+      "deadline": "2026-03-20T23:59:59Z",
+      "timeHorizon": "this_month",
+      "estimatedEffort": {
+        "value": 60,
+        "unit": "hours"
+      },
+      "motivation": "Show practical value and ease of integration",
+      "successCriteria": [
+        "Working MCP server",
+        "Claude can read and update goals",
+        "Demo script and video created",
+        "Config example in repository"
+      ],
+      "createdAt": "2026-02-01T10:00:00Z",
+      "updatedAt": "2026-02-28T15:30:00Z",
+      "version": 1
+    }
+  ],
+  "defaultPermissions": [
+    {
+      "agentId": "claude-desktop",
+      "capabilities": ["read", "write", "complete"],
+      "scope": {
+        "domains": ["work"]
+      }
+    }
+  ]
+}

@@ -1,0 +1,97 @@
+{
+  "id": "graph_complex",
+  "version": "0.1.0",
+  "owner": "user_456",
+  "name": "Complex Project",
+  "goals": [
+    {
+      "id": "goal_eng_sprint",
+      "title": "Q1 Engineering Sprint",
+      "parentId": null,
+      "status": "active",
+      "priority": { "level": "critical" },
+      "deadline": "2025-03-31T23:59:59Z",
+      "timeHorizon": "this_quarter",
+      "tags": ["engineering", "sprint"],
+      "domain": "work",
+      "dependencies": [],
+      "permissions": [],
+      "createdAt": "2025-01-01T00:00:00Z",
+      "updatedAt": "2025-02-01T00:00:00Z",
+      "version": 1,
+      "metadata": {}
+    },
+    {
+      "id": "goal_api",
+      "title": "Build REST API",
+      "parentId": "goal_eng_sprint",
+      "status": "active",
+      "priority": { "level": "high", "score": 85 },
+      "estimatedEffort": { "value": 5, "unit": "weeks" },
+      "tags": ["backend", "api"],
+      "domain": "work",
+      "dependencies": [],
+      "permissions": [],
+      "createdAt": "2025-01-05T00:00:00Z",
+      "updatedAt": "2025-02-01T00:00:00Z",
+      "version": 1,
+      "metadata": {}
+    },
+    {
+      "id": "goal_tests",
+      "title": "Write API tests",
+      "parentId": "goal_eng_sprint",
+      "status": "planned",
+      "priority": { "level": "high" },
+      "tags": ["testing", "backend"],
+      "domain": "work",
+      "dependencies": [
+        { "type": "requires", "targetGoalId": "goal_api" }
+      ],
+      "permissions": [],
+      "createdAt": "2025-01-10T00:00:00Z",
+      "updatedAt": "2025-02-01T00:00:00Z",
+      "version": 1,
+      "metadata": {}
+    },
+    {
+      "id": "goal_docs",
+      "title": "API Documentation",
+      "parentId": "goal_eng_sprint",
+      "status": "planned",
+      "priority": { "level": "medium" },
+      "tags": ["documentation"],
+      "domain": "work",
+      "dependencies": [
+        { "type": "requires", "targetGoalId": "goal_api" }
+      ],
+      "permissions": [],
+      "createdAt": "2025-01-10T00:00:00Z",
+      "updatedAt": "2025-02-01T00:00:00Z",
+      "version": 1,
+      "metadata": {}
+    },
+    {
+      "id": "goal_review",
+      "title": "Code review process",
+      "parentId": "goal_eng_sprint",
+      "status": "planned",
+      "priority": { "level": "medium" },
+      "tags": ["process"],
+      "domain": "work",
+      "dependencies": [
+        { "type": "enables", "targetGoalId": "goal_api" },
+        { "type": "enables", "targetGoalId": "goal_tests" }
+      ],
+      "permissions": [],
+      "createdAt": "2025-01-08T00:00:00Z",
+      "updatedAt": "2025-02-01T00:00:00Z",
+      "version": 1,
+      "metadata": {}
+    }
+  ],
+  "defaultPermissions": [],
+  "createdAt": "2025-01-01T00:00:00Z",
+  "updatedAt": "2025-02-01T00:00:00Z",
+  "metadata": {}
+}

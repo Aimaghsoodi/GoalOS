@@ -1,0 +1,91 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://agentspec.io/schema/verification.schema.json",
+  "title": "Verification Schema",
+  "description": "Schema for defining verification and testing rules for AgentSpec compliance",
+  "type": "object",
+  "required": ["name", "test_type", "target", "expect"],
+  "additionalProperties": false,
+  "properties": {
+    "name": {
+      "type": "string",
+      "pattern": "^[a-z0-9_]+$",
+      "minLength": 1,
+      "maxLength": 63,
+      "description": "Unique identifier for this test"
+    },
+    "test_type": {
+      "type": "string",
+      "enum": [
+        "capability_test",
+        "boundary_check",
+        "obligation_test",
+        "integration_test",
+        "custom"
+      ],
+      "description": "Type of verification test"
+    },
+    "target": {
+      "type": "string",
+      "description": "What is being tested (capability name, boundary name, or 'all' for integration tests)"
+    },
+    "test_inputs": {
+      "type": "array",
+      "items": {
+        "oneOf": [
+          { "type": "string" },
+          { "type": "object" },
+          { "type": "array" }
+        ]
+      },
+      "description": "Sample inputs or test cases to run"
+    },
+    "expect": {
+      "oneOf": [
+        {
+          "type": "string",
+          "enum": [
+            "success",
+            "denied",
+            "error",
+            "timeout",
+            "response_contains_citations",
+            "response_contains_explanation",
+            "success_with_all_obligations",
+            "success_with_proper_boundaries_and_obligations",
+            "custom"
+          ]
+        },
+        {
+          "type": "object",
+          "description": "Expected result object"
+        }
+      ],
+      "description": "Expected outcome of the test"
+    },
+    "assert": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": true,
+        "description": "Detailed assertions about the response"
+      },
+      "description": "Assertions that must be true for test to pass"
+    },
+    "timeout": {
+      "type": "string",
+      "pattern": "^[0-9]+(s|min|hour)$",
+      "default": "30s",
+      "description": "Maximum time allowed for this test"
+    },
+    "description": {
+      "type": "string",
+      "description": "Human-readable description of what this test validates"
+    },
+    "metadata": {
+      "type": "object",
+      "additionalProperties": true,
+      "description": "Optional metadata key-value pairs"
+    }
+  }
+}

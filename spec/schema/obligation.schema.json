@@ -1,0 +1,83 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://agentspec.io/schema/obligation.schema.json",
+  "title": "Obligation Schema",
+  "description": "Schema for defining agent obligations (what an agent must do)",
+  "type": "object",
+  "required": ["name", "applies_to", "require"],
+  "additionalProperties": false,
+  "properties": {
+    "name": {
+      "type": "string",
+      "pattern": "^[a-z0-9_]+$",
+      "minLength": 1,
+      "maxLength": 63,
+      "description": "Unique identifier for this obligation"
+    },
+    "applies_to": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "minItems": 1,
+      "description": "Which capabilities trigger this obligation (by name)"
+    },
+    "require": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": [
+          "source_citations",
+          "access_log",
+          "user_consent",
+          "reasoning_explanation",
+          "confidence_score",
+          "alternatives",
+          "limitations",
+          "clear_disclaimers",
+          "purpose_statement",
+          "approval_log",
+          "custom"
+        ]
+      },
+      "minItems": 1,
+      "description": "Requirements that must be fulfilled when using this capability"
+    },
+    "transparency": {
+      "type": "string",
+      "enum": ["minimal", "disclosed", "explained", "detailed"],
+      "description": "Level of transparency required to the user"
+    },
+    "audit": {
+      "type": "string",
+      "enum": ["log_only", "log_with_reason", "signed", "immutable_ledger"],
+      "description": "Audit trail requirements"
+    },
+    "consent_required": {
+      "oneOf": [
+        {
+          "type": "boolean"
+        },
+        {
+          "type": "string",
+          "enum": ["implicit", "explicit", "recurring"]
+        }
+      ],
+      "default": false,
+      "description": "Whether user consent is required (false, implicit, explicit, or recurring)"
+    },
+    "message": {
+      "type": "string",
+      "description": "User-facing message explaining this obligation"
+    },
+    "description": {
+      "type": "string",
+      "description": "Human-readable description of this obligation"
+    },
+    "metadata": {
+      "type": "object",
+      "additionalProperties": true,
+      "description": "Optional metadata key-value pairs"
+    }
+  }
+}
