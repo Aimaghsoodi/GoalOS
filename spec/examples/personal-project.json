@@ -2,14 +2,14 @@
   "id": "graph_personal_ai_startup_001",
   "version": "0.1.0",
   "owner": "user@example.com",
-  "name": "Launch OpenClaw AI Business",
+  "name": "Launch AI Startup AI Business",
   "description": "Complete roadmap for launching a sovereign AI agents platform for client infrastructure",
   "createdAt": "2026-02-01T10:00:00Z",
   "updatedAt": "2026-02-28T15:30:00Z",
   "goals": [
     {
-      "id": "goal_root_launch_openclaw",
-      "title": "Launch OpenClaw",
+      "id": "goal_root_launch_ai_startup",
+      "title": "Launch AI Startup",
       "description": "Launch a fully functional AI agents platform with public availability and documentation",
       "status": "active",
       "priority": {
@@ -35,8 +35,8 @@
     {
       "id": "goal_build_landing_page",
       "title": "Build Landing Page",
-      "description": "Create professional landing page showcasing OpenClaw's capabilities and value proposition",
-      "parentId": "goal_root_launch_openclaw",
+      "description": "Create professional landing page showcasing AI Startup's capabilities and value proposition",
+      "parentId": "goal_root_launch_ai_startup",
       "status": "active",
       "priority": {
         "level": "high",
@@ -66,7 +66,7 @@
       "id": "goal_write_manifesto",
       "title": "Write Manifesto Blog Post",
       "description": "Write compelling 3000-word manifesto explaining why intent graphs are necessary and how GoalOS solves the problem",
-      "parentId": "goal_root_launch_openclaw",
+      "parentId": "goal_root_launch_ai_startup",
       "status": "active",
       "priority": {
         "level": "high",
@@ -96,7 +96,7 @@
       "id": "goal_setup_payments",
       "title": "Set Up Payments & Monetization",
       "description": "Implement payment infrastructure for future commercial offerings",
-      "parentId": "goal_root_launch_openclaw",
+      "parentId": "goal_root_launch_ai_startup",
       "status": "planned",
       "priority": {
         "level": "medium",
@@ -133,7 +133,7 @@
       "id": "goal_community_outreach",
       "title": "Community Outreach & Partnerships",
       "description": "Build partnerships and awareness through community engagement",
-      "parentId": "goal_root_launch_openclaw",
+      "parentId": "goal_root_launch_ai_startup",
       "status": "active",
       "priority": {
         "level": "high",
@@ -170,7 +170,7 @@
       "id": "goal_claude_desktop_integration",
       "title": "Claude Desktop Integration Demo",
       "description": "Create working demo of GoalOS integrated with Claude Desktop via MCP",
-      "parentId": "goal_root_launch_openclaw",
+      "parentId": "goal_root_launch_ai_startup",
       "status": "active",
       "priority": {
         "level": "critical",

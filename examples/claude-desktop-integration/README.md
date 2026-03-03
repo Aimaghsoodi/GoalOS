@@ -207,5 +207,5 @@ npm install -g @goalos/mcp-server
 ## Support
 
 For issues or questions:
-- GitHub Issues: https://github.com/AbtinDev/goalos/issues
-- Discussions: https://github.com/AbtinDev/goalos/discussions
+- GitHub Issues: https://github.com/Aimaghsoodi/GoalOS/issues
+- Discussions: https://github.com/Aimaghsoodi/GoalOS/discussions

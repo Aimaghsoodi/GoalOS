@@ -33,7 +33,7 @@ class Serializer:
         """Convert goal to JSON-LD format"""
         data = goal.model_dump(mode="python")
         return {
-            "@context": "https://github.com/AbtinDev/goalos/context.jsonld",
+            "@context": "https://github.com/Aimaghsoodi/GoalOS/context.jsonld",
             "@id": f"urn:goalos:goal:{goal.id}",
             "@type": "GoalOS:Goal",
             **data,
@@ -63,7 +63,7 @@ class Serializer:
         goals_jsonld = [Serializer.goal_to_jsonld(goal) for goal in graph.goals]
 
         return {
-            "@context": "https://github.com/AbtinDev/goalos/context.jsonld",
+            "@context": "https://github.com/Aimaghsoodi/GoalOS/context.jsonld",
             "@id": f"urn:goalos:graph:{graph.id}",
             "@type": "GoalOS:IntentGraph",
             "@graph": goals_jsonld,

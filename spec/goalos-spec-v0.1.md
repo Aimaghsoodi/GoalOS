@@ -699,4 +699,4 @@ The GoalOS specification and reference implementations are released under the MI
 
 ---
 
-**For questions, feature requests, or issues:** GitHub Issues at github.com/AbtinDev/goalos
+**For questions, feature requests, or issues:** GitHub Issues at github.com/Aimaghsoodi/GoalOS

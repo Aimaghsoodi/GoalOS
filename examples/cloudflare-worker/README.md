@@ -299,5 +299,5 @@ const goals = allGoals.slice(offset, offset + 50);
 ## Support
 
 Issues or questions:
-- GitHub: https://github.com/AbtinDev/goalos/issues
+- GitHub: https://github.com/Aimaghsoodi/GoalOS/issues
 - Wrangler Docs: https://developers.cloudflare.com/workers/

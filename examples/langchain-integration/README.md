@@ -250,5 +250,5 @@ agent.tools.append(get_prioritized_tasks)
 ## Support
 
 For issues:
-- GitHub: https://github.com/AbtinDev/goalos/issues
-- Discussions: https://github.com/AbtinDev/goalos/discussions
+- GitHub: https://github.com/Aimaghsoodi/GoalOS/issues
+- Discussions: https://github.com/Aimaghsoodi/GoalOS/discussions

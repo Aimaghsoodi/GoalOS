@@ -331,5 +331,5 @@ agent = Agent(
 ## Support
 
 For questions or issues:
-- GitHub: https://github.com/AbtinDev/goalos/issues
-- Discussions: https://github.com/AbtinDev/goalos/discussions
+- GitHub: https://github.com/Aimaghsoodi/GoalOS/issues
+- Discussions: https://github.com/Aimaghsoodi/GoalOS/discussions
