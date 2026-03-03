@@ -7,7 +7,6 @@ import {
   IntentGraphClass,
   isOverdue,
   daysUntilDeadline,
-  sortByPriority,
 } from '@goalos/core';
 import type {
   Goal,
@@ -77,15 +76,14 @@ export async function handleGetContext(
   const stats = graph.getStats();
   const topPriorities = graph.getTopPriorities(5);
   const blockedGoals = graph.getByStatus('blocked');
-  const activeGoals = graph.getByStatus('active');
   const allGoals = graph.query({});
-  const overdueGoals = allGoals.filter((g) => g.deadline && isOverdue(g.deadline));
+  const overdueGoals = allGoals.filter((g) => g.deadline && isOverdue(g));
 
   const upcomingDeadlines = allGoals
-    .filter((g) => g.deadline && !isOverdue(g.deadline) && g.status !== 'completed' && g.status !== 'abandoned')
+    .filter((g) => g.deadline && !isOverdue(g) && g.status !== 'completed' && g.status !== 'abandoned')
     .sort((a, b) => {
-      const daysA = daysUntilDeadline(a.deadline!);
-      const daysB = daysUntilDeadline(b.deadline!);
+      const daysA = daysUntilDeadline(a);
+      const daysB = daysUntilDeadline(b);
       return (daysA ?? Infinity) - (daysB ?? Infinity);
     })
     .slice(0, 5);
@@ -103,7 +101,7 @@ export async function handleGetContext(
     overdueGoals: overdueGoals.map(formatGoal),
     upcomingDeadlines: upcomingDeadlines.map((g) => ({
       ...formatGoal(g),
-      daysUntilDeadline: daysUntilDeadline(g.deadline!),
+      daysUntilDeadline: daysUntilDeadline(g),
     })),
     byStatus: stats.byStatus,
     byPriority: stats.byPriority,
