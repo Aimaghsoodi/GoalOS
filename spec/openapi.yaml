@@ -1,0 +1,570 @@
+openapi: 3.1.0
+info:
+  title: GoalOS API
+  description: |
+    GoalOS — The Intent Layer for AI Agents.
+
+    Manage hierarchical goals, priorities, dependencies, and progress tracking
+    for AI agents. This API powers ChatGPT Custom GPT Actions and other
+    integrations.
+  version: 0.1.0
+  contact:
+    name: GoalOS
+    url: https://github.com/Aimaghsoodi/GoalOS
+  license:
+    name: MIT
+    url: https://opensource.org/licenses/MIT
+
+servers:
+  - url: https://api.goalos.dev/v1
+    description: Production API
+
+tags:
+  - name: Context
+    description: Get current priorities, summaries, and dashboard data
+  - name: Goals
+    description: Create, read, update, and complete goals
+  - name: Dependencies
+    description: Manage goal dependencies and blocking relationships
+  - name: Search
+    description: Search across goals
+
+paths:
+  /context:
+    get:
+      operationId: getContext
+      summary: Get current context summary
+      description: Returns a summary of priorities, active goals, deadlines, and blocked items.
+      tags: [Context]
+      responses:
+        "200":
+          description: Context summary
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ContextSummary"
+
+  /goals:
+    get:
+      operationId: listGoals
+      summary: List goals with optional filtering
+      description: Returns goals in a hierarchical tree structure with optional filters.
+      tags: [Goals]
+      parameters:
+        - name: status
+          in: query
+          schema:
+            type: array
+            items:
+              $ref: "#/components/schemas/GoalStatus"
+          description: Filter by goal status
+        - name: priority
+          in: query
+          schema:
+            type: array
+            items:
+              $ref: "#/components/schemas/PriorityLevel"
+          description: Filter by priority level
+        - name: domain
+          in: query
+          schema:
+            type: string
+          description: Filter by domain
+        - name: include_completed
+          in: query
+          schema:
+            type: boolean
+            default: false
+          description: Include completed goals in results
+      responses:
+        "200":
+          description: List of goals
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GoalListResponse"
+
+    post:
+      operationId: addGoal
+      summary: Add a new goal
+      description: Add a new goal to the intent graph.
+      tags: [Goals]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/GoalInput"
+      responses:
+        "201":
+          description: Goal created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  goal:
+                    $ref: "#/components/schemas/Goal"
+        "400":
+          $ref: "#/components/responses/ValidationError"
+
+  /goals/{goal_id}:
+    get:
+      operationId: getGoal
+      summary: Get goal details
+      description: Get full details of a goal including sub-goals, dependencies, and progress.
+      tags: [Goals]
+      parameters:
+        - name: goal_id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: Goal details
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/GoalDetails"
+        "404":
+          $ref: "#/components/responses/NotFound"
+
+    patch:
+      operationId: updateGoal
+      summary: Update a goal
+      description: Update goal details, status, or priority.
+      tags: [Goals]
+      parameters:
+        - name: goal_id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/GoalUpdate"
+      responses:
+        "200":
+          description: Goal updated
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  goal:
+                    $ref: "#/components/schemas/Goal"
+        "404":
+          $ref: "#/components/responses/NotFound"
+
+  /goals/{goal_id}/complete:
+    put:
+      operationId: completeGoal
+      summary: Mark a goal as complete
+      description: Marks a goal done. Auto-updates parent progress and unblocks dependents.
+      tags: [Goals]
+      parameters:
+        - name: goal_id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                notes:
+                  type: string
+                  description: Completion notes
+      responses:
+        "200":
+          description: Goal completed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  goal:
+                    $ref: "#/components/schemas/Goal"
+                  parentProgress:
+                    type: string
+        "404":
+          $ref: "#/components/responses/NotFound"
+
+  /priorities:
+    get:
+      operationId: getPriorities
+      summary: Get top priority goals
+      description: Get the top N priority goals, optionally filtered by time horizon.
+      tags: [Context]
+      parameters:
+        - name: count
+          in: query
+          schema:
+            type: integer
+            default: 5
+          description: Number of priorities to return
+        - name: time_horizon
+          in: query
+          schema:
+            $ref: "#/components/schemas/TimeHorizon"
+          description: Filter by time horizon
+      responses:
+        "200":
+          description: Top priorities
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  priorities:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/Goal"
+                  count:
+                    type: integer
+                  timeHorizon:
+                    type: string
+
+  /goals/{goal_id}/dependencies:
+    post:
+      operationId: addDependency
+      summary: Add a dependency between goals
+      description: Add a dependency relationship (blocks, requires, enables, related).
+      tags: [Dependencies]
+      parameters:
+        - name: goal_id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [depends_on]
+              properties:
+                depends_on:
+                  type: string
+                  description: Goal ID that this goal depends on
+                type:
+                  type: string
+                  enum: [blocks, requires, enables, related]
+                  default: requires
+                description:
+                  type: string
+      responses:
+        "200":
+          description: Dependency added
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  goalId:
+                    type: string
+                  dependsOn:
+                    type: string
+                  type:
+                    type: string
+        "404":
+          $ref: "#/components/responses/NotFound"
+
+  /search:
+    get:
+      operationId: searchGoals
+      summary: Search goals
+      description: Full-text search across goal titles, descriptions, and tags.
+      tags: [Search]
+      parameters:
+        - name: query
+          in: query
+          required: true
+          schema:
+            type: string
+          description: Search query
+        - name: status
+          in: query
+          schema:
+            type: array
+            items:
+              $ref: "#/components/schemas/GoalStatus"
+          description: Filter by status
+      responses:
+        "200":
+          description: Search results
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  query:
+                    type: string
+                  results:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/Goal"
+                  total:
+                    type: integer
+
+components:
+  schemas:
+    GoalStatus:
+      type: string
+      enum: [active, planned, blocked, paused, completed, abandoned]
+
+    PriorityLevel:
+      type: string
+      enum: [critical, high, medium, low, someday]
+
+    TimeHorizon:
+      type: string
+      enum: [today, this_week, this_month, this_quarter, this_year, long_term]
+
+    DependencyType:
+      type: string
+      enum: [blocks, requires, enables, related]
+
+    Priority:
+      type: object
+      properties:
+        level:
+          $ref: "#/components/schemas/PriorityLevel"
+        score:
+          type: number
+        urgency:
+          type: number
+
+    Dependency:
+      type: object
+      properties:
+        type:
+          $ref: "#/components/schemas/DependencyType"
+        targetGoalId:
+          type: string
+        description:
+          type: string
+
+    Goal:
+      type: object
+      required: [id, title, status, priority]
+      properties:
+        id:
+          type: string
+        title:
+          type: string
+        description:
+          type: string
+        status:
+          $ref: "#/components/schemas/GoalStatus"
+        priority:
+          $ref: "#/components/schemas/Priority"
+        parentId:
+          type: string
+        domain:
+          type: string
+        deadline:
+          type: string
+          format: date-time
+        timeHorizon:
+          $ref: "#/components/schemas/TimeHorizon"
+        tags:
+          type: array
+          items:
+            type: string
+        successCriteria:
+          type: array
+          items:
+            type: string
+        motivation:
+          type: string
+        dependencies:
+          type: array
+          items:
+            $ref: "#/components/schemas/Dependency"
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+        completedAt:
+          type: string
+          format: date-time
+
+    GoalInput:
+      type: object
+      required: [title]
+      properties:
+        title:
+          type: string
+          description: Short descriptive title
+        description:
+          type: string
+        parent_id:
+          type: string
+        priority:
+          $ref: "#/components/schemas/PriorityLevel"
+        domain:
+          type: string
+        deadline:
+          type: string
+          format: date-time
+        time_horizon:
+          $ref: "#/components/schemas/TimeHorizon"
+        success_criteria:
+          type: array
+          items:
+            type: string
+        motivation:
+          type: string
+        tags:
+          type: array
+          items:
+            type: string
+
+    GoalUpdate:
+      type: object
+      properties:
+        title:
+          type: string
+        description:
+          type: string
+        status:
+          $ref: "#/components/schemas/GoalStatus"
+        priority:
+          $ref: "#/components/schemas/PriorityLevel"
+        deadline:
+          type: string
+        motivation:
+          type: string
+        success_criteria:
+          type: array
+          items:
+            type: string
+
+    GoalDetails:
+      type: object
+      properties:
+        goal:
+          $ref: "#/components/schemas/Goal"
+        children:
+          type: array
+          items:
+            $ref: "#/components/schemas/Goal"
+        blockers:
+          type: array
+          items:
+            $ref: "#/components/schemas/Goal"
+        progress:
+          type: string
+        history:
+          type: array
+          items:
+            type: object
+
+    GoalListResponse:
+      type: object
+      properties:
+        goals:
+          type: array
+          items:
+            $ref: "#/components/schemas/Goal"
+        total:
+          type: integer
+        tree:
+          type: array
+          items:
+            $ref: "#/components/schemas/TreeNode"
+
+    TreeNode:
+      type: object
+      properties:
+        goal:
+          $ref: "#/components/schemas/Goal"
+        children:
+          type: array
+          items:
+            $ref: "#/components/schemas/TreeNode"
+        depth:
+          type: integer
+        progress:
+          type: number
+
+    ContextSummary:
+      type: object
+      properties:
+        summary:
+          type: object
+          properties:
+            totalGoals:
+              type: integer
+            activeGoals:
+              type: integer
+            completedGoals:
+              type: integer
+            blockedGoals:
+              type: integer
+            completionRate:
+              type: string
+        topPriorities:
+          type: array
+          items:
+            $ref: "#/components/schemas/Goal"
+        blockedGoals:
+          type: array
+          items:
+            $ref: "#/components/schemas/Goal"
+        overdueGoals:
+          type: array
+          items:
+            $ref: "#/components/schemas/Goal"
+        upcomingDeadlines:
+          type: array
+          items:
+            $ref: "#/components/schemas/Goal"
+        byStatus:
+          type: object
+          additionalProperties:
+            type: integer
+        byPriority:
+          type: object
+          additionalProperties:
+            type: integer
+
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+        message:
+          type: string
+
+  responses:
+    ValidationError:
+      description: Validation error
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/Error"
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/Error"
