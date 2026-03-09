@@ -1690,6 +1690,325 @@
     }
 
     /* ============================================
+       INSTALL SECTION
+       ============================================ */
+    .install-section {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .install-section::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 700px;
+      height: 500px;
+      background: radial-gradient(circle, rgba(59, 130, 246, 0.05) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .install-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 32px;
+      margin-top: 56px;
+    }
+
+    .install-card {
+      border-radius: 16px;
+      overflow: hidden;
+      border: 1px solid rgba(148, 163, 184, 0.1);
+      background: #0f172a;
+      transition: all 0.3s ease;
+    }
+
+    .install-card:hover {
+      border-color: rgba(59, 130, 246, 0.25);
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+    }
+
+    .install-card-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 24px;
+      background: rgba(15, 23, 42, 0.8);
+      border-bottom: 1px solid rgba(148, 163, 184, 0.1);
+    }
+
+    .install-lang {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .install-lang-icon {
+      width: 28px;
+      height: 28px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.85rem;
+      font-weight: 700;
+      font-family: 'Space Grotesk', sans-serif;
+    }
+
+    .install-lang-icon.python {
+      background: rgba(59, 130, 246, 0.12);
+      color: #60a5fa;
+    }
+
+    .install-lang-icon.typescript {
+      background: rgba(139, 92, 246, 0.12);
+      color: #c084fc;
+    }
+
+    .install-lang-name {
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: #f8fafc;
+    }
+
+    .install-pkg-badge {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.75rem;
+      color: #64748b;
+      padding: 4px 10px;
+      border-radius: 6px;
+      background: rgba(148, 163, 184, 0.06);
+      border: 1px solid rgba(148, 163, 184, 0.08);
+    }
+
+    .install-card-body {
+      padding: 24px;
+    }
+
+    .install-cmd {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 14px 18px;
+      border-radius: 10px;
+      background: rgba(3, 7, 18, 0.6);
+      border: 1px solid rgba(148, 163, 184, 0.08);
+      margin-bottom: 20px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.85rem;
+    }
+
+    .install-cmd .prompt {
+      color: #3b82f6;
+      user-select: none;
+    }
+
+    .install-cmd .cmd-text {
+      color: #f8fafc;
+      flex: 1;
+    }
+
+    .install-cmd .copy-btn {
+      padding: 4px 8px;
+      border-radius: 4px;
+      color: #64748b;
+      transition: all 0.2s ease;
+      font-size: 0.75rem;
+      cursor: pointer;
+      background: transparent;
+      border: none;
+      font-family: 'Inter', sans-serif;
+    }
+
+    .install-cmd .copy-btn:hover {
+      color: #f8fafc;
+      background: rgba(148, 163, 184, 0.1);
+    }
+
+    .install-code pre {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.8rem;
+      line-height: 1.8;
+      color: #e2e8f0;
+      white-space: pre;
+      overflow-x: auto;
+    }
+
+    /* ============================================
+       INTEGRATIONS SECTION
+       ============================================ */
+    .integrations-section {
+      background: linear-gradient(180deg, #030712 0%, #0f172a 50%, #030712 100%);
+      position: relative;
+    }
+
+    .integrations-section::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent 10%, rgba(148, 163, 184, 0.08) 50%, transparent 90%);
+    }
+
+    .integrations-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 32px;
+      margin-top: 56px;
+    }
+
+    .integration-card {
+      padding: 36px 32px;
+      border-radius: 16px;
+      background: rgba(15, 23, 42, 0.5);
+      border: 1px solid rgba(148, 163, 184, 0.08);
+      transition: all 0.4s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .integration-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .integration-card:hover::before {
+      opacity: 1;
+    }
+
+    .integration-card:hover {
+      border-color: rgba(59, 130, 246, 0.2);
+      background: rgba(15, 23, 42, 0.7);
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+      transform: translateY(-4px);
+    }
+
+    .integration-card.chatgpt::before {
+      background: linear-gradient(90deg, #10a37f, #1a7f64);
+    }
+
+    .integration-card.claude::before {
+      background: linear-gradient(90deg, #d97706, #f59e0b);
+    }
+
+    .integration-card.crewai::before {
+      background: linear-gradient(90deg, #ec4899, #f472b6);
+    }
+
+    .integration-card.langchain::before {
+      background: linear-gradient(90deg, #22c55e, #4ade80);
+    }
+
+    .integration-header {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 16px;
+    }
+
+    .integration-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 700;
+      font-size: 1.1rem;
+    }
+
+    .integration-icon.chatgpt {
+      background: rgba(16, 163, 127, 0.12);
+      color: #10a37f;
+    }
+
+    .integration-icon.claude {
+      background: rgba(217, 119, 6, 0.12);
+      color: #d97706;
+    }
+
+    .integration-icon.crewai {
+      background: rgba(236, 72, 153, 0.12);
+      color: #ec4899;
+    }
+
+    .integration-icon.langchain {
+      background: rgba(34, 197, 94, 0.12);
+      color: #22c55e;
+    }
+
+    .integration-card h3 {
+      font-size: 1.15rem;
+      font-weight: 600;
+      color: #f8fafc;
+    }
+
+    .integration-card > p {
+      font-size: 0.9rem;
+      color: #94a3b8;
+      line-height: 1.7;
+      margin-bottom: 20px;
+    }
+
+    .integration-code {
+      border-radius: 10px;
+      background: rgba(3, 7, 18, 0.6);
+      border: 1px solid rgba(148, 163, 184, 0.08);
+      padding: 18px 20px;
+      overflow-x: auto;
+    }
+
+    .integration-code pre {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.78rem;
+      line-height: 1.7;
+      color: #e2e8f0;
+      white-space: pre;
+    }
+
+    .integration-tag {
+      display: inline-block;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.72rem;
+      color: #64748b;
+      padding: 3px 8px;
+      border-radius: 4px;
+      background: rgba(148, 163, 184, 0.06);
+      border: 1px solid rgba(148, 163, 184, 0.08);
+      margin-bottom: 12px;
+    }
+
+    @media (max-width: 1024px) {
+      .install-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .integrations-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .install-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .integrations-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* ============================================
        UTILITY
        ============================================ */
     .sr-only {
@@ -1748,7 +2067,8 @@
       <ul class="navbar-links">
         <li><a href="#features">Features</a></li>
         <li><a href="#how-it-works">How It Works</a></li>
-        <li><a href="#use-cases">Use Cases</a></li>
+        <li><a href="#install">Install</a></li>
+        <li><a href="#integrations">Integrations</a></li>
         <li><a href="#platform">Docs</a></li>
       </ul>
 
@@ -1774,6 +2094,8 @@
   <div class="mobile-menu" id="mobileMenu">
     <a href="#features" class="mobile-menu-link">Features</a>
     <a href="#how-it-works" class="mobile-menu-link">How It Works</a>
+    <a href="#install" class="mobile-menu-link">Install</a>
+    <a href="#integrations" class="mobile-menu-link">Integrations</a>
     <a href="#use-cases" class="mobile-menu-link">Use Cases</a>
     <a href="#platform" class="mobile-menu-link">Docs</a>
     <a href="https://github.com/Aimaghsoodi/GoalOS" target="_blank" rel="noopener noreferrer" class="mobile-menu-link">GitHub</a>
@@ -2128,6 +2450,220 @@
 <span class="tk-cm"># Start the MCP server for Claude Desktop</span>
 <span class="tk-fn">$</span> goalos serve
 <span class="tk-cm">  GoalOS MCP server running on stdio</span></pre>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==========================================
+       INSTALL SECTION
+       ========================================== -->
+  <section class="install-section" id="install">
+    <div class="container">
+      <div class="text-center">
+        <div class="eyebrow reveal">Quick Start</div>
+        <h2 class="section-heading reveal reveal-delay-1">Install in Seconds</h2>
+        <p class="section-subheading mx-auto reveal reveal-delay-2">
+          First-class support for both Python and TypeScript. Pick your language, install the package, and start defining your intent graph.
+        </p>
+      </div>
+
+      <div class="install-grid">
+        <!-- Python Card -->
+        <div class="install-card reveal reveal-delay-3">
+          <div class="install-card-header">
+            <div class="install-lang">
+              <div class="install-lang-icon python">Py</div>
+              <span class="install-lang-name">Python</span>
+            </div>
+            <span class="install-pkg-badge">goalos</span>
+          </div>
+          <div class="install-card-body">
+            <div class="install-cmd">
+              <span class="prompt">$</span>
+              <span class="cmd-text">pip install goalos</span>
+              <button class="copy-btn" onclick="copyToClipboard('pip install goalos', this)">Copy</button>
+            </div>
+            <div class="install-code">
+              <pre><span class="tk-kw">from</span> goalos <span class="tk-kw">import</span> GoalManager
+
+<span class="tk-const">manager</span> <span class="tk-op">=</span> GoalManager()
+
+<span class="tk-cm"># Add a goal with full context</span>
+<span class="tk-const">goal</span> <span class="tk-op">=</span> manager.<span class="tk-fn">add_goal</span>(
+    <span class="tk-prop">title</span><span class="tk-op">=</span><span class="tk-str">"Ship v2.0"</span>,
+    <span class="tk-prop">priority</span><span class="tk-op">=</span><span class="tk-str">"critical"</span>,
+    <span class="tk-prop">domain</span><span class="tk-op">=</span><span class="tk-str">"engineering"</span>,
+    <span class="tk-prop">success_criteria</span><span class="tk-op">=</span>[<span class="tk-str">"All tests pass"</span>, <span class="tk-str">"Docs updated"</span>]
+)
+
+<span class="tk-cm"># Get top priorities across all goals</span>
+<span class="tk-const">priorities</span> <span class="tk-op">=</span> manager.<span class="tk-fn">get_priorities</span>(<span class="tk-prop">count</span><span class="tk-op">=</span><span class="tk-num">5</span>)</pre>
+            </div>
+          </div>
+        </div>
+
+        <!-- TypeScript Card -->
+        <div class="install-card reveal reveal-delay-4">
+          <div class="install-card-header">
+            <div class="install-lang">
+              <div class="install-lang-icon typescript">TS</div>
+              <span class="install-lang-name">TypeScript</span>
+            </div>
+            <span class="install-pkg-badge">@goalos/core</span>
+          </div>
+          <div class="install-card-body">
+            <div class="install-cmd">
+              <span class="prompt">$</span>
+              <span class="cmd-text">npm install @goalos/core</span>
+              <button class="copy-btn" onclick="copyToClipboard('npm install @goalos/core', this)">Copy</button>
+            </div>
+            <div class="install-code">
+              <pre><span class="tk-kw">import</span> <span class="tk-bracket">{</span> IntentGraph <span class="tk-bracket">}</span> <span class="tk-kw">from</span> <span class="tk-str">'@goalos/core'</span>;
+
+<span class="tk-kw">const</span> <span class="tk-const">graph</span> <span class="tk-op">=</span> IntentGraph.<span class="tk-fn">create</span>(<span class="tk-str">'my-project'</span>);
+
+<span class="tk-cm">// Add a goal with full context</span>
+<span class="tk-kw">const</span> <span class="tk-const">goal</span> <span class="tk-op">=</span> graph.<span class="tk-fn">addGoal</span>(<span class="tk-bracket">{</span>
+  <span class="tk-prop">title</span>: <span class="tk-str">'Ship v2.0'</span>,
+  <span class="tk-prop">priority</span>: <span class="tk-bracket">{</span> <span class="tk-prop">level</span>: <span class="tk-str">'critical'</span>, <span class="tk-prop">score</span>: <span class="tk-num">95</span> <span class="tk-bracket">}</span>,
+  <span class="tk-prop">domain</span>: <span class="tk-str">'engineering'</span>,
+  <span class="tk-prop">successCriteria</span>: [<span class="tk-str">'All tests pass'</span>, <span class="tk-str">'Docs updated'</span>],
+<span class="tk-bracket">}</span>);
+
+<span class="tk-cm">// Get top priorities across all goals</span>
+<span class="tk-kw">const</span> <span class="tk-const">priorities</span> <span class="tk-op">=</span> graph.<span class="tk-fn">getTopPriorities</span>(<span class="tk-num">5</span>);</pre>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==========================================
+       INTEGRATIONS SECTION
+       ========================================== -->
+  <section class="integrations-section" id="integrations">
+    <div class="container">
+      <div class="text-center">
+        <div class="eyebrow reveal">Ecosystem</div>
+        <h2 class="section-heading reveal reveal-delay-1">Connects to Everything You Use</h2>
+        <p class="section-subheading mx-auto reveal reveal-delay-2">
+          GoalOS integrates with ChatGPT, Claude, CrewAI, LangChain, and any tool that speaks MCP or OpenAPI. Define your intent once, use it everywhere.
+        </p>
+      </div>
+
+      <div class="integrations-grid">
+        <!-- Claude MCP Integration -->
+        <div class="integration-card claude reveal reveal-delay-1">
+          <div class="integration-header">
+            <div class="integration-icon claude">
+              <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10"/>
+                <path d="M8 12l2 2 4-4"/>
+              </svg>
+            </div>
+            <h3>Claude (MCP)</h3>
+          </div>
+          <span class="integration-tag">@anthropic/goalos-mcp</span>
+          <p>Native integration with Claude Desktop and any MCP-compatible client. GoalOS exposes nine tools for the full goal lifecycle: read context, add goals, track progress, and more.</p>
+          <div class="integration-code">
+            <pre><span class="tk-cm">// claude_desktop_config.json</span>
+<span class="tk-bracket">{</span>
+  <span class="tk-prop">"mcpServers"</span>: <span class="tk-bracket">{</span>
+    <span class="tk-prop">"goalos"</span>: <span class="tk-bracket">{</span>
+      <span class="tk-prop">"command"</span>: <span class="tk-str">"npx"</span>,
+      <span class="tk-prop">"args"</span>: [<span class="tk-str">"@anthropic/goalos-mcp"</span>]
+    <span class="tk-bracket">}</span>
+  <span class="tk-bracket">}</span>
+<span class="tk-bracket">}</span></pre>
+          </div>
+        </div>
+
+        <!-- ChatGPT OpenAPI Integration -->
+        <div class="integration-card chatgpt reveal reveal-delay-2">
+          <div class="integration-header">
+            <div class="integration-icon chatgpt">
+              <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+              </svg>
+            </div>
+            <h3>ChatGPT (OpenAPI)</h3>
+          </div>
+          <span class="integration-tag">spec/openapi.yaml</span>
+          <p>Use GoalOS with ChatGPT Custom GPTs via the OpenAPI specification. Import the spec as a Custom GPT Action and ChatGPT can read and manage your intent graph directly.</p>
+          <div class="integration-code">
+            <pre><span class="tk-cm"># spec/openapi.yaml</span>
+<span class="tk-prop">openapi</span>: <span class="tk-str">"3.1.0"</span>
+<span class="tk-prop">info</span>:
+  <span class="tk-prop">title</span>: <span class="tk-str">"GoalOS API"</span>
+  <span class="tk-prop">version</span>: <span class="tk-str">"0.1.0"</span>
+<span class="tk-prop">paths</span>:
+  <span class="tk-prop">/goals</span>:
+    <span class="tk-fn">get</span>:  <span class="tk-cm"># List all goals</span>
+    <span class="tk-fn">post</span>: <span class="tk-cm"># Create a new goal</span>
+  <span class="tk-prop">/goals/{id}/priorities</span>:
+    <span class="tk-fn">get</span>:  <span class="tk-cm"># Get top priorities</span></pre>
+          </div>
+        </div>
+
+        <!-- CrewAI Integration -->
+        <div class="integration-card crewai reveal reveal-delay-3">
+          <div class="integration-header">
+            <div class="integration-icon crewai">
+              <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+                <circle cx="9" cy="7" r="4"/>
+                <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+                <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+              </svg>
+            </div>
+            <h3>CrewAI</h3>
+          </div>
+          <span class="integration-tag">goalos.integrations.crewai</span>
+          <p>Goal-aware CrewAI agents out of the box. The callback automatically feeds intent context into every crew task, so your agents align to what matters most.</p>
+          <div class="integration-code">
+            <pre><span class="tk-kw">from</span> goalos <span class="tk-kw">import</span> GoalManager
+<span class="tk-kw">from</span> goalos.integrations.crewai <span class="tk-kw">import</span> GoalOSCrewAICallback
+
+<span class="tk-const">manager</span> <span class="tk-op">=</span> GoalManager()
+<span class="tk-const">callback</span> <span class="tk-op">=</span> GoalOSCrewAICallback(<span class="tk-const">manager</span>)
+
+<span class="tk-cm"># Your CrewAI agents now read from</span>
+<span class="tk-cm"># the shared intent graph automatically</span>
+<span class="tk-const">crew</span> <span class="tk-op">=</span> Crew(
+    <span class="tk-prop">agents</span><span class="tk-op">=</span>[researcher, writer],
+    <span class="tk-prop">callbacks</span><span class="tk-op">=</span>[<span class="tk-const">callback</span>]
+)</pre>
+          </div>
+        </div>
+
+        <!-- LangChain Integration -->
+        <div class="integration-card langchain reveal reveal-delay-4">
+          <div class="integration-header">
+            <div class="integration-icon langchain">
+              <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="16 18 22 12 16 6"/>
+                <polyline points="8 6 2 12 8 18"/>
+              </svg>
+            </div>
+            <h3>LangChain</h3>
+          </div>
+          <span class="integration-tag">goalos.integrations.langchain</span>
+          <p>Drop-in LangChain callback that injects goal context into chain runs. Every LLM call, tool use, and agent step is aware of what you are trying to achieve.</p>
+          <div class="integration-code">
+            <pre><span class="tk-kw">from</span> goalos <span class="tk-kw">import</span> GoalManager
+<span class="tk-kw">from</span> goalos.integrations.langchain <span class="tk-kw">import</span> GoalOSLangChainCallback
+
+<span class="tk-const">manager</span> <span class="tk-op">=</span> GoalManager()
+<span class="tk-const">callback</span> <span class="tk-op">=</span> GoalOSLangChainCallback(<span class="tk-const">manager</span>)
+
+<span class="tk-cm"># Attach to any LangChain chain or agent</span>
+<span class="tk-const">result</span> <span class="tk-op">=</span> chain.<span class="tk-fn">invoke</span>(
+    <span class="tk-bracket">{</span><span class="tk-str">"input"</span>: <span class="tk-str">"Plan next sprint"</span><span class="tk-bracket">}</span>,
+    <span class="tk-prop">config</span><span class="tk-op">=</span><span class="tk-bracket">{</span><span class="tk-str">"callbacks"</span>: [<span class="tk-const">callback</span>]<span class="tk-bracket">}</span>
+)</pre>
+          </div>
         </div>
       </div>
     </div>
