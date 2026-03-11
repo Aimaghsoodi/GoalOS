@@ -16,9 +16,72 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
 
   <style>
-    /* ============================================
+    /* =========================================================
+       CSS CUSTOM PROPERTIES
+       ========================================================= */
+    :root {
+      --bg-primary: #030712;
+      --bg-secondary: #0f172a;
+      --bg-card: rgba(15, 23, 42, 0.6);
+      --bg-card-hover: rgba(15, 23, 42, 0.8);
+      --bg-code: #0f172a;
+      --gradient-primary: linear-gradient(135deg, #3b82f6, #8b5cf6);
+      --gradient-primary-wide: linear-gradient(135deg, #3b82f6, #8b5cf6, #ec4899, #3b82f6);
+      --gradient-scroll: linear-gradient(90deg, #3b82f6, #8b5cf6);
+      --gradient-glow: linear-gradient(90deg, #3b82f6, #8b5cf6, #ec4899);
+      --color-blue: #3b82f6;
+      --color-violet: #8b5cf6;
+      --color-cyan: #06b6d4;
+      --color-pink: #ec4899;
+      --color-blue-dim: rgba(59, 130, 246, 0.1);
+      --color-blue-border: rgba(59, 130, 246, 0.2);
+      --color-violet-dim: rgba(139, 92, 246, 0.1);
+      --color-violet-border: rgba(139, 92, 246, 0.2);
+      --color-cyan-dim: rgba(6, 182, 212, 0.1);
+      --text-primary: #f8fafc;
+      --text-secondary: #94a3b8;
+      --text-muted: #64748b;
+      --border-subtle: rgba(148, 163, 184, 0.1);
+      --border-card: rgba(148, 163, 184, 0.08);
+      --tk-keyword: #c084fc;
+      --tk-function: #60a5fa;
+      --tk-string: #34d399;
+      --tk-comment: #64748b;
+      --tk-type: #f472b6;
+      --tk-number: #fb923c;
+      --tk-operator: #94a3b8;
+      --tk-property: #7dd3fc;
+      --tk-constant: #f8fafc;
+      --tk-bracket: #64748b;
+      --font-body: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      --font-heading: 'Space Grotesk', 'Inter', sans-serif;
+      --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
+      --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+      --ease-out-back: cubic-bezier(0.34, 1.56, 0.64, 1);
+      --ease-smooth: cubic-bezier(0.4, 0, 0.2, 1);
+      --nav-height: 72px;
+      --radius-sm: 8px;
+      --radius-md: 12px;
+      --radius-lg: 16px;
+      --radius-xl: 24px;
+      --radius-full: 100px;
+    }
+
+    /* =========================================================
+       ACCESSIBILITY — REDUCED MOTION
+       ========================================================= */
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+    }
+
+    /* =========================================================
        RESET & BASE
-       ============================================ */
+       ========================================================= */
     *, *::before, *::after {
       margin: 0;
       padding: 0;
@@ -33,20 +96,22 @@
     }
 
     body {
-      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-      background: #030712;
-      color: #f8fafc;
+      font-family: var(--font-body);
+      background: var(--bg-primary);
+      color: var(--text-primary);
       line-height: 1.6;
       overflow-x: hidden;
+      min-height: 100vh;
     }
 
     h1, h2, h3, h4, h5, h6 {
-      font-family: 'Space Grotesk', sans-serif;
+      font-family: var(--font-heading);
       line-height: 1.2;
+      font-weight: 700;
     }
 
     code, pre, .mono {
-      font-family: 'JetBrains Mono', 'Fira Code', monospace;
+      font-family: var(--font-mono);
     }
 
     a {
@@ -54,9 +119,9 @@
       text-decoration: none;
     }
 
-    img {
-      max-width: 100%;
+    img, svg {
       display: block;
+      max-width: 100%;
     }
 
     button {
@@ -64,43 +129,34 @@
       cursor: pointer;
       border: none;
       background: none;
+      color: inherit;
     }
 
-    /* ============================================
+    ul { list-style: none; }
+
+    ::selection {
+      background: rgba(59, 130, 246, 0.3);
+      color: var(--text-primary);
+    }
+
+    /* =========================================================
        SCROLL PROGRESS BAR
-       ============================================ */
+       ========================================================= */
     .scroll-progress {
       position: fixed;
       top: 0;
       left: 0;
       height: 2px;
-      background: linear-gradient(90deg, #3b82f6, #8b5cf6, #ec4899);
+      background: var(--gradient-glow);
       z-index: 10000;
       width: 0%;
       transition: width 0.1s linear;
     }
 
-    /* ============================================
-       ANIMATED DOT GRID BACKGROUND
-       ============================================ */
-    .dot-grid {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      z-index: 0;
-      pointer-events: none;
-      background-image: radial-gradient(circle, rgba(148, 163, 184, 0.08) 1px, transparent 1px);
-      background-size: 32px 32px;
-      mask-image: radial-gradient(ellipse 80% 60% at 50% 40%, black 30%, transparent 70%);
-      -webkit-mask-image: radial-gradient(ellipse 80% 60% at 50% 40%, black 30%, transparent 70%);
-    }
-
-    /* ============================================
-       FLOATING GEOMETRIC SHAPES
-       ============================================ */
-    .floating-shapes {
+    /* =========================================================
+       ANIMATED BACKGROUND — FLOATING GEOMETRIC SHAPES
+       ========================================================= */
+    .bg-shapes {
       position: fixed;
       top: 0;
       left: 0;
@@ -111,59 +167,137 @@
       overflow: hidden;
     }
 
-    .shape {
+    .bg-shape {
       position: absolute;
-      border-radius: 50%;
       opacity: 0.04;
-      animation: float-shape 20s ease-in-out infinite;
+      filter: blur(60px);
     }
 
-    .shape-1 {
-      width: 400px;
-      height: 400px;
-      background: #3b82f6;
-      top: 10%;
-      left: -5%;
-      animation-delay: 0s;
+    .bg-shape--circle {
+      border-radius: 50%;
     }
 
-    .shape-2 {
-      width: 300px;
-      height: 300px;
-      background: #8b5cf6;
-      top: 50%;
-      right: -5%;
-      animation-delay: -7s;
+    .bg-shape--square {
+      border-radius: 20%;
     }
 
-    .shape-3 {
-      width: 250px;
-      height: 250px;
-      background: #ec4899;
-      bottom: 10%;
-      left: 30%;
-      animation-delay: -14s;
+    .bg-shape--triangle {
+      width: 0 !important;
+      height: 0 !important;
+      border-left: 150px solid transparent;
+      border-right: 150px solid transparent;
+      border-bottom: 260px solid;
+      background: none !important;
+      filter: blur(40px);
     }
 
-    .shape-4 {
+    .bg-shape--1 {
+      width: 450px;
+      height: 450px;
+      background: var(--color-blue);
+      top: 5%;
+      left: -8%;
+      animation: shapeFloat1 22s ease-in-out infinite;
+    }
+
+    .bg-shape--2 {
       width: 350px;
       height: 350px;
-      background: #06b6d4;
-      top: 30%;
-      left: 50%;
-      animation-delay: -3s;
+      background: var(--color-violet);
+      top: 40%;
+      right: -6%;
+      animation: shapeFloat2 26s ease-in-out infinite;
     }
 
-    @keyframes float-shape {
+    .bg-shape--3 {
+      width: 280px;
+      height: 280px;
+      background: var(--color-pink);
+      bottom: 8%;
+      left: 25%;
+      animation: shapeFloat3 20s ease-in-out infinite;
+    }
+
+    .bg-shape--4 {
+      width: 380px;
+      height: 380px;
+      background: var(--color-cyan);
+      top: 25%;
+      left: 45%;
+      animation: shapeFloat4 28s ease-in-out infinite;
+    }
+
+    .bg-shape--5 {
+      border-bottom-color: var(--color-blue);
+      top: 60%;
+      right: 20%;
+      opacity: 0.025;
+      animation: shapeFloat5 24s ease-in-out infinite;
+    }
+
+    .bg-shape--6 {
+      width: 200px;
+      height: 200px;
+      background: var(--color-violet);
+      top: 70%;
+      left: 10%;
+      animation: shapeFloat6 30s ease-in-out infinite;
+    }
+
+    @keyframes shapeFloat1 {
+      0%, 100% { transform: translate(0, 0) rotate(0deg) scale(1); }
+      25% { transform: translate(40px, -50px) rotate(15deg) scale(1.05); }
+      50% { transform: translate(-30px, 30px) rotate(-10deg) scale(0.95); }
+      75% { transform: translate(50px, 40px) rotate(20deg) scale(1.02); }
+    }
+
+    @keyframes shapeFloat2 {
+      0%, 100% { transform: translate(0, 0) rotate(0deg); }
+      33% { transform: translate(-40px, 60px) rotate(-20deg); }
+      66% { transform: translate(30px, -40px) rotate(15deg); }
+    }
+
+    @keyframes shapeFloat3 {
       0%, 100% { transform: translate(0, 0) scale(1); }
-      25% { transform: translate(30px, -40px) scale(1.05); }
-      50% { transform: translate(-20px, 20px) scale(0.95); }
-      75% { transform: translate(40px, 30px) scale(1.02); }
+      50% { transform: translate(60px, -40px) scale(1.1); }
     }
 
-    /* ============================================
-       LAYOUT
-       ============================================ */
+    @keyframes shapeFloat4 {
+      0%, 100% { transform: translate(0, 0) rotate(0deg); }
+      25% { transform: translate(-50px, 30px) rotate(10deg); }
+      50% { transform: translate(20px, -60px) rotate(-15deg); }
+      75% { transform: translate(40px, 20px) rotate(5deg); }
+    }
+
+    @keyframes shapeFloat5 {
+      0%, 100% { transform: translate(0, 0) rotate(0deg); }
+      50% { transform: translate(-30px, 50px) rotate(180deg); }
+    }
+
+    @keyframes shapeFloat6 {
+      0%, 100% { transform: translate(0, 0) rotate(0deg) scale(1); }
+      33% { transform: translate(40px, -30px) rotate(45deg) scale(1.15); }
+      66% { transform: translate(-20px, 60px) rotate(-30deg) scale(0.9); }
+    }
+
+    /* Dot grid overlay */
+    .dot-grid {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+      pointer-events: none;
+      background-image: radial-gradient(circle, rgba(148, 163, 184, 0.06) 1px, transparent 1px);
+      background-size: 32px 32px;
+      mask-image: radial-gradient(ellipse 80% 60% at 50% 40%, black 30%, transparent 70%);
+      -webkit-mask-image: radial-gradient(ellipse 80% 60% at 50% 40%, black 30%, transparent 70%);
+    }
+
+    /* =========================================================
+       LAYOUT UTILITIES
+       ========================================================= */
     .container {
       max-width: 1200px;
       margin: 0 auto;
@@ -172,7 +306,7 @@
       z-index: 1;
     }
 
-    .container-lg {
+    .container--wide {
       max-width: 1400px;
       margin: 0 auto;
       padding: 0 24px;
@@ -180,22 +314,29 @@
       z-index: 1;
     }
 
-    section {
+    .section {
       padding: 120px 0;
       position: relative;
     }
 
-    /* ============================================
-       REVEAL ANIMATIONS
-       ============================================ */
+    .section--tight {
+      padding: 100px 0;
+    }
+
+    .text-center { text-align: center; }
+    .mx-auto { margin-left: auto; margin-right: auto; }
+
+    /* =========================================================
+       SCROLL REVEAL ANIMATIONS
+       ========================================================= */
     .reveal {
       opacity: 0;
       transform: translateY(30px);
-      transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1),
-                  transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+      transition: opacity 0.8s var(--ease-out-expo),
+                  transform 0.8s var(--ease-out-expo);
     }
 
-    .reveal.visible {
+    .reveal.revealed {
       opacity: 1;
       transform: translateY(0);
     }
@@ -206,10 +347,12 @@
     .reveal-delay-4 { transition-delay: 0.4s; }
     .reveal-delay-5 { transition-delay: 0.5s; }
     .reveal-delay-6 { transition-delay: 0.6s; }
+    .reveal-delay-7 { transition-delay: 0.7s; }
+    .reveal-delay-8 { transition-delay: 0.8s; }
 
-    /* ============================================
+    /* =========================================================
        KEYFRAME ANIMATIONS
-       ============================================ */
+       ========================================================= */
     @keyframes gradient-shift {
       0% { background-position: 0% 50%; }
       50% { background-position: 100% 50%; }
@@ -229,6 +372,11 @@
     @keyframes pulse-glow {
       0%, 100% { box-shadow: 0 0 20px rgba(59, 130, 246, 0.1); }
       50% { box-shadow: 0 0 40px rgba(59, 130, 246, 0.25); }
+    }
+
+    @keyframes pulse-dot {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.6; transform: scale(1.3); }
     }
 
     @keyframes draw {
@@ -257,29 +405,96 @@
     }
 
     @keyframes glow-border {
-      0%, 100% { border-color: rgba(59, 130, 246, 0.2); }
-      50% { border-color: rgba(139, 92, 246, 0.4); }
+      0%, 100% { border-color: var(--color-blue-border); }
+      50% { border-color: var(--color-violet-border); }
     }
 
-    /* ============================================
+    @keyframes ripple-anim {
+      to { transform: scale(4); opacity: 0; }
+    }
+
+    @keyframes toast-in {
+      from { opacity: 0; transform: translateX(-50%) translateY(20px); }
+      to { opacity: 1; transform: translateX(-50%) translateY(0); }
+    }
+
+    @keyframes toast-out {
+      from { opacity: 1; transform: translateX(-50%) translateY(0); }
+      to { opacity: 0; transform: translateX(-50%) translateY(20px); }
+    }
+
+    /* =========================================================
+       EYEBROW TEXT
+       ========================================================= */
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-family: var(--font-mono);
+      font-size: 13px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      background: var(--gradient-primary);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 16px;
+    }
+
+    .eyebrow::before {
+      content: '';
+      display: block;
+      width: 24px;
+      height: 1px;
+      background: var(--gradient-primary);
+    }
+
+    /* =========================================================
+       SECTION HEADINGS
+       ========================================================= */
+    .section-heading {
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      margin-bottom: 20px;
+      color: var(--text-primary);
+    }
+
+    .section-subheading {
+      font-size: 1.1rem;
+      color: var(--text-secondary);
+      max-width: 640px;
+      line-height: 1.7;
+    }
+
+    .gradient-text {
+      background: var(--gradient-primary);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    /* =========================================================
        NAVIGATION
-       ============================================ */
+       ========================================================= */
     .navbar {
       position: fixed;
       top: 0;
       left: 0;
       right: 0;
-      height: 72px;
+      height: var(--nav-height);
       z-index: 1000;
-      transition: all 0.3s ease;
+      transition: all 0.3s var(--ease-smooth);
       border-bottom: 1px solid transparent;
     }
 
     .navbar.scrolled {
       background: rgba(3, 7, 18, 0.85);
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
-      border-bottom: 1px solid rgba(148, 163, 184, 0.1);
+      backdrop-filter: blur(20px) saturate(180%);
+      -webkit-backdrop-filter: blur(20px) saturate(180%);
+      border-bottom: 1px solid var(--border-subtle);
+      box-shadow: 0 1px 0 rgba(59, 130, 246, 0.06), 0 4px 24px rgba(0, 0, 0, 0.3);
     }
 
     .navbar-inner {
@@ -296,10 +511,12 @@
       display: flex;
       align-items: center;
       gap: 10px;
-      font-family: 'Space Grotesk', sans-serif;
+      font-family: var(--font-heading);
       font-size: 1.35rem;
       font-weight: 700;
       letter-spacing: -0.02em;
+      color: var(--text-primary);
+      z-index: 1001;
     }
 
     .navbar-logo {
@@ -317,19 +534,18 @@
       display: flex;
       align-items: center;
       gap: 36px;
-      list-style: none;
     }
 
     .navbar-links a {
       font-size: 0.9rem;
       font-weight: 500;
-      color: #94a3b8;
+      color: var(--text-secondary);
       transition: color 0.2s ease;
       letter-spacing: 0.01em;
     }
 
     .navbar-links a:hover {
-      color: #f8fafc;
+      color: var(--text-primary);
     }
 
     .navbar-actions {
@@ -341,12 +557,12 @@
     .github-link {
       display: flex;
       align-items: center;
-      color: #94a3b8;
+      color: var(--text-secondary);
       transition: color 0.2s ease;
     }
 
     .github-link:hover {
-      color: #f8fafc;
+      color: var(--text-primary);
     }
 
     .github-link svg {
@@ -354,7 +570,9 @@
       height: 22px;
     }
 
-    /* Hamburger */
+    /* =========================================================
+       HAMBURGER & MOBILE MENU
+       ========================================================= */
     .hamburger {
       display: none;
       flex-direction: column;
@@ -368,7 +586,7 @@
       display: block;
       width: 24px;
       height: 2px;
-      background: #f8fafc;
+      background: var(--text-primary);
       border-radius: 2px;
       transition: all 0.3s ease;
     }
@@ -385,7 +603,6 @@
       transform: rotate(-45deg) translate(5px, -5px);
     }
 
-    /* Mobile menu */
     .mobile-menu {
       display: none;
       position: fixed;
@@ -399,8 +616,8 @@
       -webkit-backdrop-filter: blur(30px);
       z-index: 1001;
       padding: 100px 32px 32px;
-      transition: right 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-      border-left: 1px solid rgba(148, 163, 184, 0.1);
+      transition: right 0.4s var(--ease-out-expo);
+      border-left: 1px solid var(--border-subtle);
     }
 
     .mobile-menu.open {
@@ -418,29 +635,31 @@
       z-index: 1000;
       opacity: 0;
       transition: opacity 0.3s ease;
+      pointer-events: none;
     }
 
     .mobile-menu-overlay.open {
       opacity: 1;
+      pointer-events: all;
     }
 
     .mobile-menu a {
       display: block;
       font-size: 1.25rem;
       font-weight: 500;
-      color: #94a3b8;
+      color: var(--text-secondary);
       padding: 16px 0;
-      border-bottom: 1px solid rgba(148, 163, 184, 0.08);
+      border-bottom: 1px solid var(--border-card);
       transition: color 0.2s ease;
     }
 
     .mobile-menu a:hover {
-      color: #f8fafc;
+      color: var(--text-primary);
     }
 
-    /* ============================================
+    /* =========================================================
        BUTTONS
-       ============================================ */
+       ========================================================= */
     .btn {
       display: inline-flex;
       align-items: center;
@@ -457,7 +676,7 @@
     }
 
     .btn-primary {
-      background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+      background: var(--gradient-primary);
       color: #fff;
       box-shadow: 0 4px 20px rgba(59, 130, 246, 0.25);
     }
@@ -469,12 +688,7 @@
       left: 0;
       right: 0;
       bottom: 0;
-      background: linear-gradient(
-        90deg,
-        transparent,
-        rgba(255, 255, 255, 0.15),
-        transparent
-      );
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.15), transparent);
       background-size: 200% 100%;
       animation: shimmer 3s ease-in-out infinite;
     }
@@ -491,7 +705,7 @@
 
     .btn-secondary {
       background: transparent;
-      color: #f8fafc;
+      color: var(--text-primary);
       border: 1px solid rgba(148, 163, 184, 0.25);
     }
 
@@ -516,13 +730,13 @@
     .btn-sm {
       padding: 8px 18px;
       font-size: 0.85rem;
-      border-radius: 8px;
+      border-radius: var(--radius-sm);
     }
 
     .btn-nav {
       padding: 8px 20px;
       font-size: 0.875rem;
-      border-radius: 8px;
+      border-radius: var(--radius-sm);
     }
 
     /* Ripple effect */
@@ -535,72 +749,41 @@
       pointer-events: none;
     }
 
-    @keyframes ripple-anim {
-      to {
-        transform: scale(4);
-        opacity: 0;
-      }
-    }
-
-    /* ============================================
-       EYEBROW TEXT
-       ============================================ */
-    .eyebrow {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
+    /* =========================================================
+       TOAST NOTIFICATION
+       ========================================================= */
+    .toast {
+      position: fixed;
+      bottom: 32px;
+      left: 50%;
+      transform: translateX(-50%);
+      padding: 10px 24px;
+      background: rgba(15, 23, 42, 0.95);
+      border: 1px solid var(--color-blue-border);
+      border-radius: var(--radius-full);
+      font-family: var(--font-mono);
       font-size: 0.8rem;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 0.15em;
-      color: #3b82f6;
-      margin-bottom: 20px;
+      color: var(--color-blue);
+      z-index: 9999;
+      pointer-events: none;
+      animation: toast-in 0.3s var(--ease-out-expo) forwards;
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
     }
 
-    .eyebrow::before {
-      content: '';
-      display: block;
-      width: 24px;
-      height: 1px;
-      background: linear-gradient(90deg, #3b82f6, #8b5cf6);
+    .toast.hiding {
+      animation: toast-out 0.3s ease forwards;
     }
 
-    /* ============================================
-       SECTION HEADINGS
-       ============================================ */
-    .section-heading {
-      font-size: clamp(2rem, 4vw, 3rem);
-      font-weight: 700;
-      letter-spacing: -0.03em;
-      margin-bottom: 20px;
-      color: #f8fafc;
-    }
-
-    .section-subheading {
-      font-size: 1.1rem;
-      color: #94a3b8;
-      max-width: 600px;
-      line-height: 1.7;
-    }
-
-    .text-center {
-      text-align: center;
-    }
-
-    .mx-auto {
-      margin-left: auto;
-      margin-right: auto;
-    }
-
-    /* ============================================
+    /* =========================================================
        HERO SECTION
-       ============================================ */
+       ========================================================= */
     .hero {
       min-height: 100vh;
       display: flex;
       align-items: center;
       position: relative;
-      padding-top: 72px;
+      padding-top: var(--nav-height);
       overflow: hidden;
     }
 
@@ -639,12 +822,12 @@
       align-items: center;
       gap: 8px;
       padding: 6px 16px;
-      border-radius: 100px;
-      background: rgba(59, 130, 246, 0.08);
-      border: 1px solid rgba(59, 130, 246, 0.2);
+      border-radius: var(--radius-full);
+      background: var(--color-blue-dim);
+      border: 1px solid var(--color-blue-border);
       font-size: 0.8rem;
       font-weight: 500;
-      color: #94a3b8;
+      color: var(--text-secondary);
       margin-bottom: 28px;
       animation: float 6s ease-in-out infinite;
     }
@@ -653,8 +836,8 @@
       width: 6px;
       height: 6px;
       border-radius: 50%;
-      background: #3b82f6;
-      animation: pulse-glow 2s ease-in-out infinite;
+      background: var(--color-blue);
+      animation: pulse-dot 2s ease-in-out infinite;
     }
 
     .hero-badge .separator {
@@ -670,7 +853,7 @@
     }
 
     .hero h1 .line-2 {
-      background: linear-gradient(135deg, #3b82f6, #8b5cf6, #ec4899, #3b82f6);
+      background: var(--gradient-primary-wide);
       background-size: 300% 300%;
       -webkit-background-clip: text;
       background-clip: text;
@@ -680,7 +863,7 @@
 
     .hero-subtitle {
       font-size: clamp(1rem, 1.5vw, 1.2rem);
-      color: #94a3b8;
+      color: var(--text-secondary);
       line-height: 1.7;
       max-width: 520px;
       margin-bottom: 16px;
@@ -695,12 +878,12 @@
     }
 
     .typewriter-text {
-      font-family: 'JetBrains Mono', monospace;
+      font-family: var(--font-mono);
       font-size: 0.95rem;
-      color: #06b6d4;
+      color: var(--color-cyan);
       white-space: nowrap;
       overflow: hidden;
-      border-right: 2px solid #06b6d4;
+      border-right: 2px solid var(--color-cyan);
       animation: blink 0.8s step-end infinite;
     }
 
@@ -718,50 +901,51 @@
       gap: 12px;
       padding: 10px 18px;
       border-radius: 10px;
-      background: #0f172a;
-      border: 1px solid rgba(148, 163, 184, 0.12);
-      font-family: 'JetBrains Mono', monospace;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border-card);
+      font-family: var(--font-mono);
       font-size: 0.85rem;
-      color: #94a3b8;
+      color: var(--text-secondary);
     }
 
     .terminal-cmd .prompt {
-      color: #3b82f6;
+      color: var(--color-blue);
       user-select: none;
     }
 
     .terminal-cmd .cmd-text {
-      color: #f8fafc;
+      color: var(--text-primary);
     }
 
     .terminal-cmd .copy-btn {
       padding: 4px 8px;
       border-radius: 4px;
-      color: #64748b;
+      color: var(--text-muted);
       transition: all 0.2s ease;
       font-size: 0.75rem;
       cursor: pointer;
       background: transparent;
       border: none;
-      font-family: 'Inter', sans-serif;
+      font-family: var(--font-body);
     }
 
     .terminal-cmd .copy-btn:hover {
-      color: #f8fafc;
+      color: var(--text-primary);
       background: rgba(148, 163, 184, 0.1);
     }
 
     /* Hero floating code card */
     .hero-code-card {
-      background: rgba(15, 23, 42, 0.8);
-      border: 1px solid rgba(148, 163, 184, 0.12);
-      border-radius: 16px;
+      background: var(--bg-card-hover);
+      border: 1px solid var(--border-card);
+      border-radius: var(--radius-lg);
       padding: 28px;
       backdrop-filter: blur(10px);
       -webkit-backdrop-filter: blur(10px);
       animation: slide-in-right 1s ease-out 0.5s both, pulse-glow 4s ease-in-out infinite;
       position: relative;
       overflow: hidden;
+      transition: transform 0.3s var(--ease-smooth), box-shadow 0.3s var(--ease-smooth);
     }
 
     .hero-code-card::before {
@@ -774,13 +958,30 @@
       background: linear-gradient(90deg, transparent, rgba(59, 130, 246, 0.4), transparent);
     }
 
+    /* Card glow effect layer */
+    .hero-code-card .card-glow {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      border-radius: inherit;
+    }
+
+    .hero-code-card:hover .card-glow {
+      opacity: 1;
+    }
+
     .hero-code-card .card-header {
       display: flex;
       align-items: center;
       gap: 8px;
       margin-bottom: 18px;
       padding-bottom: 14px;
-      border-bottom: 1px solid rgba(148, 163, 184, 0.08);
+      border-bottom: 1px solid var(--border-card);
     }
 
     .hero-code-card .card-dot {
@@ -796,28 +997,30 @@
     .hero-code-card .card-title {
       margin-left: 8px;
       font-size: 0.75rem;
-      color: #64748b;
-      font-family: 'JetBrains Mono', monospace;
+      color: var(--text-muted);
+      font-family: var(--font-mono);
     }
 
     .hero-code-card pre {
-      font-family: 'JetBrains Mono', monospace;
+      font-family: var(--font-mono);
       font-size: 0.8rem;
       line-height: 1.7;
-      color: #94a3b8;
+      color: var(--text-secondary);
+      position: relative;
+      z-index: 1;
     }
 
     .hero-code-card .token-key { color: #60a5fa; }
     .hero-code-card .token-string { color: #34d399; }
-    .hero-code-card .token-bracket { color: #64748b; }
+    .hero-code-card .token-bracket { color: var(--text-muted); }
     .hero-code-card .token-number { color: #f472b6; }
     .hero-code-card .token-bool { color: #c084fc; }
 
-    /* ============================================
+    /* =========================================================
        PROBLEM SECTION
-       ============================================ */
+       ========================================================= */
     .problem-section {
-      background: linear-gradient(180deg, #030712 0%, #0f172a 50%, #030712 100%);
+      background: linear-gradient(180deg, var(--bg-primary) 0%, var(--bg-secondary) 50%, var(--bg-primary) 100%);
       position: relative;
     }
 
@@ -828,7 +1031,7 @@
       left: 0;
       right: 0;
       height: 1px;
-      background: linear-gradient(90deg, transparent 10%, rgba(148, 163, 184, 0.08) 50%, transparent 90%);
+      background: linear-gradient(90deg, transparent 10%, var(--border-subtle) 50%, transparent 90%);
     }
 
     .problem-cards {
@@ -840,23 +1043,39 @@
 
     .problem-card {
       padding: 36px 28px;
-      border-radius: 16px;
-      background: rgba(15, 23, 42, 0.5);
-      border: 1px solid rgba(148, 163, 184, 0.08);
-      transition: all 0.3s ease;
+      border-radius: var(--radius-lg);
+      background: var(--bg-card);
+      border: 1px solid var(--border-card);
+      transition: all 0.4s var(--ease-smooth);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .problem-card::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      border-radius: inherit;
     }
 
     .problem-card:hover {
       border-color: rgba(148, 163, 184, 0.15);
-      background: rgba(15, 23, 42, 0.7);
-      transform: translateY(-4px);
+      background: var(--bg-card-hover);
+      transform: translateY(-6px);
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
     }
 
     .problem-card .card-icon {
       width: 48px;
       height: 48px;
-      border-radius: 12px;
-      background: rgba(59, 130, 246, 0.08);
+      border-radius: var(--radius-md);
+      background: var(--color-blue-dim);
       display: flex;
       align-items: center;
       justify-content: center;
@@ -866,25 +1085,25 @@
     .problem-card .card-icon svg {
       width: 24px;
       height: 24px;
-      color: #3b82f6;
+      color: var(--color-blue);
     }
 
     .problem-card h3 {
       font-size: 1.15rem;
       font-weight: 600;
       margin-bottom: 10px;
-      color: #f8fafc;
+      color: var(--text-primary);
     }
 
     .problem-card p {
       font-size: 0.9rem;
-      color: #94a3b8;
+      color: var(--text-secondary);
       line-height: 1.7;
     }
 
-    /* ============================================
+    /* =========================================================
        SOLUTION SECTION
-       ============================================ */
+       ========================================================= */
     .solution-section {
       position: relative;
       overflow: hidden;
@@ -918,13 +1137,13 @@
     .graph-node {
       position: absolute;
       padding: 12px 20px;
-      border-radius: 12px;
-      background: rgba(15, 23, 42, 0.8);
-      border: 1px solid rgba(59, 130, 246, 0.25);
-      font-family: 'JetBrains Mono', monospace;
+      border-radius: var(--radius-md);
+      background: var(--bg-card-hover);
+      border: 1px solid var(--color-blue-border);
+      font-family: var(--font-mono);
       font-size: 0.78rem;
       font-weight: 500;
-      color: #f8fafc;
+      color: var(--text-primary);
       white-space: nowrap;
       z-index: 2;
       transition: all 0.3s ease;
@@ -988,25 +1207,26 @@
 
     .feature-pill {
       padding: 8px 20px;
-      border-radius: 100px;
-      background: rgba(59, 130, 246, 0.06);
+      border-radius: var(--radius-full);
+      background: var(--color-blue-dim);
       border: 1px solid rgba(59, 130, 246, 0.15);
       font-size: 0.85rem;
       font-weight: 500;
-      color: #94a3b8;
+      color: var(--text-secondary);
       transition: all 0.3s ease;
     }
 
     .feature-pill:hover {
       border-color: rgba(59, 130, 246, 0.3);
-      color: #f8fafc;
+      color: var(--text-primary);
+      transform: translateY(-2px);
     }
 
-    /* ============================================
+    /* =========================================================
        HOW IT WORKS SECTION
-       ============================================ */
+       ========================================================= */
     .steps-section {
-      background: linear-gradient(180deg, #030712 0%, #0f172a 50%, #030712 100%);
+      background: linear-gradient(180deg, var(--bg-primary) 0%, var(--bg-secondary) 50%, var(--bg-primary) 100%);
     }
 
     .steps-container {
@@ -1023,8 +1243,8 @@
       top: 48px;
       left: 10%;
       right: 10%;
-      height: 1px;
-      background: linear-gradient(90deg, transparent, rgba(59, 130, 246, 0.2), rgba(139, 92, 246, 0.2), transparent);
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--color-blue-border), var(--color-violet-border), transparent);
     }
 
     .step {
@@ -1039,12 +1259,12 @@
       width: 48px;
       height: 48px;
       border-radius: 14px;
-      background: linear-gradient(135deg, rgba(59, 130, 246, 0.12), rgba(139, 92, 246, 0.12));
-      border: 1px solid rgba(59, 130, 246, 0.2);
-      font-family: 'Space Grotesk', sans-serif;
+      background: linear-gradient(135deg, var(--color-blue-dim), var(--color-violet-dim));
+      border: 1px solid var(--color-blue-border);
+      font-family: var(--font-heading);
       font-size: 0.9rem;
       font-weight: 700;
-      color: #3b82f6;
+      color: var(--color-blue);
       margin-bottom: 24px;
       position: relative;
       z-index: 2;
@@ -1054,23 +1274,23 @@
       width: 40px;
       height: 40px;
       margin: 0 auto 16px;
-      color: #64748b;
+      color: var(--text-muted);
     }
 
     .step h3 {
       font-size: 1.05rem;
       font-weight: 600;
       margin-bottom: 8px;
-      color: #f8fafc;
+      color: var(--text-primary);
     }
 
     .step-code {
-      font-family: 'JetBrains Mono', monospace;
+      font-family: var(--font-mono);
       font-size: 0.78rem;
-      color: #64748b;
-      background: rgba(15, 23, 42, 0.5);
+      color: var(--text-muted);
+      background: var(--bg-card);
       padding: 8px 14px;
-      border-radius: 8px;
+      border-radius: var(--radius-sm);
       border: 1px solid rgba(148, 163, 184, 0.06);
       display: inline-block;
       margin-top: 6px;
@@ -1078,14 +1298,14 @@
 
     .step p {
       font-size: 0.88rem;
-      color: #94a3b8;
+      color: var(--text-secondary);
       line-height: 1.6;
       margin-top: 6px;
     }
 
-    /* ============================================
+    /* =========================================================
        CODE DEMO SECTION
-       ============================================ */
+       ========================================================= */
     .code-section {
       position: relative;
     }
@@ -1093,38 +1313,38 @@
     .code-demo {
       max-width: 800px;
       margin: 56px auto 0;
-      border-radius: 16px;
+      border-radius: var(--radius-lg);
       overflow: hidden;
-      border: 1px solid rgba(148, 163, 184, 0.1);
-      background: #0f172a;
+      border: 1px solid var(--border-subtle);
+      background: var(--bg-code);
       animation: glow-border 4s ease-in-out infinite;
     }
 
     .code-tabs {
       display: flex;
-      border-bottom: 1px solid rgba(148, 163, 184, 0.1);
-      background: rgba(15, 23, 42, 0.8);
+      border-bottom: 1px solid var(--border-subtle);
+      background: var(--bg-card-hover);
     }
 
     .code-tab {
       padding: 14px 24px;
       font-size: 0.85rem;
       font-weight: 500;
-      color: #64748b;
+      color: var(--text-muted);
       cursor: pointer;
       transition: all 0.2s ease;
       border-bottom: 2px solid transparent;
       background: transparent;
-      font-family: 'Inter', sans-serif;
+      font-family: var(--font-body);
     }
 
     .code-tab:hover {
-      color: #94a3b8;
+      color: var(--text-secondary);
     }
 
     .code-tab.active {
-      color: #f8fafc;
-      border-bottom-color: #3b82f6;
+      color: var(--text-primary);
+      border-bottom-color: var(--color-blue);
     }
 
     .code-tab-actions {
@@ -1139,16 +1359,16 @@
       border-radius: 6px;
       font-size: 0.78rem;
       font-weight: 500;
-      color: #64748b;
+      color: var(--text-muted);
       cursor: pointer;
       transition: all 0.2s ease;
       background: transparent;
-      border: 1px solid rgba(148, 163, 184, 0.1);
-      font-family: 'Inter', sans-serif;
+      border: 1px solid var(--border-subtle);
+      font-family: var(--font-body);
     }
 
     .code-copy-btn:hover {
-      color: #f8fafc;
+      color: var(--text-primary);
       border-color: rgba(148, 163, 184, 0.2);
       background: rgba(148, 163, 184, 0.05);
     }
@@ -1164,7 +1384,7 @@
     }
 
     .code-panel pre {
-      font-family: 'JetBrains Mono', monospace;
+      font-family: var(--font-mono);
       font-size: 0.82rem;
       line-height: 1.8;
       color: #e2e8f0;
@@ -1173,21 +1393,409 @@
     }
 
     /* Syntax highlighting tokens */
-    .tk-kw { color: #c084fc; }   /* keyword */
-    .tk-fn { color: #60a5fa; }   /* function */
-    .tk-str { color: #34d399; }  /* string */
-    .tk-cm { color: #64748b; }   /* comment */
-    .tk-type { color: #f472b6; } /* type */
-    .tk-num { color: #fb923c; }  /* number */
-    .tk-op { color: #94a3b8; }   /* operator */
-    .tk-prop { color: #7dd3fc; } /* property */
-    .tk-const { color: #f8fafc; } /* constant/variable name */
+    .tk-kw { color: var(--tk-keyword); }
+    .tk-fn { color: var(--tk-function); }
+    .tk-str { color: var(--tk-string); }
+    .tk-cm { color: var(--tk-comment); }
+    .tk-type { color: var(--tk-type); }
+    .tk-num { color: var(--tk-number); }
+    .tk-op { color: var(--tk-operator); }
+    .tk-prop { color: var(--tk-property); }
+    .tk-const { color: var(--tk-constant); }
+    .tk-bracket { color: var(--tk-bracket); }
 
-    /* ============================================
+    /* =========================================================
+       INSTALL SECTION
+       ========================================================= */
+    .install-section {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .install-section::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 700px;
+      height: 500px;
+      background: radial-gradient(circle, rgba(59, 130, 246, 0.05) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .install-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 32px;
+      margin-top: 56px;
+    }
+
+    .install-card {
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      border: 1px solid var(--border-subtle);
+      background: var(--bg-code);
+      transition: all 0.4s var(--ease-smooth);
+      position: relative;
+    }
+
+    .install-card::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      border-radius: inherit;
+    }
+
+    .install-card:hover {
+      border-color: var(--color-blue-border);
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+      transform: translateY(-4px);
+    }
+
+    .install-card-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 24px;
+      background: var(--bg-card-hover);
+      border-bottom: 1px solid var(--border-subtle);
+    }
+
+    .install-lang {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .install-lang-icon {
+      width: 28px;
+      height: 28px;
+      border-radius: var(--radius-sm);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.85rem;
+      font-weight: 700;
+      font-family: var(--font-heading);
+    }
+
+    .install-lang-icon.python {
+      background: var(--color-blue-dim);
+      color: #60a5fa;
+    }
+
+    .install-lang-icon.typescript {
+      background: var(--color-violet-dim);
+      color: #c084fc;
+    }
+
+    .install-lang-name {
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+
+    .install-pkg-badge {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      padding: 4px 10px;
+      border-radius: 6px;
+      background: rgba(148, 163, 184, 0.06);
+      border: 1px solid var(--border-card);
+    }
+
+    .install-card-body {
+      padding: 24px;
+    }
+
+    .install-cmd {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 14px 18px;
+      border-radius: 10px;
+      background: rgba(3, 7, 18, 0.6);
+      border: 1px solid var(--border-card);
+      margin-bottom: 20px;
+      font-family: var(--font-mono);
+      font-size: 0.85rem;
+    }
+
+    .install-cmd .prompt {
+      color: var(--color-blue);
+      user-select: none;
+    }
+
+    .install-cmd .cmd-text {
+      color: var(--text-primary);
+      flex: 1;
+    }
+
+    .install-cmd .copy-btn {
+      padding: 4px 8px;
+      border-radius: 4px;
+      color: var(--text-muted);
+      transition: all 0.2s ease;
+      font-size: 0.75rem;
+      cursor: pointer;
+      background: transparent;
+      border: none;
+      font-family: var(--font-body);
+    }
+
+    .install-cmd .copy-btn:hover {
+      color: var(--text-primary);
+      background: rgba(148, 163, 184, 0.1);
+    }
+
+    .install-code pre {
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      line-height: 1.8;
+      color: #e2e8f0;
+      white-space: pre;
+      overflow-x: auto;
+    }
+
+    /* =========================================================
+       INTEGRATIONS SECTION
+       ========================================================= */
+    .integrations-section {
+      background: linear-gradient(180deg, var(--bg-primary) 0%, var(--bg-secondary) 50%, var(--bg-primary) 100%);
+      position: relative;
+    }
+
+    .integrations-section::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent 10%, var(--border-subtle) 50%, transparent 90%);
+    }
+
+    .integrations-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 32px;
+      margin-top: 56px;
+    }
+
+    .integration-card {
+      padding: 36px 32px;
+      border-radius: var(--radius-lg);
+      background: var(--bg-card);
+      border: 1px solid var(--border-card);
+      transition: all 0.4s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .integration-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .integration-card::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      border-radius: inherit;
+    }
+
+    .integration-card:hover::before {
+      opacity: 1;
+    }
+
+    .integration-card:hover {
+      border-color: rgba(59, 130, 246, 0.2);
+      background: var(--bg-card-hover);
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+      transform: translateY(-4px);
+    }
+
+    .integration-card.chatgpt::before { background: linear-gradient(90deg, #10a37f, #1a7f64); }
+    .integration-card.claude::before { background: linear-gradient(90deg, #d97706, #f59e0b); }
+    .integration-card.crewai::before { background: linear-gradient(90deg, #ec4899, #f472b6); }
+    .integration-card.langchain::before { background: linear-gradient(90deg, #22c55e, #4ade80); }
+
+    .integration-header {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 16px;
+    }
+
+    .integration-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: var(--radius-md);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-heading);
+      font-weight: 700;
+      font-size: 1.1rem;
+    }
+
+    .integration-icon.chatgpt { background: rgba(16, 163, 127, 0.12); color: #10a37f; }
+    .integration-icon.claude { background: rgba(217, 119, 6, 0.12); color: #d97706; }
+    .integration-icon.crewai { background: rgba(236, 72, 153, 0.12); color: #ec4899; }
+    .integration-icon.langchain { background: rgba(34, 197, 94, 0.12); color: #22c55e; }
+
+    .integration-card h3 {
+      font-size: 1.15rem;
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+
+    .integration-card > p {
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+      line-height: 1.7;
+      margin-bottom: 20px;
+    }
+
+    .integration-code {
+      border-radius: 10px;
+      background: rgba(3, 7, 18, 0.6);
+      border: 1px solid var(--border-card);
+      padding: 18px 20px;
+      overflow-x: auto;
+    }
+
+    .integration-code pre {
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+      line-height: 1.7;
+      color: #e2e8f0;
+      white-space: pre;
+    }
+
+    .integration-tag {
+      display: inline-block;
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      color: var(--text-muted);
+      padding: 3px 8px;
+      border-radius: 4px;
+      background: rgba(148, 163, 184, 0.06);
+      border: 1px solid var(--border-card);
+      margin-bottom: 12px;
+    }
+
+    /* =========================================================
+       USE CASES SECTION
+       ========================================================= */
+    .use-cases-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 24px;
+      margin-top: 56px;
+    }
+
+    .use-case-card {
+      padding: 36px 32px;
+      border-radius: var(--radius-lg);
+      background: var(--bg-card);
+      border: 1px solid var(--border-card);
+      transition: all 0.4s ease;
+      position: relative;
+      overflow: hidden;
+      transform-style: preserve-3d;
+    }
+
+    .use-case-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: var(--gradient-primary);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .use-case-card::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      border-radius: inherit;
+    }
+
+    .use-case-card:hover::before {
+      opacity: 1;
+    }
+
+    .use-case-card:hover {
+      border-color: rgba(59, 130, 246, 0.2);
+      background: var(--bg-card-hover);
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    }
+
+    .use-case-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: var(--radius-md);
+      background: linear-gradient(135deg, var(--color-blue-dim), var(--color-violet-dim));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 20px;
+    }
+
+    .use-case-icon svg {
+      width: 22px;
+      height: 22px;
+      color: var(--color-blue);
+    }
+
+    .use-case-card h3 {
+      font-size: 1.15rem;
+      font-weight: 600;
+      margin-bottom: 10px;
+      color: var(--text-primary);
+    }
+
+    .use-case-card p {
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+      line-height: 1.7;
+    }
+
+    /* =========================================================
        STATS SECTION
-       ============================================ */
+       ========================================================= */
     .stats-section {
-      background: linear-gradient(180deg, #030712, #0f172a, #030712);
+      background: linear-gradient(180deg, var(--bg-primary), var(--bg-secondary), var(--bg-primary));
       padding: 100px 0;
       position: relative;
     }
@@ -1199,7 +1807,7 @@
       left: 0;
       right: 0;
       height: 1px;
-      background: linear-gradient(90deg, transparent 10%, rgba(148, 163, 184, 0.08) 50%, transparent 90%);
+      background: linear-gradient(90deg, transparent 10%, var(--border-subtle) 50%, transparent 90%);
     }
 
     .stats-section::before { top: 0; }
@@ -1218,11 +1826,11 @@
     }
 
     .stat-number {
-      font-family: 'Space Grotesk', sans-serif;
+      font-family: var(--font-heading);
       font-size: 3.5rem;
       font-weight: 700;
       letter-spacing: -0.03em;
-      background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+      background: var(--gradient-primary);
       -webkit-background-clip: text;
       background-clip: text;
       -webkit-text-fill-color: transparent;
@@ -1232,7 +1840,7 @@
 
     .stat-label {
       font-size: 0.9rem;
-      color: #64748b;
+      color: var(--text-muted);
       font-weight: 500;
     }
 
@@ -1242,7 +1850,7 @@
 
     .works-with-label {
       font-size: 0.85rem;
-      color: #64748b;
+      color: var(--text-muted);
       text-transform: uppercase;
       letter-spacing: 0.1em;
       font-weight: 600;
@@ -1258,7 +1866,7 @@
     }
 
     .works-with-item {
-      font-family: 'Space Grotesk', sans-serif;
+      font-family: var(--font-heading);
       font-size: 1.1rem;
       font-weight: 600;
       color: #475569;
@@ -1266,88 +1874,14 @@
     }
 
     .works-with-item:hover {
-      color: #94a3b8;
+      color: var(--text-secondary);
     }
 
-    /* ============================================
-       USE CASES SECTION
-       ============================================ */
-    .use-cases-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 24px;
-      margin-top: 56px;
-    }
-
-    .use-case-card {
-      padding: 36px 32px;
-      border-radius: 16px;
-      background: rgba(15, 23, 42, 0.5);
-      border: 1px solid rgba(148, 163, 184, 0.08);
-      transition: all 0.4s ease;
-      position: relative;
-      overflow: hidden;
-      transform-style: preserve-3d;
-      perspective: 1000px;
-    }
-
-    .use-case-card::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 2px;
-      background: linear-gradient(90deg, #3b82f6, #8b5cf6);
-      opacity: 0;
-      transition: opacity 0.3s ease;
-    }
-
-    .use-case-card:hover::before {
-      opacity: 1;
-    }
-
-    .use-case-card:hover {
-      border-color: rgba(59, 130, 246, 0.2);
-      background: rgba(15, 23, 42, 0.7);
-      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-    }
-
-    .use-case-icon {
-      width: 44px;
-      height: 44px;
-      border-radius: 12px;
-      background: linear-gradient(135deg, rgba(59, 130, 246, 0.1), rgba(139, 92, 246, 0.1));
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin-bottom: 20px;
-    }
-
-    .use-case-icon svg {
-      width: 22px;
-      height: 22px;
-      color: #3b82f6;
-    }
-
-    .use-case-card h3 {
-      font-size: 1.15rem;
-      font-weight: 600;
-      margin-bottom: 10px;
-      color: #f8fafc;
-    }
-
-    .use-case-card p {
-      font-size: 0.9rem;
-      color: #94a3b8;
-      line-height: 1.7;
-    }
-
-    /* ============================================
-       PLATFORM/ARCHITECTURE SECTION
-       ============================================ */
+    /* =========================================================
+       PLATFORM SECTION
+       ========================================================= */
     .platform-section {
-      background: linear-gradient(180deg, #030712, #0f172a, #030712);
+      background: linear-gradient(180deg, var(--bg-primary), var(--bg-secondary), var(--bg-primary));
     }
 
     .platform-grid {
@@ -1359,23 +1893,39 @@
 
     .platform-card {
       padding: 32px 28px;
-      border-radius: 16px;
+      border-radius: var(--radius-lg);
       background: rgba(15, 23, 42, 0.4);
-      border: 1px solid rgba(148, 163, 184, 0.08);
-      transition: all 0.3s ease;
+      border: 1px solid var(--border-card);
+      transition: all 0.4s var(--ease-smooth);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .platform-card::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      border-radius: inherit;
     }
 
     .platform-card:hover {
       border-color: rgba(148, 163, 184, 0.15);
-      background: rgba(15, 23, 42, 0.6);
-      transform: translateY(-4px);
+      background: var(--bg-card);
+      transform: translateY(-6px);
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
     }
 
     .platform-card .pkg-name {
-      font-family: 'JetBrains Mono', monospace;
+      font-family: var(--font-mono);
       font-size: 0.85rem;
       font-weight: 600;
-      color: #3b82f6;
+      color: var(--color-blue);
       margin-bottom: 12px;
       display: block;
     }
@@ -1384,19 +1934,19 @@
       font-size: 1rem;
       font-weight: 600;
       margin-bottom: 8px;
-      color: #f8fafc;
+      color: var(--text-primary);
       display: none;
     }
 
     .platform-card p {
       font-size: 0.88rem;
-      color: #94a3b8;
+      color: var(--text-secondary);
       line-height: 1.7;
     }
 
-    /* ============================================
+    /* =========================================================
        CTA SECTION
-       ============================================ */
+       ========================================================= */
     .cta-section {
       position: relative;
       overflow: hidden;
@@ -1417,10 +1967,21 @@
     .cta-box {
       text-align: center;
       padding: 80px 40px;
-      border-radius: 24px;
+      border-radius: var(--radius-xl);
       background: linear-gradient(135deg, rgba(59, 130, 246, 0.05), rgba(139, 92, 246, 0.05));
-      border: 1px solid rgba(148, 163, 184, 0.08);
+      border: 1px solid var(--border-card);
       position: relative;
+      overflow: hidden;
+    }
+
+    .cta-box::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(59, 130, 246, 0.3), rgba(139, 92, 246, 0.3), transparent);
     }
 
     .cta-box h2 {
@@ -1447,12 +2008,12 @@
       justify-content: center;
     }
 
-    /* ============================================
+    /* =========================================================
        FOOTER
-       ============================================ */
+       ========================================================= */
     .site-footer {
-      background: #0f172a;
-      border-top: 1px solid rgba(148, 163, 184, 0.08);
+      background: var(--bg-secondary);
+      border-top: 1px solid var(--border-card);
       padding: 80px 0 32px;
     }
 
@@ -1469,7 +2030,7 @@
 
     .footer-brand p {
       font-size: 0.9rem;
-      color: #64748b;
+      color: var(--text-muted);
       line-height: 1.7;
       max-width: 280px;
     }
@@ -1479,12 +2040,8 @@
       font-weight: 600;
       text-transform: uppercase;
       letter-spacing: 0.08em;
-      color: #f8fafc;
+      color: var(--text-primary);
       margin-bottom: 20px;
-    }
-
-    .footer-col ul {
-      list-style: none;
     }
 
     .footer-col li {
@@ -1493,12 +2050,12 @@
 
     .footer-col a {
       font-size: 0.88rem;
-      color: #64748b;
+      color: var(--text-muted);
       transition: color 0.2s ease;
     }
 
     .footer-col a:hover {
-      color: #94a3b8;
+      color: var(--text-secondary);
     }
 
     .footer-bottom {
@@ -1528,12 +2085,27 @@
     }
 
     .footer-bottom-links a:hover {
-      color: #94a3b8;
+      color: var(--text-secondary);
     }
 
-    /* ============================================
-       RESPONSIVE
-       ============================================ */
+    /* =========================================================
+       SCREEN READER ONLY
+       ========================================================= */
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border-width: 0;
+    }
+
+    /* =========================================================
+       RESPONSIVE — 1024px
+       ========================================================= */
     @media (max-width: 1024px) {
       .hero .container {
         grid-template-columns: 1fr;
@@ -1574,10 +2146,21 @@
       .footer-grid {
         grid-template-columns: repeat(2, 1fr);
       }
+
+      .install-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .integrations-grid {
+        grid-template-columns: 1fr;
+      }
     }
 
+    /* =========================================================
+       RESPONSIVE — 768px
+       ========================================================= */
     @media (max-width: 768px) {
-      section {
+      .section {
         padding: 80px 0;
       }
 
@@ -1595,11 +2178,6 @@
 
       .mobile-menu-overlay {
         display: block;
-        pointer-events: none;
-      }
-
-      .mobile-menu-overlay.open {
-        pointer-events: all;
       }
 
       .problem-cards {
@@ -1649,8 +2227,19 @@
       .works-with-logos {
         gap: 24px;
       }
+
+      .install-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .integrations-grid {
+        grid-template-columns: 1fr;
+      }
     }
 
+    /* =========================================================
+       RESPONSIVE — 480px
+       ========================================================= */
     @media (max-width: 480px) {
       .container {
         padding: 0 16px;
@@ -1681,346 +2270,25 @@
       .stats-grid {
         grid-template-columns: repeat(2, 1fr);
       }
+
+      .hero-buttons {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .cta-buttons {
+        flex-direction: column;
+        align-items: center;
+      }
     }
 
+    /* =========================================================
+       LARGE SCREENS
+       ========================================================= */
     @media (min-width: 2000px) {
       html {
         font-size: 18px;
       }
-    }
-
-    /* ============================================
-       INSTALL SECTION
-       ============================================ */
-    .install-section {
-      position: relative;
-      overflow: hidden;
-    }
-
-    .install-section::before {
-      content: '';
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      width: 700px;
-      height: 500px;
-      background: radial-gradient(circle, rgba(59, 130, 246, 0.05) 0%, transparent 70%);
-      pointer-events: none;
-    }
-
-    .install-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 32px;
-      margin-top: 56px;
-    }
-
-    .install-card {
-      border-radius: 16px;
-      overflow: hidden;
-      border: 1px solid rgba(148, 163, 184, 0.1);
-      background: #0f172a;
-      transition: all 0.3s ease;
-    }
-
-    .install-card:hover {
-      border-color: rgba(59, 130, 246, 0.25);
-      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
-    }
-
-    .install-card-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 16px 24px;
-      background: rgba(15, 23, 42, 0.8);
-      border-bottom: 1px solid rgba(148, 163, 184, 0.1);
-    }
-
-    .install-lang {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .install-lang-icon {
-      width: 28px;
-      height: 28px;
-      border-radius: 8px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 0.85rem;
-      font-weight: 700;
-      font-family: 'Space Grotesk', sans-serif;
-    }
-
-    .install-lang-icon.python {
-      background: rgba(59, 130, 246, 0.12);
-      color: #60a5fa;
-    }
-
-    .install-lang-icon.typescript {
-      background: rgba(139, 92, 246, 0.12);
-      color: #c084fc;
-    }
-
-    .install-lang-name {
-      font-size: 0.9rem;
-      font-weight: 600;
-      color: #f8fafc;
-    }
-
-    .install-pkg-badge {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.75rem;
-      color: #64748b;
-      padding: 4px 10px;
-      border-radius: 6px;
-      background: rgba(148, 163, 184, 0.06);
-      border: 1px solid rgba(148, 163, 184, 0.08);
-    }
-
-    .install-card-body {
-      padding: 24px;
-    }
-
-    .install-cmd {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      padding: 14px 18px;
-      border-radius: 10px;
-      background: rgba(3, 7, 18, 0.6);
-      border: 1px solid rgba(148, 163, 184, 0.08);
-      margin-bottom: 20px;
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.85rem;
-    }
-
-    .install-cmd .prompt {
-      color: #3b82f6;
-      user-select: none;
-    }
-
-    .install-cmd .cmd-text {
-      color: #f8fafc;
-      flex: 1;
-    }
-
-    .install-cmd .copy-btn {
-      padding: 4px 8px;
-      border-radius: 4px;
-      color: #64748b;
-      transition: all 0.2s ease;
-      font-size: 0.75rem;
-      cursor: pointer;
-      background: transparent;
-      border: none;
-      font-family: 'Inter', sans-serif;
-    }
-
-    .install-cmd .copy-btn:hover {
-      color: #f8fafc;
-      background: rgba(148, 163, 184, 0.1);
-    }
-
-    .install-code pre {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.8rem;
-      line-height: 1.8;
-      color: #e2e8f0;
-      white-space: pre;
-      overflow-x: auto;
-    }
-
-    /* ============================================
-       INTEGRATIONS SECTION
-       ============================================ */
-    .integrations-section {
-      background: linear-gradient(180deg, #030712 0%, #0f172a 50%, #030712 100%);
-      position: relative;
-    }
-
-    .integrations-section::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 1px;
-      background: linear-gradient(90deg, transparent 10%, rgba(148, 163, 184, 0.08) 50%, transparent 90%);
-    }
-
-    .integrations-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 32px;
-      margin-top: 56px;
-    }
-
-    .integration-card {
-      padding: 36px 32px;
-      border-radius: 16px;
-      background: rgba(15, 23, 42, 0.5);
-      border: 1px solid rgba(148, 163, 184, 0.08);
-      transition: all 0.4s ease;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .integration-card::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      height: 2px;
-      opacity: 0;
-      transition: opacity 0.3s ease;
-    }
-
-    .integration-card:hover::before {
-      opacity: 1;
-    }
-
-    .integration-card:hover {
-      border-color: rgba(59, 130, 246, 0.2);
-      background: rgba(15, 23, 42, 0.7);
-      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-      transform: translateY(-4px);
-    }
-
-    .integration-card.chatgpt::before {
-      background: linear-gradient(90deg, #10a37f, #1a7f64);
-    }
-
-    .integration-card.claude::before {
-      background: linear-gradient(90deg, #d97706, #f59e0b);
-    }
-
-    .integration-card.crewai::before {
-      background: linear-gradient(90deg, #ec4899, #f472b6);
-    }
-
-    .integration-card.langchain::before {
-      background: linear-gradient(90deg, #22c55e, #4ade80);
-    }
-
-    .integration-header {
-      display: flex;
-      align-items: center;
-      gap: 14px;
-      margin-bottom: 16px;
-    }
-
-    .integration-icon {
-      width: 44px;
-      height: 44px;
-      border-radius: 12px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-family: 'Space Grotesk', sans-serif;
-      font-weight: 700;
-      font-size: 1.1rem;
-    }
-
-    .integration-icon.chatgpt {
-      background: rgba(16, 163, 127, 0.12);
-      color: #10a37f;
-    }
-
-    .integration-icon.claude {
-      background: rgba(217, 119, 6, 0.12);
-      color: #d97706;
-    }
-
-    .integration-icon.crewai {
-      background: rgba(236, 72, 153, 0.12);
-      color: #ec4899;
-    }
-
-    .integration-icon.langchain {
-      background: rgba(34, 197, 94, 0.12);
-      color: #22c55e;
-    }
-
-    .integration-card h3 {
-      font-size: 1.15rem;
-      font-weight: 600;
-      color: #f8fafc;
-    }
-
-    .integration-card > p {
-      font-size: 0.9rem;
-      color: #94a3b8;
-      line-height: 1.7;
-      margin-bottom: 20px;
-    }
-
-    .integration-code {
-      border-radius: 10px;
-      background: rgba(3, 7, 18, 0.6);
-      border: 1px solid rgba(148, 163, 184, 0.08);
-      padding: 18px 20px;
-      overflow-x: auto;
-    }
-
-    .integration-code pre {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.78rem;
-      line-height: 1.7;
-      color: #e2e8f0;
-      white-space: pre;
-    }
-
-    .integration-tag {
-      display: inline-block;
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 0.72rem;
-      color: #64748b;
-      padding: 3px 8px;
-      border-radius: 4px;
-      background: rgba(148, 163, 184, 0.06);
-      border: 1px solid rgba(148, 163, 184, 0.08);
-      margin-bottom: 12px;
-    }
-
-    @media (max-width: 1024px) {
-      .install-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .integrations-grid {
-        grid-template-columns: 1fr;
-      }
-    }
-
-    @media (max-width: 768px) {
-      .install-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .integrations-grid {
-        grid-template-columns: 1fr;
-      }
-    }
-
-    /* ============================================
-       UTILITY
-       ============================================ */
-    .sr-only {
-      position: absolute;
-      width: 1px;
-      height: 1px;
-      padding: 0;
-      margin: -1px;
-      overflow: hidden;
-      clip: rect(0, 0, 0, 0);
-      white-space: nowrap;
-      border-width: 0;
     }
   </style>
 </head>
@@ -2031,19 +2299,21 @@
 
   <!-- Background Elements -->
   <div class="dot-grid"></div>
-  <div class="floating-shapes">
-    <div class="shape shape-1"></div>
-    <div class="shape shape-2"></div>
-    <div class="shape shape-3"></div>
-    <div class="shape shape-4"></div>
+  <div class="bg-shapes">
+    <div class="bg-shape bg-shape--circle bg-shape--1"></div>
+    <div class="bg-shape bg-shape--square bg-shape--2"></div>
+    <div class="bg-shape bg-shape--circle bg-shape--3"></div>
+    <div class="bg-shape bg-shape--circle bg-shape--4"></div>
+    <div class="bg-shape bg-shape--triangle bg-shape--5"></div>
+    <div class="bg-shape bg-shape--square bg-shape--6"></div>
   </div>
 
   <!-- ==========================================
        NAVIGATION
        ========================================== -->
-  <nav class="navbar" id="navbar">
+  <nav class="navbar" id="navbar" role="navigation" aria-label="Main navigation">
     <div class="navbar-inner">
-      <a href="#" class="navbar-brand">
+      <a href="#" class="navbar-brand" aria-label="GoalOS Home">
         <div class="navbar-logo">
           <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
             <defs>
@@ -2081,7 +2351,7 @@
         <a href="#cta" class="btn btn-primary btn-nav">Get Started</a>
       </div>
 
-      <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+      <button class="hamburger" id="hamburger" aria-label="Toggle menu" aria-expanded="false">
         <span></span>
         <span></span>
         <span></span>
@@ -2091,7 +2361,7 @@
 
   <!-- Mobile Menu -->
   <div class="mobile-menu-overlay" id="mobileOverlay"></div>
-  <div class="mobile-menu" id="mobileMenu">
+  <div class="mobile-menu" id="mobileMenu" role="dialog" aria-label="Mobile navigation">
     <a href="#features" class="mobile-menu-link">Features</a>
     <a href="#how-it-works" class="mobile-menu-link">How It Works</a>
     <a href="#install" class="mobile-menu-link">Install</a>
@@ -2107,7 +2377,7 @@
   <!-- ==========================================
        HERO SECTION
        ========================================== -->
-  <section class="hero" id="hero">
+  <section class="hero section" id="hero">
     <div class="hero-bg-gradient"></div>
     <div class="container">
       <div class="hero-content">
@@ -2146,13 +2416,14 @@
           <div class="terminal-cmd">
             <span class="prompt">$</span>
             <span class="cmd-text">npx goalos init</span>
-            <button class="copy-btn" onclick="copyToClipboard('npx goalos init', this)">Copy</button>
+            <button class="copy-btn" data-copy="npx goalos init">Copy</button>
           </div>
         </div>
       </div>
 
       <div class="hero-visual">
-        <div class="hero-code-card">
+        <div class="hero-code-card" data-tilt data-glow>
+          <div class="card-glow"></div>
           <div class="card-header">
             <span class="card-dot card-dot-red"></span>
             <span class="card-dot card-dot-yellow"></span>
@@ -2179,7 +2450,7 @@
   <!-- ==========================================
        PROBLEM SECTION
        ========================================== -->
-  <section class="problem-section" id="features">
+  <section class="problem-section section" id="features">
     <div class="container">
       <div class="text-center">
         <div class="eyebrow reveal">The Problem</div>
@@ -2190,7 +2461,7 @@
       </div>
 
       <div class="problem-cards">
-        <div class="problem-card reveal reveal-delay-1">
+        <div class="problem-card reveal reveal-delay-1" data-glow>
           <div class="card-icon">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
               <rect x="3" y="3" width="7" height="7" rx="1"/>
@@ -2203,7 +2474,7 @@
           <p>Each AI tool optimizes in isolation. Your coding agent doesn't know about your Friday pitch. Your writing assistant ignores your product roadmap. They all act like the only tool you use.</p>
         </div>
 
-        <div class="problem-card reveal reveal-delay-2">
+        <div class="problem-card reveal reveal-delay-2" data-glow>
           <div class="card-icon">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
               <path d="M12 2L2 7l10 5 10-5-10-5z"/>
@@ -2215,7 +2486,7 @@
           <p>Memory tools store facts about you. But knowing you're a data scientist doesn't tell an agent you're launching a startup this month. Facts describe what is. Intent describes what you're trying to achieve.</p>
         </div>
 
-        <div class="problem-card reveal reveal-delay-3">
+        <div class="problem-card reveal reveal-delay-3" data-glow>
           <div class="card-icon">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
               <circle cx="12" cy="12" r="10"/>
@@ -2232,7 +2503,7 @@
   <!-- ==========================================
        SOLUTION SECTION
        ========================================== -->
-  <section class="solution-section">
+  <section class="solution-section section">
     <div class="container">
       <div class="text-center">
         <div class="eyebrow reveal">The Solution</div>
@@ -2274,7 +2545,7 @@
   <!-- ==========================================
        HOW IT WORKS SECTION
        ========================================== -->
-  <section class="steps-section" id="how-it-works">
+  <section class="steps-section section" id="how-it-works">
     <div class="container">
       <div class="text-center">
         <div class="eyebrow reveal">How It Works</div>
@@ -2341,7 +2612,7 @@
   <!-- ==========================================
        CODE DEMO SECTION
        ========================================== -->
-  <section class="code-section">
+  <section class="code-section section">
     <div class="container">
       <div class="text-center">
         <div class="eyebrow reveal">See It In Action</div>
@@ -2353,11 +2624,11 @@
 
       <div class="code-demo reveal reveal-delay-3">
         <div class="code-tabs">
-          <button class="code-tab active" data-tab="ts" onclick="switchTab('ts')">TypeScript</button>
-          <button class="code-tab" data-tab="py" onclick="switchTab('py')">Python</button>
-          <button class="code-tab" data-tab="cli" onclick="switchTab('cli')">CLI</button>
+          <button class="code-tab active" data-tab="ts">TypeScript</button>
+          <button class="code-tab" data-tab="py">Python</button>
+          <button class="code-tab" data-tab="cli">CLI</button>
           <div class="code-tab-actions">
-            <button class="code-copy-btn" onclick="copyCodeBlock()">Copy</button>
+            <button class="code-copy-btn" id="codeCopyBtn">Copy</button>
           </div>
         </div>
 
@@ -2458,7 +2729,7 @@
   <!-- ==========================================
        INSTALL SECTION
        ========================================== -->
-  <section class="install-section" id="install">
+  <section class="install-section section" id="install">
     <div class="container">
       <div class="text-center">
         <div class="eyebrow reveal">Quick Start</div>
@@ -2470,7 +2741,7 @@
 
       <div class="install-grid">
         <!-- Python Card -->
-        <div class="install-card reveal reveal-delay-3">
+        <div class="install-card reveal reveal-delay-3" data-glow>
           <div class="install-card-header">
             <div class="install-lang">
               <div class="install-lang-icon python">Py</div>
@@ -2482,7 +2753,7 @@
             <div class="install-cmd">
               <span class="prompt">$</span>
               <span class="cmd-text">pip install goalos</span>
-              <button class="copy-btn" onclick="copyToClipboard('pip install goalos', this)">Copy</button>
+              <button class="copy-btn" data-copy="pip install goalos">Copy</button>
             </div>
             <div class="install-code">
               <pre><span class="tk-kw">from</span> goalos <span class="tk-kw">import</span> GoalManager
@@ -2504,7 +2775,7 @@
         </div>
 
         <!-- TypeScript Card -->
-        <div class="install-card reveal reveal-delay-4">
+        <div class="install-card reveal reveal-delay-4" data-glow>
           <div class="install-card-header">
             <div class="install-lang">
               <div class="install-lang-icon typescript">TS</div>
@@ -2516,7 +2787,7 @@
             <div class="install-cmd">
               <span class="prompt">$</span>
               <span class="cmd-text">npm install @goalos/core</span>
-              <button class="copy-btn" onclick="copyToClipboard('npm install @goalos/core', this)">Copy</button>
+              <button class="copy-btn" data-copy="npm install @goalos/core">Copy</button>
             </div>
             <div class="install-code">
               <pre><span class="tk-kw">import</span> <span class="tk-bracket">{</span> IntentGraph <span class="tk-bracket">}</span> <span class="tk-kw">from</span> <span class="tk-str">'@goalos/core'</span>;
@@ -2543,7 +2814,7 @@
   <!-- ==========================================
        INTEGRATIONS SECTION
        ========================================== -->
-  <section class="integrations-section" id="integrations">
+  <section class="integrations-section section" id="integrations">
     <div class="container">
       <div class="text-center">
         <div class="eyebrow reveal">Ecosystem</div>
@@ -2555,7 +2826,7 @@
 
       <div class="integrations-grid">
         <!-- Claude MCP Integration -->
-        <div class="integration-card claude reveal reveal-delay-1">
+        <div class="integration-card claude reveal reveal-delay-1" data-glow>
           <div class="integration-header">
             <div class="integration-icon claude">
               <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
@@ -2581,7 +2852,7 @@
         </div>
 
         <!-- ChatGPT OpenAPI Integration -->
-        <div class="integration-card chatgpt reveal reveal-delay-2">
+        <div class="integration-card chatgpt reveal reveal-delay-2" data-glow>
           <div class="integration-header">
             <div class="integration-icon chatgpt">
               <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
@@ -2608,7 +2879,7 @@
         </div>
 
         <!-- CrewAI Integration -->
-        <div class="integration-card crewai reveal reveal-delay-3">
+        <div class="integration-card crewai reveal reveal-delay-3" data-glow>
           <div class="integration-header">
             <div class="integration-icon crewai">
               <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
@@ -2639,7 +2910,7 @@
         </div>
 
         <!-- LangChain Integration -->
-        <div class="integration-card langchain reveal reveal-delay-4">
+        <div class="integration-card langchain reveal reveal-delay-4" data-glow>
           <div class="integration-header">
             <div class="integration-icon langchain">
               <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
@@ -2670,9 +2941,118 @@
   </section>
 
   <!-- ==========================================
+       USE CASES SECTION
+       ========================================== -->
+  <section class="section" id="use-cases">
+    <div class="container">
+      <div class="text-center">
+        <div class="eyebrow reveal">Use Cases</div>
+        <h2 class="section-heading reveal reveal-delay-1">Built for How You Actually Work</h2>
+        <p class="section-subheading mx-auto reveal reveal-delay-2">
+          Whether you're an individual power user or leading a team, GoalOS adapts to your workflow. Define intent at any scale.
+        </p>
+      </div>
+
+      <div class="use-cases-grid">
+        <div class="use-case-card reveal reveal-delay-1" data-tilt data-glow>
+          <div class="use-case-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+              <circle cx="9" cy="7" r="4"/>
+              <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+              <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+            </svg>
+          </div>
+          <h3>AI Power Users</h3>
+          <p>Connect five or more AI tools through a single intent graph. Every tool you add makes every other tool more useful. Stop re-explaining your priorities and start compounding your leverage.</p>
+        </div>
+
+        <div class="use-case-card reveal reveal-delay-2" data-tilt data-glow>
+          <div class="use-case-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="16 18 22 12 16 6"/>
+              <polyline points="8 6 2 12 8 18"/>
+            </svg>
+          </div>
+          <h3>Agent Developers</h3>
+          <p>Build agents that understand user context from day one. Read the intent graph to know what matters, respect permissions, and ship AI that's aligned by design rather than by accident.</p>
+        </div>
+
+        <div class="use-case-card reveal reveal-delay-3" data-tilt data-glow>
+          <div class="use-case-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M22 12h-4l-3 9L9 3l-3 9H2"/>
+            </svg>
+          </div>
+          <h3>Startup Founders</h3>
+          <p>One intent graph connects your coding agent, writing assistant, and project manager. Your Friday pitch prep informs your Monday sprint. Context flows across every tool you touch.</p>
+        </div>
+
+        <div class="use-case-card reveal reveal-delay-4" data-tilt data-glow>
+          <div class="use-case-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="2" y="7" width="20" height="14" rx="2" ry="2"/>
+              <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/>
+            </svg>
+          </div>
+          <h3>Engineering Teams</h3>
+          <p>Shared intent graphs for sprint goals, project milestones, and team alignment. Scoped permissions let each agent access only what it needs. Everyone works from the same source of truth.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==========================================
+       PLATFORM SECTION
+       ========================================== -->
+  <section class="platform-section section" id="platform">
+    <div class="container">
+      <div class="text-center">
+        <div class="eyebrow reveal">Platform</div>
+        <h2 class="section-heading reveal reveal-delay-1">Complete Developer Toolkit</h2>
+        <p class="section-subheading mx-auto reveal reveal-delay-2">
+          Everything you need to integrate structured intent into your AI stack. TypeScript core, Python SDK, CLI, MCP server, and a spec that's extensible by design.
+        </p>
+      </div>
+
+      <div class="platform-grid">
+        <div class="platform-card reveal reveal-delay-1" data-glow>
+          <span class="pkg-name">@goalos/core</span>
+          <p>TypeScript core library with full type safety, schema validation, event system, dependency resolution, and merge strategies. The foundation everything else builds on.</p>
+        </div>
+
+        <div class="platform-card reveal reveal-delay-2" data-glow>
+          <span class="pkg-name">@goalos/mcp-server</span>
+          <p>Model Context Protocol server for Claude Desktop and any MCP-compatible client. Nine tools covering the complete lifecycle from reading context to completing goals.</p>
+        </div>
+
+        <div class="platform-card reveal reveal-delay-3" data-glow>
+          <span class="pkg-name">goalos (CLI)</span>
+          <p>Command-line tool for managing intent graphs. Initialize, add goals, set priorities, view tree structures, export data, and start the MCP server from your terminal.</p>
+        </div>
+
+        <div class="platform-card reveal reveal-delay-4" data-glow>
+          <span class="pkg-name">goalos (Python)</span>
+          <p>Full Python SDK with Pydantic models, async support, and an API that mirrors the TypeScript library exactly. First-class support for the Python AI ecosystem.</p>
+        </div>
+
+        <div class="platform-card reveal reveal-delay-5" data-glow>
+          <span class="pkg-name">JSON-LD Format</span>
+          <p>Linked Data serialization for interoperability and semantic web compatibility. Intent graphs are portable, self-describing, and ready for any system that speaks JSON.</p>
+        </div>
+
+        <div class="platform-card reveal reveal-delay-6" data-glow>
+          <span class="pkg-name">Permission System</span>
+          <p>Granular agent permissions: read, write, complete, create sub-goals, and reprioritize. Scope access by goal, domain, or tree depth. Your intent, your rules.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==========================================
        STATS SECTION
        ========================================== -->
-  <section class="stats-section">
+  <section class="stats-section section--tight">
     <div class="container">
       <div class="stats-grid">
         <div class="stat reveal">
@@ -2707,118 +3087,9 @@
   </section>
 
   <!-- ==========================================
-       USE CASES SECTION
-       ========================================== -->
-  <section id="use-cases">
-    <div class="container">
-      <div class="text-center">
-        <div class="eyebrow reveal">Use Cases</div>
-        <h2 class="section-heading reveal reveal-delay-1">Built for How You Actually Work</h2>
-        <p class="section-subheading mx-auto reveal reveal-delay-2">
-          Whether you're an individual power user or leading a team, GoalOS adapts to your workflow. Define intent at any scale.
-        </p>
-      </div>
-
-      <div class="use-cases-grid">
-        <div class="use-case-card reveal reveal-delay-1" data-tilt>
-          <div class="use-case-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
-              <circle cx="9" cy="7" r="4"/>
-              <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
-              <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
-            </svg>
-          </div>
-          <h3>AI Power Users</h3>
-          <p>Connect five or more AI tools through a single intent graph. Every tool you add makes every other tool more useful. Stop re-explaining your priorities and start compounding your leverage.</p>
-        </div>
-
-        <div class="use-case-card reveal reveal-delay-2" data-tilt>
-          <div class="use-case-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-              <polyline points="16 18 22 12 16 6"/>
-              <polyline points="8 6 2 12 8 18"/>
-            </svg>
-          </div>
-          <h3>Agent Developers</h3>
-          <p>Build agents that understand user context from day one. Read the intent graph to know what matters, respect permissions, and ship AI that's aligned by design rather than by accident.</p>
-        </div>
-
-        <div class="use-case-card reveal reveal-delay-3" data-tilt>
-          <div class="use-case-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M22 12h-4l-3 9L9 3l-3 9H2"/>
-            </svg>
-          </div>
-          <h3>Startup Founders</h3>
-          <p>One intent graph connects your coding agent, writing assistant, and project manager. Your Friday pitch prep informs your Monday sprint. Context flows across every tool you touch.</p>
-        </div>
-
-        <div class="use-case-card reveal reveal-delay-4" data-tilt>
-          <div class="use-case-icon">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-              <rect x="2" y="7" width="20" height="14" rx="2" ry="2"/>
-              <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/>
-            </svg>
-          </div>
-          <h3>Engineering Teams</h3>
-          <p>Shared intent graphs for sprint goals, project milestones, and team alignment. Scoped permissions let each agent access only what it needs. Everyone works from the same source of truth.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ==========================================
-       PLATFORM SECTION
-       ========================================== -->
-  <section class="platform-section" id="platform">
-    <div class="container">
-      <div class="text-center">
-        <div class="eyebrow reveal">Platform</div>
-        <h2 class="section-heading reveal reveal-delay-1">Complete Developer Toolkit</h2>
-        <p class="section-subheading mx-auto reveal reveal-delay-2">
-          Everything you need to integrate structured intent into your AI stack. TypeScript core, Python SDK, CLI, MCP server, and a spec that's extensible by design.
-        </p>
-      </div>
-
-      <div class="platform-grid">
-        <div class="platform-card reveal reveal-delay-1">
-          <span class="pkg-name">@goalos/core</span>
-          <p>TypeScript core library with full type safety, schema validation, event system, dependency resolution, and merge strategies. The foundation everything else builds on.</p>
-        </div>
-
-        <div class="platform-card reveal reveal-delay-2">
-          <span class="pkg-name">@goalos/mcp-server</span>
-          <p>Model Context Protocol server for Claude Desktop and any MCP-compatible client. Nine tools covering the complete lifecycle from reading context to completing goals.</p>
-        </div>
-
-        <div class="platform-card reveal reveal-delay-3">
-          <span class="pkg-name">goalos (CLI)</span>
-          <p>Command-line tool for managing intent graphs. Initialize, add goals, set priorities, view tree structures, export data, and start the MCP server from your terminal.</p>
-        </div>
-
-        <div class="platform-card reveal reveal-delay-4">
-          <span class="pkg-name">goalos (Python)</span>
-          <p>Full Python SDK with Pydantic models, async support, and an API that mirrors the TypeScript library exactly. First-class support for the Python AI ecosystem.</p>
-        </div>
-
-        <div class="platform-card reveal reveal-delay-5">
-          <span class="pkg-name">JSON-LD Format</span>
-          <p>Linked Data serialization for interoperability and semantic web compatibility. Intent graphs are portable, self-describing, and ready for any system that speaks JSON.</p>
-        </div>
-
-        <div class="platform-card reveal reveal-delay-6">
-          <span class="pkg-name">Permission System</span>
-          <p>Granular agent permissions: read, write, complete, create sub-goals, and reprioritize. Scope access by goal, domain, or tree depth. Your intent, your rules.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ==========================================
        CTA SECTION
        ========================================== -->
-  <section class="cta-section" id="cta">
+  <section class="cta-section section" id="cta">
     <div class="container">
       <div class="cta-box reveal">
         <h2 class="reveal reveal-delay-1">Ready to Align Your AI Stack?</h2>
@@ -2839,7 +3110,7 @@
           <div class="terminal-cmd">
             <span class="prompt">$</span>
             <span class="cmd-text">npm install @goalos/core</span>
-            <button class="copy-btn" onclick="copyToClipboard('npm install @goalos/core', this)">Copy</button>
+            <button class="copy-btn" data-copy="npm install @goalos/core">Copy</button>
           </div>
         </div>
       </div>
@@ -2849,7 +3120,7 @@
   <!-- ==========================================
        FOOTER
        ========================================== -->
-  <footer class="site-footer">
+  <footer class="site-footer" role="contentinfo">
     <div class="container">
       <div class="footer-grid">
         <div class="footer-brand">
@@ -2962,7 +3233,7 @@
       }
 
       /* ===========================================
-         SCROLL EVENT (THROTTLED)
+         SCROLL EVENT (THROTTLED WITH rAF)
          =========================================== */
       var ticking = false;
 
@@ -2980,19 +3251,19 @@
       window.addEventListener('scroll', onScroll, { passive: true });
 
       /* ===========================================
-         INTERSECTION OBSERVER FOR REVEAL ANIMATIONS
+         INTERSECTION OBSERVER — SCROLL REVEAL
          =========================================== */
       var revealElements = document.querySelectorAll('.reveal');
 
       var revealObserver = new IntersectionObserver(function(entries) {
         entries.forEach(function(entry) {
           if (entry.isIntersecting) {
-            entry.target.classList.add('visible');
+            entry.target.classList.add('revealed');
             revealObserver.unobserve(entry.target);
           }
         });
       }, {
-        threshold: 0.15,
+        threshold: 0.12,
         rootMargin: '0px 0px -40px 0px'
       });
 
@@ -3001,7 +3272,7 @@
       });
 
       /* ===========================================
-         ANIMATED COUNTERS
+         ANIMATED STAT COUNTERS
          =========================================== */
       var countersAnimated = false;
       var statNumbers = document.querySelectorAll('.stat-number');
@@ -3123,41 +3394,55 @@
       /* ===========================================
          CODE TAB SWITCHING
          =========================================== */
-      window.switchTab = function(tabId) {
-        var tabs = document.querySelectorAll('.code-tab');
-        var panels = document.querySelectorAll('.code-panel');
+      var codeTabs = document.querySelectorAll('.code-tab[data-tab]');
+      var codePanels = document.querySelectorAll('.code-panel');
 
-        tabs.forEach(function(tab) {
-          tab.classList.remove('active');
-          if (tab.getAttribute('data-tab') === tabId) {
-            tab.classList.add('active');
-          }
+      codeTabs.forEach(function(tab) {
+        tab.addEventListener('click', function() {
+          var tabId = this.getAttribute('data-tab');
+
+          codeTabs.forEach(function(t) { t.classList.remove('active'); });
+          codePanels.forEach(function(p) { p.classList.remove('active'); });
+
+          this.classList.add('active');
+          var panel = document.getElementById('tab-' + tabId);
+          if (panel) panel.classList.add('active');
         });
-
-        panels.forEach(function(panel) {
-          panel.classList.remove('active');
-        });
-
-        var activePanel = document.getElementById('tab-' + tabId);
-        if (activePanel) {
-          activePanel.classList.add('active');
-        }
-      };
+      });
 
       /* ===========================================
-         COPY TO CLIPBOARD
+         COPY TO CLIPBOARD WITH TOAST NOTIFICATION
          =========================================== */
-      window.copyToClipboard = function(text, btn) {
+      function showToast(message) {
+        // Remove existing toasts
+        var existingToasts = document.querySelectorAll('.toast');
+        existingToasts.forEach(function(t) { t.remove(); });
+
+        var toast = document.createElement('div');
+        toast.className = 'toast';
+        toast.textContent = message;
+        document.body.appendChild(toast);
+
+        setTimeout(function() {
+          toast.classList.add('hiding');
+          setTimeout(function() {
+            toast.remove();
+          }, 300);
+        }, 2000);
+      }
+
+      function copyToClipboard(text, btn) {
         if (navigator.clipboard && navigator.clipboard.writeText) {
           navigator.clipboard.writeText(text).then(function() {
             var original = btn.textContent;
             btn.textContent = 'Copied!';
+            showToast('Copied to clipboard');
             setTimeout(function() {
               btn.textContent = original;
             }, 2000);
           });
         } else {
-          // Fallback
+          // Fallback for older browsers
           var textarea = document.createElement('textarea');
           textarea.value = text;
           textarea.style.position = 'fixed';
@@ -3168,6 +3453,7 @@
             document.execCommand('copy');
             var original = btn.textContent;
             btn.textContent = 'Copied!';
+            showToast('Copied to clipboard');
             setTimeout(function() {
               btn.textContent = original;
             }, 2000);
@@ -3176,16 +3462,27 @@
           }
           document.body.removeChild(textarea);
         }
-      };
+      }
 
-      window.copyCodeBlock = function() {
-        var activePanel = document.querySelector('.code-panel.active');
-        if (activePanel) {
-          var text = activePanel.querySelector('pre').textContent;
-          var btn = document.querySelector('.code-copy-btn');
-          window.copyToClipboard(text, btn);
-        }
-      };
+      // Bind copy buttons using data-copy attribute
+      document.querySelectorAll('[data-copy]').forEach(function(btn) {
+        btn.addEventListener('click', function() {
+          var text = this.getAttribute('data-copy');
+          copyToClipboard(text, this);
+        });
+      });
+
+      // Code block copy
+      var codeCopyBtn = document.getElementById('codeCopyBtn');
+      if (codeCopyBtn) {
+        codeCopyBtn.addEventListener('click', function() {
+          var activePanel = document.querySelector('.code-panel.active');
+          if (activePanel) {
+            var text = activePanel.querySelector('pre').textContent;
+            copyToClipboard(text, this);
+          }
+        });
+      }
 
       /* ===========================================
          MOBILE MENU
@@ -3202,11 +3499,13 @@
           mobileMenu.classList.remove('open');
           mobileOverlay.classList.remove('open');
           hamburger.classList.remove('active');
+          hamburger.setAttribute('aria-expanded', 'false');
           document.body.style.overflow = '';
         } else {
           mobileMenu.classList.add('open');
           mobileOverlay.classList.add('open');
           hamburger.classList.add('active');
+          hamburger.setAttribute('aria-expanded', 'true');
           document.body.style.overflow = 'hidden';
         }
       }
@@ -3249,7 +3548,7 @@
       });
 
       /* ===========================================
-         3D CARD TILT EFFECT
+         3D CARD TILT EFFECT (LIKE FAILSAFE)
          =========================================== */
       var tiltCards = document.querySelectorAll('[data-tilt]');
 
@@ -3272,6 +3571,47 @@
       });
 
       /* ===========================================
+         MOUSE-TRACKING CARD GLOW EFFECT (LIKE AGENTSPEC)
+         =========================================== */
+      var glowCards = document.querySelectorAll('[data-glow]');
+
+      glowCards.forEach(function(card) {
+        card.addEventListener('mousemove', function(e) {
+          var rect = card.getBoundingClientRect();
+          var x = e.clientX - rect.left;
+          var y = e.clientY - rect.top;
+
+          // Apply glow to the ::after pseudo-element via CSS custom properties
+          card.style.setProperty('--glow-x', x + 'px');
+          card.style.setProperty('--glow-y', y + 'px');
+
+          // Set the ::after background dynamically
+          var glowEl = card.querySelector('.card-glow');
+          if (glowEl) {
+            glowEl.style.background = 'radial-gradient(300px circle at ' + x + 'px ' + y + 'px, rgba(59, 130, 246, 0.08), transparent 60%)';
+            glowEl.style.opacity = '1';
+          } else {
+            card.style.background = '';
+            // Use the ::after pseudo element via CSS
+            card.style.setProperty('--mouse-x', x + 'px');
+            card.style.setProperty('--mouse-y', y + 'px');
+          }
+        });
+
+        card.addEventListener('mouseleave', function() {
+          var glowEl = card.querySelector('.card-glow');
+          if (glowEl) {
+            glowEl.style.opacity = '0';
+          }
+        });
+      });
+
+      // Apply glow via CSS for cards that use ::after
+      var glowStyle = document.createElement('style');
+      glowStyle.textContent = '[data-glow]::after { background: radial-gradient(300px circle at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(59, 130, 246, 0.06), transparent 60%); } [data-glow]:hover::after { opacity: 1; }';
+      document.head.appendChild(glowStyle);
+
+      /* ===========================================
          BUTTON RIPPLE EFFECT
          =========================================== */
       document.querySelectorAll('.btn').forEach(function(btn) {
@@ -3291,6 +3631,15 @@
             ripple.remove();
           }, 600);
         });
+      });
+
+      /* ===========================================
+         KEYBOARD ACCESSIBILITY — ESCAPE CLOSES MENU
+         =========================================== */
+      document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && mobileMenu && mobileMenu.classList.contains('open')) {
+          toggleMobileMenu();
+        }
       });
 
       /* ===========================================
