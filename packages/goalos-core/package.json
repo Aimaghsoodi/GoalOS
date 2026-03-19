@@ -7,17 +7,32 @@
   "types": "dist/index.d.ts",
   "exports": {
     ".": {
+      "types": "./dist/index.d.ts",
       "import": "./dist/index.mjs",
-      "require": "./dist/index.js",
-      "types": "./dist/index.d.ts"
+      "require": "./dist/index.js"
     }
   },
   "files": ["dist"],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Aimaghsoodi/GoalOS.git"
+  },
+  "homepage": "https://github.com/Aimaghsoodi/GoalOS#readme",
+  "bugs": {
+    "url": "https://github.com/Aimaghsoodi/GoalOS/issues"
+  },
+  "engines": {
+    "node": ">=18.18.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
   "scripts": {
-    "build": "tsup src/index.ts --format cjs,esm --dts --sourcemap",
+    "build": "tsup src/index.ts --format \"cjs,esm\" --dts --sourcemap",
     "test": "vitest run --coverage",
+    "test:coverage": "vitest run --coverage",
     "test:watch": "vitest",
-    "lint": "eslint src/ tests/",
+    "lint": "eslint src/ tests/ --no-error-on-unmatched-pattern",
     "typecheck": "tsc --noEmit"
   },
   "keywords": [
