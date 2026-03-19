@@ -2681,33 +2681,26 @@
         </div>
 
         <div class="code-panel" id="tab-py">
-          <pre><span class="tk-kw">from</span> goalos <span class="tk-kw">import</span> IntentGraph, Goal, Priority
+          <pre><span class="tk-kw">from</span> goalos <span class="tk-kw">import</span> GoalManager, IntentGraphManager, Priority
 
-<span class="tk-cm"># Create your personal intent graph</span>
-<span class="tk-const">graph</span> <span class="tk-op">=</span> IntentGraph.<span class="tk-fn">create</span>(<span class="tk-str">"abtin"</span>, <span class="tk-str">"Q1 Goals"</span>)
-
-<span class="tk-cm"># Add a root goal with full context</span>
-<span class="tk-const">startup</span> <span class="tk-op">=</span> graph.<span class="tk-fn">add_goal</span>(
-    <span class="tk-prop">title</span><span class="tk-op">=</span><span class="tk-str">"Launch AI Startup"</span>,
-    <span class="tk-prop">status</span><span class="tk-op">=</span><span class="tk-str">"active"</span>,
-    <span class="tk-prop">priority</span><span class="tk-op">=</span>Priority(<span class="tk-prop">level</span><span class="tk-op">=</span><span class="tk-str">"critical"</span>, <span class="tk-prop">score</span><span class="tk-op">=</span><span class="tk-num">95</span>),
-    <span class="tk-prop">time_horizon</span><span class="tk-op">=</span><span class="tk-str">"this_quarter"</span>,
-    <span class="tk-prop">motivation</span><span class="tk-op">=</span><span class="tk-str">"Build sovereign AI infrastructure"</span>,
-    <span class="tk-prop">success_criteria</span><span class="tk-op">=</span>[<span class="tk-str">"10 paying customers"</span>, <span class="tk-str">"Public launch"</span>],
+<span class="tk-cm"># Create a graph and a goal</span>
+<span class="tk-const">graph</span> <span class="tk-op">=</span> IntentGraphManager.<span class="tk-fn">create</span>(<span class="tk-prop">owner</span><span class="tk-op">=</span><span class="tk-str">"user123"</span>, <span class="tk-prop">name</span><span class="tk-op">=</span><span class="tk-str">"Launch Plan"</span>)
+<span class="tk-const">goal</span> <span class="tk-op">=</span> GoalManager.<span class="tk-fn">create</span>(
+    <span class="tk-prop">title</span><span class="tk-op">=</span><span class="tk-str">"Ship GoalOS Python SDK"</span>,
+    <span class="tk-prop">priority</span><span class="tk-op">=</span>Priority(<span class="tk-prop">level</span><span class="tk-op">=</span><span class="tk-str">"high"</span>, <span class="tk-prop">score</span><span class="tk-op">=</span><span class="tk-num">85</span>),
+    <span class="tk-prop">domain</span><span class="tk-op">=</span><span class="tk-str">"work"</span>,
 )
 
-<span class="tk-cm"># Add a sub-goal with dependency</span>
-<span class="tk-const">landing</span> <span class="tk-op">=</span> graph.<span class="tk-fn">add_goal</span>(
-    <span class="tk-prop">title</span><span class="tk-op">=</span><span class="tk-str">"Ship Landing Page"</span>,
-    <span class="tk-prop">parent_id</span><span class="tk-op">=</span>startup.id,
-    <span class="tk-prop">status</span><span class="tk-op">=</span><span class="tk-str">"active"</span>,
-    <span class="tk-prop">priority</span><span class="tk-op">=</span>Priority(<span class="tk-prop">level</span><span class="tk-op">=</span><span class="tk-str">"high"</span>, <span class="tk-prop">score</span><span class="tk-op">=</span><span class="tk-num">80</span>),
-    <span class="tk-prop">deadline</span><span class="tk-op">=</span><span class="tk-str">"2026-03-15T00:00:00Z"</span>,
-)
+<span class="tk-const">graph</span>.<span class="tk-fn">add_goal</span>(<span class="tk-prop">title</span><span class="tk-op">=</span><span class="tk-const">goal</span>.<span class="tk-prop">title</span>, <span class="tk-prop">priority</span><span class="tk-op">=</span><span class="tk-const">goal</span>.<span class="tk-prop">priority</span>, <span class="tk-prop">domain</span><span class="tk-op">=</span><span class="tk-const">goal</span>.<span class="tk-prop">domain</span>)
 
-<span class="tk-cm"># Every AI tool now reads this context</span>
-<span class="tk-const">priorities</span> <span class="tk-op">=</span> graph.<span class="tk-fn">get_top_priorities</span>(<span class="tk-num">5</span>)
-<span class="tk-const">progress</span> <span class="tk-op">=</span> graph.<span class="tk-fn">get_progress</span>(startup.id)</pre>
+<span class="tk-fn">print</span>(<span class="tk-str">f"Goal: {goal.title}"</span>)
+<span class="tk-fn">print</span>(<span class="tk-str">f"Status: {goal.status}"</span>)
+<span class="tk-fn">print</span>(<span class="tk-str">f"Graph goals: {graph.get_stats().totalGoals}"</span>)
+
+<span class="tk-cm"># Output:</span>
+<span class="tk-cm"># Goal: Ship GoalOS Python SDK</span>
+<span class="tk-cm"># Status: planned</span>
+<span class="tk-cm"># Graph goals: 1</span></pre>
         </div>
 
         <div class="code-panel" id="tab-cli">
@@ -2774,20 +2767,21 @@
               <button class="copy-btn" data-copy="pip install goalos">Copy</button>
             </div>
             <div class="install-code">
-              <pre><span class="tk-kw">from</span> goalos <span class="tk-kw">import</span> GoalManager
+              <pre><span class="tk-kw">from</span> goalos <span class="tk-kw">import</span> GoalManager, IntentGraphManager, Priority
 
-<span class="tk-const">manager</span> <span class="tk-op">=</span> GoalManager()
-
-<span class="tk-cm"># Add a goal with full context</span>
-<span class="tk-const">goal</span> <span class="tk-op">=</span> manager.<span class="tk-fn">add_goal</span>(
-    <span class="tk-prop">title</span><span class="tk-op">=</span><span class="tk-str">"Ship v2.0"</span>,
-    <span class="tk-prop">priority</span><span class="tk-op">=</span><span class="tk-str">"critical"</span>,
-    <span class="tk-prop">domain</span><span class="tk-op">=</span><span class="tk-str">"engineering"</span>,
-    <span class="tk-prop">success_criteria</span><span class="tk-op">=</span>[<span class="tk-str">"All tests pass"</span>, <span class="tk-str">"Docs updated"</span>]
+<span class="tk-const">graph</span> <span class="tk-op">=</span> IntentGraphManager.<span class="tk-fn">create</span>(<span class="tk-prop">owner</span><span class="tk-op">=</span><span class="tk-str">"user123"</span>, <span class="tk-prop">name</span><span class="tk-op">=</span><span class="tk-str">"Launch Plan"</span>)
+<span class="tk-const">goal</span> <span class="tk-op">=</span> GoalManager.<span class="tk-fn">create</span>(
+    <span class="tk-prop">title</span><span class="tk-op">=</span><span class="tk-str">"Ship GoalOS Python SDK"</span>,
+    <span class="tk-prop">priority</span><span class="tk-op">=</span>Priority(<span class="tk-prop">level</span><span class="tk-op">=</span><span class="tk-str">"high"</span>, <span class="tk-prop">score</span><span class="tk-op">=</span><span class="tk-num">85</span>),
+    <span class="tk-prop">domain</span><span class="tk-op">=</span><span class="tk-str">"work"</span>,
 )
 
-<span class="tk-cm"># Get top priorities across all goals</span>
-<span class="tk-const">priorities</span> <span class="tk-op">=</span> manager.<span class="tk-fn">get_priorities</span>(<span class="tk-prop">count</span><span class="tk-op">=</span><span class="tk-num">5</span>)</pre>
+<span class="tk-const">graph</span>.<span class="tk-fn">add_goal</span>(<span class="tk-prop">title</span><span class="tk-op">=</span><span class="tk-const">goal</span>.<span class="tk-prop">title</span>, <span class="tk-prop">priority</span><span class="tk-op">=</span><span class="tk-const">goal</span>.<span class="tk-prop">priority</span>, <span class="tk-prop">domain</span><span class="tk-op">=</span><span class="tk-const">goal</span>.<span class="tk-prop">domain</span>)
+
+<span class="tk-cm"># Output:</span>
+<span class="tk-cm"># Goal: Ship GoalOS Python SDK</span>
+<span class="tk-cm"># Status: planned</span>
+<span class="tk-cm"># Graph goals: 1</span></pre>
             </div>
           </div>
         </div>

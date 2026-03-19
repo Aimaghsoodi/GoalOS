@@ -82,16 +82,26 @@ const json = graph.toString();
 ### Python
 
 ```python
-from goalos import GoalManager, IntentGraphManager
+from goalos import GoalManager, IntentGraphManager, Priority
 
-manager = GoalManager()
-goal = manager.create_goal(
-    title="Launch consulting business",
-    status="active",
-    priority={"level": "critical"},
+graph = IntentGraphManager.create(owner="user123", name="Launch Plan")
+goal = GoalManager.create(
+    title="Ship GoalOS Python SDK",
+    priority=Priority(level="high", score=85),
     domain="work",
-    deadline="2026-06-30T23:59:59Z"
 )
+
+graph.add_goal(title=goal.title, priority=goal.priority, domain=goal.domain)
+
+print(f"Goal: {goal.title}")
+print(f"Status: {goal.status}")
+print(f"Graph goals: {graph.get_stats().totalGoals}")
+```
+
+```text
+Goal: Ship GoalOS Python SDK
+Status: planned
+Graph goals: 1
 ```
 
 ---
