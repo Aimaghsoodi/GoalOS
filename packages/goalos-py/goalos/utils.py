@@ -5,7 +5,7 @@ ID generation, timestamps, helpers
 
 import uuid
 import string
-from datetime import datetime
+from datetime import datetime, timezone
 from typing import Any, Dict, List
 import json
 import re
@@ -34,18 +34,20 @@ def generate_event_id() -> str:
 
 def get_current_timestamp() -> str:
     """Get current timestamp in ISO 8601 format"""
-    return datetime.utcnow().isoformat() + "Z"
+    return datetime.now(timezone.utc).isoformat().replace("+00:00", "Z")
 
 
 def deep_clone(obj: Any) -> Any:
     """Deep copy an object using JSON serialization"""
     if isinstance(obj, (str, int, float, bool, type(None))):
         return obj
+    if hasattr(obj, "model_copy"):
+        return obj.model_copy(deep=True)
     if isinstance(obj, dict):
         return {k: deep_clone(v) for k, v in obj.items()}
     if isinstance(obj, list):
         return [deep_clone(item) for item in obj]
-    # For Pydantic models, use dict conversion
+    # For other Pydantic-like objects, fall back to a model dump.
     if hasattr(obj, "model_dump"):
         return deep_clone(obj.model_dump())
     return obj
@@ -58,7 +60,7 @@ def is_overdue(goal: Goal) -> bool:
 
     try:
         deadline = datetime.fromisoformat(goal.deadline.replace("Z", "+00:00"))
-        now = datetime.utcnow()
+        now = datetime.now(timezone.utc)
         return deadline < now and goal.status not in ["completed", "abandoned"]
     except (ValueError, TypeError):
         return False
@@ -71,7 +73,7 @@ def days_until_deadline(goal: Goal) -> int | None:
 
     try:
         deadline = datetime.fromisoformat(goal.deadline.replace("Z", "+00:00"))
-        now = datetime.utcnow()
+        now = datetime.now(timezone.utc)
         delta = deadline - now
         return max(0, delta.days)
     except (ValueError, TypeError):

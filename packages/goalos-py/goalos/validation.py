@@ -3,6 +3,7 @@ Schema validation for goals and intent graphs
 """
 
 from datetime import datetime
+from datetime import timezone
 from typing import List
 import re
 
@@ -65,7 +66,7 @@ class Validator:
         if goal.deadline:
             try:
                 deadline = datetime.fromisoformat(goal.deadline.replace("Z", "+00:00"))
-                if deadline < datetime.utcnow() and goal.status not in ["completed", "abandoned"]:
+                if deadline < datetime.now(timezone.utc) and goal.status not in ["completed", "abandoned"]:
                     warnings.append(ValidationWarning(
                         message="Goal deadline is in the past",
                         path="deadline"

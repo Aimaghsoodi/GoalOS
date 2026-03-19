@@ -39,6 +39,11 @@ dev = [
     "black>=23.0",
 ]
 
+[project.urls]
+Homepage = "https://github.com/Aimaghsoodi/GoalOS"
+Repository = "https://github.com/Aimaghsoodi/GoalOS.git"
+Issues = "https://github.com/Aimaghsoodi/GoalOS/issues"
+
 [tool.hatch.build.targets.wheel]
 packages = ["goalos"]
 

@@ -3,9 +3,9 @@ GoalOS Type Definitions
 Pydantic models for all GoalOS types
 """
 
-from typing import Any, Dict, List, Optional, Literal, Union, Record
+from typing import Any, Dict, List, Optional, Literal, Union
 from datetime import datetime
-from pydantic import BaseModel, Field, validator
+from pydantic import BaseModel, ConfigDict, Field, validator
 
 
 # Type aliases
@@ -67,6 +67,8 @@ class Permission(BaseModel):
 
 class Goal(BaseModel):
     """Core Goal model"""
+    model_config = ConfigDict(extra="allow")
+
     id: str = Field(..., description="Unique identifier (nanoid format: goal_...)")
     title: str = Field(..., description="Short, descriptive title")
     description: Optional[str] = Field(None, description="Longer explanation of the goal")
@@ -89,13 +91,10 @@ class Goal(BaseModel):
     version: int = Field(..., description="Schema version for this goal")
     metadata: Optional[Dict[str, Any]] = Field(None, description="Arbitrary metadata")
 
-    class Config:
-        """Pydantic config"""
-        extra = "allow"
-
-
 class IntentGraph(BaseModel):
     """Intent graph - collection of related goals"""
+    model_config = ConfigDict(extra="allow")
+
     id: str = Field(..., description="Unique identifier")
     version: str = Field(..., description="GoalOS spec version")
     owner: str = Field(..., description="Owner/user ID")
@@ -106,11 +105,6 @@ class IntentGraph(BaseModel):
     createdAt: str = Field(..., description="ISO 8601 creation timestamp")
     updatedAt: str = Field(..., description="ISO 8601 last updated timestamp")
     metadata: Optional[Dict[str, Any]] = Field(None, description="Arbitrary metadata")
-
-    class Config:
-        """Pydantic config"""
-        extra = "allow"
-
 
 class GoalEvent(BaseModel):
     """Goal event in the event log"""
