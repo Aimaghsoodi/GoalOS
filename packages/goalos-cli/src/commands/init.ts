@@ -3,7 +3,6 @@
  */
 
 import { existsSync, mkdirSync, writeFileSync } from 'fs';
-import { dirname } from 'path';
 import { IntentGraphClass } from '@goalos/core';
 import { getGraphPath, getGraphDir } from '../config.js';
 import { success, error, info } from '../display.js';

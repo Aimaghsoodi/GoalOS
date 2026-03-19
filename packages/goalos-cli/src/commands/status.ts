@@ -27,7 +27,7 @@ export async function handleStatus(config: CLIConfig): Promise<void> {
     const activeGoals = graph.getByStatus('active');
     const topPriorities = graph.getTopPriorities(5);
     const allGoals = graph.query({});
-    const overdue = allGoals.filter((g) => isOverdue(g.deadline));
+    const overdue = allGoals.filter((g) => isOverdue(g));
     const blocked = graph.getByStatus('blocked');
     const completionRate = stats.completionRate;
 

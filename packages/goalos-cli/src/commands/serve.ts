@@ -2,7 +2,7 @@
  * serve command - Start the GoalOS MCP server
  */
 
-import { success, error, info } from '../display.js';
+import { error, info } from '../display.js';
 import type { CLIConfig } from '../config.js';
 
 export interface ServeOptions {

@@ -1,17 +1,14 @@
 /**
- * Terminal Display and Formatting Utilities
- * Provides colored output, trees, tables, and dashboard rendering
+ * Terminal display and formatting utilities.
  */
 
 import chalk from 'chalk';
+import type { ChalkInstance } from 'chalk';
 import Table from 'cli-table3';
 import boxen from 'boxen';
-import type { Goal, GoalStatus, PriorityLevel, GoalTreeNode } from '@goalos/core';
+import type { Goal, GoalStatus, GoalTreeNode, PriorityLevel } from '@goalos/core';
 
-/**
- * Priority level colors
- */
-const PRIORITY_COLORS = {
+const PRIORITY_COLORS: Record<PriorityLevel, ChalkInstance> = {
   critical: chalk.red,
   high: chalk.yellow,
   medium: chalk.blue,
@@ -19,10 +16,7 @@ const PRIORITY_COLORS = {
   someday: chalk.gray
 };
 
-/**
- * Status colors
- */
-const STATUS_COLORS = {
+const STATUS_COLORS: Record<GoalStatus, ChalkInstance> = {
   active: chalk.green,
   planned: chalk.cyan,
   blocked: chalk.red,
@@ -31,54 +25,42 @@ const STATUS_COLORS = {
   abandoned: chalk.gray
 };
 
-/**
- * Format a priority level with color
- */
+const STATUS_ICONS: Record<GoalStatus, string> = {
+  active: '*',
+  planned: '-',
+  blocked: '!',
+  paused: '=',
+  completed: '+',
+  abandoned: 'x'
+};
+
 export function formatPriority(level: PriorityLevel): string {
-  const color = PRIORITY_COLORS[level];
-  return color(level.toUpperCase());
+  return PRIORITY_COLORS[level](level.toUpperCase());
 }
 
-/**
- * Format a status with color
- */
 export function formatStatus(status: GoalStatus): string {
   const color = STATUS_COLORS[status];
-  const icon = {
-    active: '●',
-    planned: '◯',
-    blocked: '✗',
-    paused: '⏸',
-    completed: '✓',
-    abandoned: '⊘'
-  }[status];
-  return `${color(icon)} ${color(status)}`;
+  return `${color(STATUS_ICONS[status])} ${color(status)}`;
 }
 
-/**
- * Render a hierarchical goal tree in ASCII art
- */
 export function renderTree(nodes: GoalTreeNode[], maxDepth?: number): string {
   const lines: string[] = [];
 
-  function renderNode(node: GoalTreeNode, prefix = '', isLast = true) {
-    if (maxDepth && node.depth > maxDepth) return;
+  const renderNode = (node: GoalTreeNode, prefix = '', isLast = true): void => {
+    if (maxDepth !== undefined && node.depth > maxDepth) {
+      return;
+    }
 
-    const connector = isLast ? '└── ' : '├── ';
-    const statusIcon = getStatusIcon(node.goal.status);
-    const priorityTag = formatPriority(node.goal.priority.level);
-    const progressBar = renderProgressBar(node.progress);
+    const connector = isLast ? '\\-- ' : '|-- ';
+    const nextPrefix = prefix + (isLast ? '    ' : '|   ');
+    const title = `${getStatusIcon(node.goal.status)} ${chalk.bold(node.goal.title)} ${renderProgressBar(node.progress)}`;
 
-    const title = `${statusIcon} ${chalk.bold(node.goal.title)} ${progressBar}`;
     lines.push(prefix + connector + title);
 
-    const extension = isLast ? '    ' : '│   ';
-    const newPrefix = prefix + extension;
-
     node.children.forEach((child, index) => {
-      renderNode(child, newPrefix, index === node.children.length - 1);
+      renderNode(child, nextPrefix, index === node.children.length - 1);
     });
-  }
+  };
 
   nodes.forEach((node, index) => {
     renderNode(node, '', index === nodes.length - 1);
@@ -87,35 +69,19 @@ export function renderTree(nodes: GoalTreeNode[], maxDepth?: number): string {
   return lines.join('\n');
 }
 
-/**
- * Get status icon
- */
 function getStatusIcon(status: GoalStatus): string {
-  const icons = {
-    active: '●',
-    planned: '◯',
-    blocked: '✗',
-    paused: '⏸',
-    completed: '✓',
-    abandoned: '⊘'
-  };
-  return STATUS_COLORS[status](icons[status]);
+  return STATUS_COLORS[status](STATUS_ICONS[status]);
 }
 
-/**
- * Render a simple progress bar
- */
 function renderProgressBar(progress: number, width = 10): string {
-  const filled = Math.round(progress * width);
+  const safeProgress = Math.min(1, Math.max(0, progress));
+  const filled = Math.round(safeProgress * width);
   const empty = width - filled;
-  const bar = '█'.repeat(filled) + '░'.repeat(empty);
-  const percent = Math.round(progress * 100);
+  const bar = '#'.repeat(filled) + '-'.repeat(empty);
+  const percent = Math.round(safeProgress * 100);
   return chalk.dim(`[${bar}] ${percent}%`);
 }
 
-/**
- * Create a table of goals
- */
 export function createGoalTable(goals: Goal[]): Table.Table {
   const table = new Table({
     head: [
@@ -125,11 +91,11 @@ export function createGoalTable(goals: Goal[]): Table.Table {
       chalk.bold('Priority'),
       chalk.bold('Deadline')
     ],
-    colWidths: [12, 30, 12, 12, 20],
+    colWidths: [12, 30, 14, 12, 20],
     wordWrap: true
   });
 
-  goals.forEach((goal) => {
+  for (const goal of goals) {
     table.push([
       chalk.gray(goal.id.substring(0, 8)),
       goal.title,
@@ -137,14 +103,11 @@ export function createGoalTable(goals: Goal[]): Table.Table {
       formatPriority(goal.priority.level),
       goal.deadline ? new Date(goal.deadline).toLocaleDateString() : '-'
     ]);
-  });
+  }
 
   return table;
 }
 
-/**
- * Create a status dashboard with key metrics
- */
 export function createDashboard(
   activeGoals: number,
   topPriorities: Goal[],
@@ -152,27 +115,32 @@ export function createDashboard(
   blocked: Goal[],
   completionRate: number
 ): string {
-  const content = `
-${chalk.bold.cyan('═══════════════════════════════════════════')}
-${chalk.bold.cyan('          GOALOS STATUS DASHBOARD')}
-${chalk.bold.cyan('═══════════════════════════════════════════')}
+  const sections: string[] = [
+    chalk.bold.cyan('GOALOS STATUS DASHBOARD'),
+    '',
+    `${chalk.bold('Active Goals:')} ${chalk.green(String(activeGoals))}`,
+    `${chalk.bold('Completion Rate:')} ${renderCompletionGauge(completionRate)}`,
+    '',
+    chalk.bold.yellow('TOP PRIORITIES')
+  ];
 
-${chalk.bold('Active Goals:')} ${chalk.green(String(activeGoals))}
-${chalk.bold('Completion Rate:')} ${renderCompletionGauge(completionRate)}
+  if (topPriorities.length === 0) {
+    sections.push(chalk.dim('  No active priorities.'));
+  } else {
+    sections.push(...topPriorities.slice(0, 5).map((goal) => `  ${formatPriority(goal.priority.level)} ${goal.title}`));
+  }
 
-${chalk.bold.yellow('TOP PRIORITIES (Next 5)')}
-${topPriorities.slice(0, 5).map((g) => `  ${formatPriority(g.priority.level)} ${g.title}`).join('\n')}
+  if (overdue.length > 0) {
+    sections.push('', chalk.bold.red('OVERDUE GOALS'));
+    sections.push(...overdue.slice(0, 5).map((goal) => `  ${chalk.red('!')} ${goal.title}`));
+  }
 
-${overdue.length > 0 ? `${chalk.bold.red('OVERDUE GOALS')}
-${overdue.slice(0, 5).map((g) => `  ${chalk.red('⚠')} ${g.title}`).join('\n')}` : ''}
+  if (blocked.length > 0) {
+    sections.push('', chalk.bold.red('BLOCKED GOALS'));
+    sections.push(...blocked.slice(0, 5).map((goal) => `  ${chalk.red('x')} ${goal.title}`));
+  }
 
-${blocked.length > 0 ? `${chalk.bold.red('BLOCKED GOALS')}
-${blocked.slice(0, 5).map((g) => `  ${chalk.red('✗')} ${g.title}`).join('\n')}` : ''}
-
-${chalk.bold.cyan('═══════════════════════════════════════════')}
-`;
-
-  return boxen(content, {
+  return boxen(sections.join('\n'), {
     padding: 1,
     margin: 1,
     borderStyle: 'round',
@@ -180,54 +148,34 @@ ${chalk.bold.cyan('════════════════════�
   });
 }
 
-/**
- * Render a completion rate gauge
- */
 function renderCompletionGauge(rate: number): string {
   const width = 20;
-  const filled = Math.round(rate * width);
-  const bar = chalk.green('█'.repeat(filled)) + chalk.gray('░'.repeat(width - filled));
-  return `${bar} ${(rate * 100).toFixed(1)}%`;
+  const safeRate = Math.min(1, Math.max(0, rate));
+  const filled = Math.round(safeRate * width);
+  const bar = chalk.green('#'.repeat(filled)) + chalk.gray('-'.repeat(width - filled));
+  return `${bar} ${(safeRate * 100).toFixed(1)}%`;
 }
 
-/**
- * Create a success message
- */
 export function success(message: string): string {
-  return chalk.green(`✓ ${message}`);
+  return chalk.green(`[ok] ${message}`);
 }
 
-/**
- * Create an error message
- */
 export function error(message: string): string {
-  return chalk.red(`✗ ${message}`);
+  return chalk.red(`[error] ${message}`);
 }
 
-/**
- * Create a warning message
- */
 export function warning(message: string): string {
-  return chalk.yellow(`⚠ ${message}`);
+  return chalk.yellow(`[warn] ${message}`);
 }
 
-/**
- * Create an info message
- */
 export function info(message: string): string {
-  return chalk.blue(`ℹ ${message}`);
+  return chalk.blue(`[info] ${message}`);
 }
 
-/**
- * Create a dimmed message
- */
 export function dim(message: string): string {
   return chalk.dim(message);
 }
 
-/**
- * Display a formatted goal detail view
- */
 export function displayGoalDetail(goal: Goal): string {
   const lines: string[] = [
     chalk.bold.cyan(`Goal: ${goal.title}`),
@@ -240,7 +188,15 @@ export function displayGoalDetail(goal: Goal): string {
   if (goal.deadline) {
     const deadline = new Date(goal.deadline);
     const daysLeft = Math.ceil((deadline.getTime() - Date.now()) / (1000 * 60 * 60 * 24));
-    lines.push(`Deadline: ${deadline.toLocaleDateString()}${daysLeft < 0 ? chalk.red(` (${Math.abs(daysLeft)} days overdue)`) : daysLeft < 7 ? chalk.yellow(` (${daysLeft} days left)`) : ` (${daysLeft} days left)`}`);
+    let deadlineSuffix = ` (${daysLeft} days left)`;
+
+    if (daysLeft < 0) {
+      deadlineSuffix = chalk.red(` (${Math.abs(daysLeft)} days overdue)`);
+    } else if (daysLeft < 7) {
+      deadlineSuffix = chalk.yellow(` (${daysLeft} days left)`);
+    }
+
+    lines.push(`Deadline: ${deadline.toLocaleDateString()}${deadlineSuffix}`);
   }
 
   if (goal.description) {
@@ -257,16 +213,12 @@ export function displayGoalDetail(goal: Goal): string {
 
   if (goal.successCriteria && goal.successCriteria.length > 0) {
     lines.push('', chalk.bold('Success Criteria:'));
-    goal.successCriteria.forEach((criterion) => {
-      lines.push(`  • ${criterion}`);
-    });
+    lines.push(...goal.successCriteria.map((criterion) => `  - ${criterion}`));
   }
 
   if (goal.dependencies && goal.dependencies.length > 0) {
     lines.push('', chalk.bold('Dependencies:'));
-    goal.dependencies.forEach((dep) => {
-      lines.push(`  • ${dep.type}: ${dep.targetGoalId.substring(0, 8)}`);
-    });
+    lines.push(...goal.dependencies.map((dependency) => `  - ${dependency.type}: ${dependency.targetGoalId.substring(0, 8)}`));
   }
 
   lines.push('', chalk.dim(`Created: ${new Date(goal.createdAt).toLocaleString()}`));

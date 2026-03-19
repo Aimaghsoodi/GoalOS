@@ -5,7 +5,7 @@
 
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'fs';
 import { homedir } from 'os';
-import { join } from 'path';
+import { dirname, join } from 'path';
 
 export interface CLIConfig {
   /** Default file path for intent graph storage */
@@ -80,6 +80,5 @@ export function getGraphPath(config: CLIConfig): string {
  * Get the directory containing the graph file
  */
 export function getGraphDir(config: CLIConfig): string {
-  const graphPath = getGraphPath(config);
-  return graphPath.substring(0, graphPath.lastIndexOf('/'));
+  return dirname(getGraphPath(config));
 }
