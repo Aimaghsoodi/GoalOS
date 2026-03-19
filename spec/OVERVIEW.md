@@ -1,96 +1,52 @@
 # Specifications Overview
 
-Complete documentation for GoalOS, FailSafe, and AgentSpec.
+This repository currently publishes GoalOS reference documentation plus a shared schema directory used by adjacent design work.
 
-## GoalOS - Structured Intent Graphs
+## GoalOS
 
-Machine-readable goals with priorities, deadlines, dependencies.
+GoalOS defines structured intent graphs: machine-readable goals with priorities, deadlines, dependencies, permissions, and event history.
 
-**Key Docs:**
+**Published docs**
 - [Quickstart](goalos-quickstart.md)
-- [Full Spec](goalos-spec-v0.1.md)
-- [MCP Integration](goalos-mcp-integration.md)
-- [CLI Reference](goalos-cli-reference.md)
-- [Python SDK](goalos-python-sdk.md)
+- [Full specification](goalos-spec-v0.1.md)
+- [MCP integration](goalos-mcp-integration.md)
+- [CLI reference](goalos-cli-reference.md)
+- [Python SDK guide](goalos-python-sdk.md)
+- [OpenAPI schema](openapi.yaml)
 
-**Concepts:**
-- Goals with priorities, deadlines, success criteria
-- Hierarchical goal trees
-- Dependencies and blockers
-- Permissions for agents
-- Event audit trail
-- MCP integration
+**Key concepts**
+- Hierarchical goals and sub-goals
+- Dependencies, blockers, and progress tracking
+- Priority scoring and time horizons
+- Agent permissions
+- Event audit trails
+- MCP tooling
 
-**MCP Tools (9):**
-1. goalos_get_context
-2. goalos_list_goals
-3. goalos_get_priorities
-4. goalos_get_goal
-5. goalos_add_goal
-6. goalos_update_goal
-7. goalos_complete_goal
-8. goalos_add_dependency
-9. goalos_search
+## Shared Schemas
 
-## FailSafe - Failure Detection
+The [`schema/`](schema/) directory contains reusable JSON Schemas that support GoalOS and adjacent policy experiments:
 
-Structured failure reporting and analysis.
-
-**Key Docs:**
-- [Quickstart](failsafe-quickstart.md)
-- [Taxonomy](taxonomy/failure-taxonomy-v0.1.md)
-- [API Reference](failsafe-api-reference.md)
-
-**Concepts:**
-- Failure reports with full context
-- 15+ failure categories
-- Root cause analysis
-- Pattern matching
-- Prevention signals
-- Audit trails
-
-**Categories:**
-- Factual errors (hallucinations)
-- Reasoning errors
-- Temporal errors
-- Domain errors
-- Safety errors
-- Interaction errors
-
-## AgentSpec - Boundary Enforcement
-
-Define and enforce agent capabilities and constraints.
-
-**Key Docs:**
-- [Quickstart](agentspec-quickstart.md)
-- [Language Ref](agentspec-lang-v0.1.md)
-- [Inheritance](../inheritance-model.md)
-- [CLI Reference](agentspec-cli-reference.md)
-
-**Concepts:**
-- YAML-based specification language
-- Capabilities (what agents can do)
-- Boundaries (what agents cannot do)
-- Obligations (what agents must do)
-- Hierarchical composition
-- Formal conflict resolution
-- Verification testing
-
-**CLI Commands (10):**
-1. validate - Check spec validity
-2. test - Run verification tests
-3. check-capability - Verify capability
-4. check-boundary - Verify boundary
-5. enforce - Generate enforcer
-6. compile - Compile to formats
-7. show-inheritance - Visualize inheritance
-8. diff - Compare specs
-9. lint - Check practices
-10. docs - Generate docs
+- `intent-graph.schema.json`
+- `goal.schema.json`
+- `dependency.schema.json`
+- `event.schema.json`
+- `permission.schema.json`
+- `capability.schema.json`
+- `boundary.schema.json`
+- `obligation.schema.json`
+- `verification.schema.json`
+- `risk-signal.schema.json`
 
 ## Examples
 
-All projects include realistic examples:
-- GoalOS: 5 life/work scenarios
-- FailSafe: 10 failure case studies
-- AgentSpec: 10 agent configurations
+GoalOS example graphs live in [`examples/`](examples/):
+
+- `career-transition.json`
+- `content-creator.json`
+- `health-fitness.json`
+- `personal-project.json`
+- `team-sprint.json`
+
+## Status
+
+Dedicated FailSafe and AgentSpec prose guides are not yet published in this repository. Until those documents exist, treat the non-GoalOS schemas as experimental building blocks rather than stable standalone products.

@@ -28,6 +28,15 @@ Most people use multiple AI tools daily. Each one operates in isolation with zer
 npm install @goalos/core
 ```
 
+### Package Entry Points
+
+| Package | Install | Purpose |
+|---------|---------|---------|
+| `@goalos/core` | `npm install @goalos/core` | Core TypeScript intent graph engine |
+| `goalos` | `npm install -g goalos` | CLI for creating, querying, and serving graphs |
+| `@goalos/mcp-server` | `npm install -g @goalos/mcp-server` | MCP server for AI tool integrations |
+| `goalos` (Python) | `pip install goalos` | Python SDK with Pydantic models |
+
 ### Create Your First Intent Graph
 
 ```typescript
@@ -492,8 +501,23 @@ git clone https://github.com/Aimaghsoodi/GoalOS.git
 cd GoalOS
 pnpm install
 pnpm build
-pnpm test    # 160 tests
+pnpm lint
+pnpm typecheck
+pnpm test
+
+cd packages/goalos-py
+uv run --extra dev pytest
 ```
+
+### Windows Note
+
+If you are developing from a Windows network share, use a mapped drive and the repo-level `.npmrc` hoisted linker. The default pnpm symlink layout is fragile on UNC-backed workspaces.
+
+### Maintainers
+
+- Contribution guide: [CONTRIBUTING.md](./CONTRIBUTING.md)
+- Release guide: [RELEASE.md](./RELEASE.md)
+- Changelog: [CHANGELOG.md](./CHANGELOG.md)
 
 ---
 

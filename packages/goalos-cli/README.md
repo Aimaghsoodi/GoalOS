@@ -62,7 +62,8 @@ goalos export [file] - Export intent graph to JSON
 
 goalos import <file> - Import intent graph from JSON
 
-goalos serve - Start GoalOS MCP server for Claude Desktop
+goalos serve - Start GoalOS MCP server over stdio for Claude Desktop
+goalos serve --storage <file|sqlite> - Choose the MCP storage backend
 
 goalos validate - Validate the intent graph schema
 
@@ -73,7 +74,7 @@ goalos validate - Validate the intent graph schema
 --status <status> - Filter by status (active, planned, blocked, completed)
 --priority <level> - Filter by priority (critical, high, medium, low, someday)
 --config <path> - Config file path (default: ~/.goalos/config.json)
---file <path> - Intent graph file (default: ./intent-graph.json)
+--file <path> - Intent graph file (default: ~/.goalos/graph.json)
 
 ## Examples
 
@@ -103,17 +104,19 @@ goalos prioritize
 Config file at ~/.goalos/config.json:
 
 {
-  "defaultFile": "~/.goalos/intent-graph.json",
+  "graphPath": "~/.goalos/graph.json",
+  "defaultFormat": "tree",
   "defaultDomain": "work",
-  "colors": true,
-  "dateFormat": "YYYY-MM-DD"
+  "autoBrowser": false,
+  "colorOutput": true,
+  "defaultTimeHorizon": "this_quarter"
 }
 
 ## Global Graph Storage
 
 By default, goalos stores your intent graph at:
 
-~/.goalos/intent-graph.json
+~/.goalos/graph.json
 
 Or specify a different path with --file:
 
@@ -123,15 +126,15 @@ goalos list --file /path/to/goals.json
 
 The goalos serve command starts the MCP server for integration with Claude Desktop:
 
-goalos serve --port 3000
+goalos serve
 
 Configure Claude Desktop:
 
 {
   "mcpServers": {
     "goalos": {
-      "command": "goalos-mcp",
-      "args": ["--file", "~/.goalos/intent-graph.json"]
+      "command": "goalos",
+      "args": ["serve"]
     }
   }
 }

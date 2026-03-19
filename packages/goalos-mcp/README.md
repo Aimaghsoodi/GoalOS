@@ -18,11 +18,16 @@ npm install @goalos/mcp-server
 
 Start the server:
 
-goalos-mcp --file ~/.goalos/intent-graph.json
+goalos-mcp
 
-Or with environment variable:
+By default it stores data in ~/.goalos/graph.json.
 
-export GOALOS_FILE=~/.goalos/intent-graph.json
+To change runtime settings, set environment variables before launching:
+
+export GOALOS_STORAGE_DIR=~/.goalos
+export GOALOS_STORAGE=file
+export GOALOS_OWNER=default-owner
+export GOALOS_LOG_LEVEL=info
 goalos-mcp
 
 ## Integration with Claude Desktop
@@ -33,7 +38,7 @@ Add to your Claude Desktop config (~/.claude/claude_desktop_config.json):
   "mcpServers": {
     "goalos": {
       "command": "goalos-mcp",
-      "args": ["--file", "~/.goalos/intent-graph.json"]
+      "args": []
     }
   }
 }
@@ -90,22 +95,22 @@ goalos_search
 
 ## Configuration
 
-Options:
+Environment variables:
 
---file <path> - Intent graph file (required or via GOALOS_FILE env var)
---storage <file|sqlite> - Storage backend (default: file)
---port <port> - Only if using HTTP transport (default: 3000)
---stdio - Use stdio transport for Claude (default)
+GOALOS_STORAGE_DIR - Directory for graph.json and goalos.db (default: ~/.goalos)
+GOALOS_STORAGE - Storage backend (file|sqlite, default: file)
+GOALOS_OWNER - Owner id used for new graphs (default: default-owner)
+GOALOS_LOG_LEVEL - Log level (debug|info|warn|error, default: info)
 
 ## Examples
 
 Start with file storage:
 
-goalos-mcp --file ~/.goalos/intent-graph.json --storage file
+GOALOS_STORAGE=file goalos-mcp
 
 Start with SQLite:
 
-goalos-mcp --file ~/.goalos/goals.db --storage sqlite
+GOALOS_STORAGE=sqlite goalos-mcp
 
 ## Claude Integration Examples
 
