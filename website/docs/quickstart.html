@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="GoalOS quickstart - install the packages, create an intent graph, and connect tools.">
+  <meta name="theme-color" content="#030712">
+  <meta name="color-scheme" content="dark">
+  <title>GoalOS Quickstart</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root { --bg:#030712; --panel:rgba(15,23,42,.72); --line:rgba(148,163,184,.12); --text:#f8fafc; --muted:#94a3b8; --blue:#3b82f6; --violet:#8b5cf6; --cyan:#06b6d4; --radius:22px; --font-body:'Inter',system-ui,sans-serif; --font-head:'Space Grotesk','Inter',sans-serif; }
+    * { box-sizing:border-box; }
+    body {
+      margin:0; font-family:var(--font-body); color:var(--text);
+      background: radial-gradient(circle at top right, rgba(139,92,246,.18), transparent 26%), radial-gradient(circle at top left, rgba(59,130,246,.18), transparent 30%), linear-gradient(180deg, #020617, #030712 40%, #020617);
+      color-scheme: dark; overflow-x:hidden;
+    }
+    body::before { content:''; position:fixed; inset:0; background-image:radial-gradient(circle, rgba(148,163,184,.08) 1px, transparent 1px); background-size:28px 28px; mask-image:radial-gradient(ellipse 78% 58% at 50% 26%, black 28%, transparent 72%); pointer-events:none; }
+    a { color:inherit; text-decoration:none; }
+    .wrap { position:relative; z-index:1; max-width:1120px; margin:0 auto; padding:24px; }
+    .topbar { display:flex; justify-content:space-between; align-items:center; gap:16px; padding:10px 0 28px; }
+    .brand { display:inline-flex; align-items:center; gap:12px; font-family:var(--font-head); font-size:1.1rem; font-weight:700; }
+    .mark { width:34px; height:34px; border-radius:12px; background:linear-gradient(135deg, var(--blue), var(--violet)); box-shadow:0 14px 40px rgba(59,130,246,.24); }
+    .actions { display:flex; gap:12px; flex-wrap:wrap; }
+    .chip { display:inline-flex; align-items:center; justify-content:center; padding:10px 16px; border:1px solid var(--line); border-radius:999px; background:rgba(15,23,42,.45); }
+    .hero { padding:68px 0 22px; display:grid; grid-template-columns:minmax(0,1.2fr) minmax(280px,.8fr); gap:26px; align-items:start; }
+    .eyebrow { display:inline-flex; gap:8px; align-items:center; margin-bottom:18px; color:var(--cyan); text-transform:uppercase; letter-spacing:.18em; font-size:.78rem; font-weight:700; }
+    h1, h2, h3 { font-family:var(--font-head); margin:0; line-height:1.05; }
+    h1 { font-size:clamp(2.7rem, 6vw, 5rem); letter-spacing:-.05em; max-width:11ch; }
+    .lede { margin:20px 0 0; color:var(--muted); font-size:1.06rem; line-height:1.75; max-width:62ch; }
+    .card { border:1px solid var(--line); background:var(--panel); backdrop-filter:blur(18px); -webkit-backdrop-filter:blur(18px); border-radius:var(--radius); box-shadow:0 24px 80px rgba(2,6,23,.45); }
+    .install { padding:22px; }
+    .code {
+      margin-top:14px; padding:16px 18px; border-radius:18px; background:rgba(2,6,23,.55); border:1px solid rgba(148,163,184,.1);
+      font-family:ui-monospace, SFMono-Regular, Consolas, monospace; font-size:.95rem; line-height:1.7; overflow:auto;
+    }
+    .steps { display:grid; grid-template-columns:repeat(2, minmax(0,1fr)); gap:16px; margin-top:16px; }
+    .step { padding:18px; border-radius:20px; background:rgba(15,23,42,.58); border:1px solid rgba(148,163,184,.08); }
+    .step b { display:block; margin-bottom:8px; font-size:1.05rem; }
+    .step p { margin:0; color:var(--muted); line-height:1.7; }
+    .callout { margin-top:16px; padding:18px 20px; border-left:3px solid var(--cyan); border-radius:18px; background:rgba(6,182,212,.08); }
+    .footer { padding:30px 0 12px; margin-top:28px; border-top:1px solid var(--line); color:var(--muted); display:flex; justify-content:space-between; gap:16px; flex-wrap:wrap; }
+    .footer a { color:var(--text); }
+    @media (max-width:900px) { .hero, .steps { grid-template-columns:1fr; } .topbar { flex-direction:column; align-items:flex-start; } }
+    @media (max-width:640px) { .wrap { padding:18px; } }
+    :focus-visible { outline:2px solid var(--cyan); outline-offset:3px; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header class="topbar">
+      <a class="brand" href="../index.html" aria-label="GoalOS home">
+        <span class="mark" aria-hidden="true"></span>
+        <span>GoalOS Quickstart</span>
+      </a>
+      <div class="actions">
+        <a class="chip" href="../index.html">Home</a>
+        <a class="chip" href="https://github.com/Aimaghsoodi/GoalOS" target="_blank" rel="noopener noreferrer">GitHub</a>
+      </div>
+    </header>
+
+    <section class="hero">
+      <div>
+        <div class="eyebrow">Quickstart</div>
+        <h1>Get an intent graph running in minutes.</h1>
+        <p class="lede">GoalOS ships as a TypeScript core, CLI, MCP server, and Python SDK. Start with the package that matches your stack, then connect the rest when you need cross-tool intent sharing.</p>
+        <div class="callout">If you are evaluating the repo locally, serve the repository root so `/website/...` links resolve correctly.</div>
+      </div>
+      <aside class="card install">
+        <h2>Install</h2>
+        <div class="code">npm install @goalos/core
+pnpm add -D @goalos/mcp-server
+pip install goalos</div>
+        <div class="steps">
+          <div class="step">
+            <b>1. Initialize</b>
+            <p>Run <code>npx goalos init</code> to create your first graph and default config.</p>
+          </div>
+          <div class="step">
+            <b>2. Add intent</b>
+            <p>Define goals, priorities, and permissions in code or through the CLI.</p>
+          </div>
+          <div class="step">
+            <b>3. Serve context</b>
+            <p>Start the MCP server so AI clients can read and act on the same intent graph.</p>
+          </div>
+          <div class="step">
+            <b>4. Integrate</b>
+            <p>Use the Python SDK, LangChain, or CrewAI adapters for your existing stack.</p>
+          </div>
+        </div>
+      </aside>
+    </section>
+
+    <section class="hero" style="padding-top: 10px;">
+      <div class="card install">
+        <h2>Minimal example</h2>
+        <div class="code">import { IntentGraph } from '@goalos/core';
+
+const graph = IntentGraph.create('launch', 'Q1 goals');
+graph.addGoal({
+  title: 'Ship product',
+  priority: { level: 'critical', score: 95 }
+});</div>
+      </div>
+      <div class="card install">
+        <h2>Next steps</h2>
+        <p class="lede" style="margin-top: 12px;">Read the manifesto for the product philosophy, then review the spec to understand the data model and transport boundaries.</p>
+        <div class="actions" style="margin-top:16px;">
+          <a class="chip" href="../blog/manifesto.html">Manifesto</a>
+          <a class="chip" href="../docs/spec.html">Spec</a>
+        </div>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <span>Need the source? Visit the repository or inspect the packages folder.</span>
+      <span><a href="../index.html">Home</a> · <a href="https://github.com/Aimaghsoodi/GoalOS/tree/main/examples" target="_blank" rel="noopener noreferrer">Examples</a> · <a href="https://github.com/Aimaghsoodi/GoalOS" target="_blank" rel="noopener noreferrer">GitHub</a></span>
+    </footer>
+  </div>
+</body>
+</html>

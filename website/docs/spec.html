@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="GoalOS spec overview - core concepts, transport surfaces, and package layout.">
+  <meta name="theme-color" content="#030712">
+  <meta name="color-scheme" content="dark">
+  <title>GoalOS Spec</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root { --bg:#030712; --panel:rgba(15,23,42,.72); --line:rgba(148,163,184,.12); --text:#f8fafc; --muted:#94a3b8; --blue:#3b82f6; --violet:#8b5cf6; --cyan:#06b6d4; --radius:22px; --font-body:'Inter',system-ui,sans-serif; --font-head:'Space Grotesk','Inter',sans-serif; }
+    * { box-sizing:border-box; }
+    body {
+      margin:0; font-family:var(--font-body); color:var(--text);
+      background: radial-gradient(circle at top left, rgba(59,130,246,.18), transparent 28%), radial-gradient(circle at top right, rgba(139,92,246,.18), transparent 22%), linear-gradient(180deg, #020617, #030712 48%, #020617);
+      color-scheme: dark; overflow-x:hidden;
+    }
+    body::before { content:''; position:fixed; inset:0; background-image:radial-gradient(circle, rgba(148,163,184,.08) 1px, transparent 1px); background-size:28px 28px; mask-image:radial-gradient(ellipse 80% 60% at 50% 24%, black 30%, transparent 72%); pointer-events:none; }
+    a { color:inherit; text-decoration:none; }
+    .wrap { position:relative; z-index:1; max-width:1120px; margin:0 auto; padding:24px; }
+    .topbar { display:flex; justify-content:space-between; align-items:center; gap:16px; padding:10px 0 28px; }
+    .brand { display:inline-flex; align-items:center; gap:12px; font-family:var(--font-head); font-size:1.1rem; font-weight:700; }
+    .mark { width:34px; height:34px; border-radius:12px; background:linear-gradient(135deg, var(--blue), var(--violet)); box-shadow:0 14px 40px rgba(59,130,246,.24); }
+    .actions { display:flex; gap:12px; flex-wrap:wrap; }
+    .chip { display:inline-flex; align-items:center; justify-content:center; padding:10px 16px; border:1px solid var(--line); border-radius:999px; background:rgba(15,23,42,.45); }
+    .hero { padding:68px 0 18px; display:grid; grid-template-columns:minmax(0,1.2fr) minmax(280px,.8fr); gap:26px; align-items:start; }
+    .eyebrow { display:inline-flex; gap:8px; align-items:center; margin-bottom:18px; color:var(--cyan); text-transform:uppercase; letter-spacing:.18em; font-size:.78rem; font-weight:700; }
+    h1, h2, h3 { font-family:var(--font-head); margin:0; line-height:1.05; }
+    h1 { font-size:clamp(2.7rem, 6vw, 5rem); letter-spacing:-.05em; max-width:12ch; }
+    .lede { margin:20px 0 0; color:var(--muted); font-size:1.06rem; line-height:1.75; max-width:62ch; }
+    .card { border:1px solid var(--line); background:var(--panel); backdrop-filter:blur(18px); -webkit-backdrop-filter:blur(18px); border-radius:var(--radius); box-shadow:0 24px 80px rgba(2,6,23,.45); }
+    .panel { padding:22px; }
+    .grid { display:grid; grid-template-columns:repeat(2, minmax(0,1fr)); gap:16px; }
+    .item { padding:18px; border-radius:20px; background:rgba(15,23,42,.58); border:1px solid rgba(148,163,184,.08); }
+    .item b { display:block; margin-bottom:8px; font-size:1.02rem; }
+    .item p { margin:0; color:var(--muted); line-height:1.7; }
+    .list { margin:14px 0 0; padding:0; list-style:none; display:grid; gap:12px; }
+    .list li { padding:14px 16px; border-radius:16px; background:rgba(2,6,23,.5); border:1px solid rgba(148,163,184,.08); }
+    .code {
+      margin-top:14px; padding:16px 18px; border-radius:18px; background:rgba(2,6,23,.55); border:1px solid rgba(148,163,184,.1);
+      font-family:ui-monospace, SFMono-Regular, Consolas, monospace; font-size:.92rem; line-height:1.7; overflow:auto;
+    }
+    .table { width:100%; border-collapse:collapse; margin-top:14px; overflow:hidden; border-radius:18px; }
+    .table th, .table td { padding:14px 16px; text-align:left; border-bottom:1px solid rgba(148,163,184,.08); vertical-align:top; }
+    .table th { color:var(--muted); font-weight:600; font-size:.9rem; background:rgba(2,6,23,.4); }
+    .footer { padding:30px 0 12px; margin-top:28px; border-top:1px solid var(--line); color:var(--muted); display:flex; justify-content:space-between; gap:16px; flex-wrap:wrap; }
+    .footer a { color:var(--text); }
+    @media (max-width:900px) { .hero, .grid { grid-template-columns:1fr; } .topbar { flex-direction:column; align-items:flex-start; } }
+    @media (max-width:640px) { .wrap { padding:18px; } }
+    :focus-visible { outline:2px solid var(--cyan); outline-offset:3px; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header class="topbar">
+      <a class="brand" href="../index.html" aria-label="GoalOS home">
+        <span class="mark" aria-hidden="true"></span>
+        <span>GoalOS Spec</span>
+      </a>
+      <div class="actions">
+        <a class="chip" href="../index.html">Home</a>
+        <a class="chip" href="https://github.com/Aimaghsoodi/GoalOS/tree/main/spec" target="_blank" rel="noopener noreferrer">Spec folder</a>
+      </div>
+    </header>
+
+    <section class="hero">
+      <div>
+        <div class="eyebrow">Specification</div>
+        <h1>The contract between intent, tools, and agents.</h1>
+        <p class="lede">The current GoalOS spec defines a structured intent graph, the permissions model around it, and the transport surfaces that let external clients read and write context safely.</p>
+      </div>
+      <aside class="card panel">
+        <h2>Surface area</h2>
+        <ul class="list">
+          <li><b>TypeScript core</b> - source of truth for graph operations and validation.</li>
+          <li><b>Python SDK</b> - Pydantic models plus async-friendly client access.</li>
+          <li><b>MCP server</b> - tool surface for Claude Desktop and other clients.</li>
+          <li><b>CLI</b> - local inspection, export, and workflow commands.</li>
+        </ul>
+      </aside>
+    </section>
+
+    <section class="hero" style="padding-top: 10px;">
+      <div class="card panel">
+        <h2>Core entities</h2>
+        <table class="table">
+          <thead>
+            <tr><th>Entity</th><th>Purpose</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Goal</td><td>A unit of intent with status, priority, progress, and hierarchy.</td></tr>
+            <tr><td>Priority</td><td>How the graph ranks competing work and time horizons.</td></tr>
+            <tr><td>Permission</td><td>What an agent can read, write, complete, or reprioritize.</td></tr>
+            <tr><td>Event</td><td>History for changes, merges, and lifecycle transitions.</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="card panel">
+        <h2>Serialization</h2>
+        <p class="lede" style="margin-top: 12px;">The repo includes JSON-LD and schema-driven representations so the graph can move across tools without losing meaning.</p>
+        <div class="code">{
+  "type": "IntentGraph",
+  "version": "0.1.0",
+  "goals": [],
+  "permissions": [],
+  "events": []
+}</div>
+      </div>
+    </section>
+
+    <section class="hero" style="padding-top: 10px;">
+      <div class="card panel">
+        <h2>Validation rules</h2>
+        <div class="grid">
+          <div class="item">
+            <b>Structure first</b>
+            <p>Goals need stable identifiers and clean parent-child relationships.</p>
+          </div>
+          <div class="item">
+            <b>Permissions explicit</b>
+            <p>Agent access should be granted intentionally, not inferred.</p>
+          </div>
+          <div class="item">
+            <b>Exportable data</b>
+            <p>Consumers should be able to inspect and move the graph without special runtime state.</p>
+          </div>
+          <div class="item">
+            <b>Transport neutral</b>
+            <p>CLI, SDKs, and MCP all expose the same intent model.</p>
+          </div>
+        </div>
+      </div>
+      <div class="card panel">
+        <h2>Read more</h2>
+        <div class="actions" style="margin-top:16px;">
+          <a class="chip" href="../blog/manifesto.html">Manifesto</a>
+          <a class="chip" href="../docs/quickstart.html">Quickstart</a>
+        </div>
+        <p class="lede" style="margin-top:16px;">If you need the authoritative language and schema definitions, inspect the source under `spec/` in the repository.</p>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <span>Spec summary page for browsing. The repo files remain authoritative.</span>
+      <span><a href="../index.html">Home</a> · <a href="https://github.com/Aimaghsoodi/GoalOS/tree/main/spec" target="_blank" rel="noopener noreferrer">GitHub spec</a></span>
+    </footer>
+  </div>
+</body>
+</html>

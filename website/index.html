@@ -8,6 +8,10 @@
   <meta property="og:title" content="GoalOS - The Intent Layer for AI Agents">
   <meta property="og:description" content="A structured, machine-readable graph of your goals, priorities, and intentions - readable by any AI tool.">
   <meta property="og:type" content="website">
+  <meta property="og:site_name" content="GoalOS">
+  <meta name="theme-color" content="#030712">
+  <meta name="color-scheme" content="dark">
+  <meta name="twitter:card" content="summary">
   <title>GoalOS - The Intent Layer for AI Agents</title>
 
   <!-- Fonts -->
@@ -102,6 +106,7 @@
       line-height: 1.6;
       overflow-x: hidden;
       min-height: 100vh;
+      color-scheme: dark;
     }
 
     h1, h2, h3, h4, h5, h6 {
@@ -137,6 +142,19 @@
     ::selection {
       background: rgba(59, 130, 246, 0.3);
       color: var(--text-primary);
+    }
+
+    :focus-visible {
+      outline: 2px solid var(--color-cyan);
+      outline-offset: 3px;
+    }
+
+    .section[id] {
+      scroll-margin-top: calc(var(--nav-height) + 24px);
+    }
+
+    .mobile-menu {
+      overflow-y: auto;
     }
 
     /* =========================================================
@@ -2313,7 +2331,7 @@
        ========================================== -->
   <nav class="navbar" id="navbar" role="navigation" aria-label="Main navigation">
     <div class="navbar-inner">
-      <a href="#" class="navbar-brand" aria-label="GoalOS Home">
+      <a href="#hero" class="navbar-brand" aria-label="GoalOS Home">
         <div class="navbar-logo">
           <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
             <defs>
@@ -3101,7 +3119,7 @@
           <a href="https://github.com/Aimaghsoodi/GoalOS" class="btn btn-primary" target="_blank" rel="noopener noreferrer">
             Get Started &mdash; It's Free
           </a>
-          <a href="blog/manifesto.html" class="btn btn-secondary">
+          <a href="/website/blog/manifesto.html" class="btn btn-secondary">
             Read the Manifesto <span class="arrow">&rarr;</span>
           </a>
         </div>
@@ -3124,7 +3142,7 @@
     <div class="container">
       <div class="footer-grid">
         <div class="footer-brand">
-          <a href="#" class="navbar-brand">
+          <a href="#hero" class="navbar-brand" aria-label="GoalOS Home">
             <div class="navbar-logo">
               <svg viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <defs>
@@ -3152,16 +3170,16 @@
           <ul>
             <li><a href="#features">Features</a></li>
             <li><a href="#use-cases">Use Cases</a></li>
-            <li><a href="#">Changelog</a></li>
-            <li><a href="#">Roadmap</a></li>
+            <li><a href="https://github.com/Aimaghsoodi/GoalOS/releases" target="_blank" rel="noopener noreferrer">Changelog</a></li>
+            <li><a href="https://github.com/Aimaghsoodi/GoalOS/issues" target="_blank" rel="noopener noreferrer">Roadmap</a></li>
           </ul>
         </div>
 
         <div class="footer-col">
           <h4>Developers</h4>
           <ul>
-            <li><a href="docs/quickstart.html">Documentation</a></li>
-            <li><a href="docs/spec.html">API Reference</a></li>
+            <li><a href="/website/docs/quickstart.html">Documentation</a></li>
+            <li><a href="/website/docs/spec.html">API Reference</a></li>
             <li><a href="https://github.com/Aimaghsoodi/GoalOS/tree/main/examples" target="_blank" rel="noopener noreferrer">Examples</a></li>
             <li><a href="https://github.com/Aimaghsoodi/GoalOS" target="_blank" rel="noopener noreferrer">GitHub</a></li>
           </ul>
@@ -3170,9 +3188,9 @@
         <div class="footer-col">
           <h4>Community</h4>
           <ul>
-            <li><a href="#">Discord</a></li>
-            <li><a href="#">Twitter</a></li>
-            <li><a href="blog/manifesto.html">Blog</a></li>
+            <li><a href="https://github.com/Aimaghsoodi/GoalOS/discussions" target="_blank" rel="noopener noreferrer">Discord</a></li>
+            <li><a href="mailto:contact@abtinrad.com">Twitter</a></li>
+            <li><a href="/website/blog/manifesto.html">Blog</a></li>
             <li><a href="https://github.com/Aimaghsoodi/GoalOS" target="_blank" rel="noopener noreferrer">Contributing</a></li>
           </ul>
         </div>
@@ -3180,10 +3198,10 @@
         <div class="footer-col">
           <h4>Company</h4>
           <ul>
-            <li><a href="#">About</a></li>
-            <li><a href="blog/manifesto.html">Manifesto</a></li>
-            <li><a href="#">Careers</a></li>
-            <li><a href="#">Contact</a></li>
+            <li><a href="/website/blog/manifesto.html">About</a></li>
+            <li><a href="/website/blog/manifesto.html">Manifesto</a></li>
+            <li><a href="mailto:contact@abtinrad.com">Careers</a></li>
+            <li><a href="mailto:contact@abtinrad.com">Contact</a></li>
           </ul>
         </div>
       </div>
@@ -3192,8 +3210,8 @@
         <p>&copy; 2026 GoalOS. MIT License.</p>
         <div class="footer-bottom-links">
           <a href="https://github.com/Aimaghsoodi/GoalOS" target="_blank" rel="noopener noreferrer">GitHub</a>
-          <a href="#">Privacy</a>
-          <a href="#">Terms</a>
+          <a href="https://github.com/Aimaghsoodi/GoalOS/blob/main/LICENSE" target="_blank" rel="noopener noreferrer">License</a>
+          <a href="mailto:contact@abtinrad.com">Contact</a>
         </div>
       </div>
     </div>
@@ -3212,6 +3230,7 @@
       var scrollProgress = document.getElementById('scrollProgress');
 
       function updateScrollProgress() {
+        if (!scrollProgress) return;
         var scrollTop = window.pageYOffset || document.documentElement.scrollTop;
         var scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
         var progress = scrollHeight > 0 ? (scrollTop / scrollHeight) * 100 : 0;
@@ -3224,6 +3243,7 @@
       var navbar = document.getElementById('navbar');
 
       function updateNavbar() {
+        if (!navbar) return;
         var scrollTop = window.pageYOffset || document.documentElement.scrollTop;
         if (scrollTop > 50) {
           navbar.classList.add('scrolled');
@@ -3493,6 +3513,7 @@
       var mobileLinks = document.querySelectorAll('.mobile-menu-link');
 
       function toggleMobileMenu() {
+        if (!hamburger || !mobileMenu || !mobileOverlay) return;
         var isOpen = mobileMenu.classList.contains('open');
 
         if (isOpen) {
