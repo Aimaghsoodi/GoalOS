@@ -26,7 +26,8 @@
     "sourceMap": true,
     "baseUrl": ".",
     "paths": {
-      "@goalos/*": ["packages/*/src"]
+      "@goalos/core": ["packages/goalos-core/src/index.ts"],
+      "@goalos/mcp-server": ["packages/goalos-mcp/src/index.ts"]
     }
   },
   "include": ["packages"],

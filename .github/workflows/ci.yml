@@ -7,8 +7,8 @@ on:
     branches: [main]
 
 jobs:
-  test:
-    name: Node.js ${{ matrix.node-version }}
+  js:
+    name: JS / Node ${{ matrix.node-version }}
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -19,18 +19,74 @@ jobs:
       - name: Install pnpm
         uses: pnpm/action-setup@v2
         with:
-          version: 9
+          version: 10
 
       - name: Setup Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node-version }}
+          cache: pnpm
 
       - name: Install dependencies
-        run: pnpm install --no-frozen-lockfile
+        run: pnpm install --frozen-lockfile
 
-      - name: Build
-        run: pnpm build
+      - name: Verify workspace packages are detected
+        run: pnpm list -r --depth -1
 
-      - name: Run tests
-        run: pnpm test
+      - name: Typecheck core
+        run: pnpm --filter @goalos/core typecheck
+
+      - name: Lint core
+        run: pnpm --filter @goalos/core lint
+
+      - name: Test core
+        run: pnpm --filter @goalos/core test
+
+      - name: Build core
+        run: pnpm --filter @goalos/core build
+
+      - name: Typecheck CLI
+        run: pnpm --filter goalos typecheck
+
+      - name: Lint CLI
+        run: pnpm --filter goalos lint
+
+      - name: Test CLI
+        run: pnpm --filter goalos test
+
+      - name: Build CLI
+        run: pnpm --filter goalos build
+
+      - name: Typecheck MCP server
+        run: pnpm --filter @goalos/mcp-server typecheck
+
+      - name: Lint MCP server
+        run: pnpm --filter @goalos/mcp-server lint
+
+      - name: Test MCP server
+        run: pnpm --filter @goalos/mcp-server test
+
+      - name: Build MCP server
+        run: pnpm --filter @goalos/mcp-server build
+
+  python:
+    name: Python SDK
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Setup uv
+        uses: astral-sh/setup-uv@v6
+
+      - name: Run Python tests
+        working-directory: packages/goalos-py
+        run: uv run --extra dev pytest
+
+      - name: Build Python package
+        working-directory: packages/goalos-py
+        run: uv run --with build python -m build
