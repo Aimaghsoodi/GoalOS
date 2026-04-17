@@ -2,7 +2,6 @@
 
 **The Intent Layer for AI Agents**
 
-[![CI](https://github.com/Aimaghsoodi/GoalOS/actions/workflows/ci.yml/badge.svg)](https://github.com/Aimaghsoodi/GoalOS/actions/workflows/ci.yml)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.3-blue.svg)](https://www.typescriptlang.org/)
 [![Python](https://img.shields.io/badge/Python-3.10+-green.svg)](https://www.python.org/)
 [![MCP](https://img.shields.io/badge/MCP-Compatible-purple.svg)](https://modelcontextprotocol.io/)
