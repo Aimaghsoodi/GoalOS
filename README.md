@@ -6,6 +6,7 @@
 [![Python](https://img.shields.io/badge/Python-3.10+-green.svg)](https://www.python.org/)
 [![MCP](https://img.shields.io/badge/MCP-Compatible-purple.svg)](https://modelcontextprotocol.io/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](./LICENSE)
+[![Hugging Face Space](https://img.shields.io/badge/Hugging%20Face-Live%20Space-ffcc4d?logo=huggingface&logoColor=black)](https://huggingface.co/spaces/AbteeXAILab/GoalOS)
 
 ---
 
@@ -16,6 +17,15 @@ GoalOS is a protocol and library that gives AI agents a shared, structured under
 It is **not** memory (facts about you). It is **not** task management (things to do). It is the **intent layer** — a machine-readable graph of what you are trying to achieve, readable and writable by any AI tool.
 
 Most people use multiple AI tools daily. Each one operates in isolation with zero awareness of your bigger picture. Your coding assistant doesn't know you're preparing for a funding round. Your research tool doesn't know you're pivoting domains next month. GoalOS gives every connected tool the same shared context.
+
+## Hugging Face Space
+
+`GoalOS by AbteeX AI Labs` is also published as a public Hugging Face Space with a cinematic walkthrough, install surfaces, and docs hub:
+
+- Space: `https://huggingface.co/spaces/AbteeXAILab/GoalOS`
+- Live app: `https://abteexailab-goalos.static.hf.space`
+- Local source bundle: [`hf/space`](./hf/space/)
+- Publish helper: `node scripts/publish-hf-space.mjs`
 
 ---
 

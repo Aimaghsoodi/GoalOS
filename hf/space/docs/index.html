@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="GoalOS by AbteeX AI Labs documentation hub for Hugging Face visitors.">
+  <meta name="theme-color" content="#060816">
+  <meta name="color-scheme" content="dark">
+  <title>GoalOS Docs | AbteeX AI Labs</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600;700&family=Syne:wght@500;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../assets/styles.css">
+</head>
+<body class="space-docs">
+  <a class="skip-link" href="#docs-main">Skip to content</a>
+  <div class="aurora aurora-a"></div>
+  <div class="aurora aurora-b"></div>
+  <div class="grid-noise"></div>
+
+  <header class="site-header site-header--docs">
+    <div class="shell site-header__inner">
+      <a class="brand" href="../index.html">
+        <span class="brand__mark brand__mark--small"></span>
+        <span>
+          <strong>GoalOS</strong>
+          <span>by AbteeX AI Labs</span>
+        </span>
+      </a>
+
+      <nav class="site-nav" aria-label="Docs navigation">
+        <a href="../index.html">Demo</a>
+        <a href="#quickstart">Quickstart</a>
+        <a href="#surfaces">Surfaces</a>
+        <a href="#transport">Transport</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="docs-main" class="docs-layout shell">
+    <aside class="docs-sidebar">
+      <p class="eyebrow">Docs Hub</p>
+      <h1>GoalOS docs for Hugging Face visitors.</h1>
+      <p class="docs-sidebar__lede">
+        Start here if you want the shortest path from “interesting idea” to “working implementation”.
+      </p>
+
+      <nav class="docs-sidebar__nav" data-section-nav>
+        <a href="#what-is-goalos">What is GoalOS</a>
+        <a href="#quickstart">Quickstart</a>
+        <a href="#surfaces">Package surfaces</a>
+        <a href="#graph-model">Graph model</a>
+        <a href="#transport">Transport layers</a>
+        <a href="#deploy">HF publish flow</a>
+        <a href="#deeper-links">Deeper links</a>
+      </nav>
+    </aside>
+
+    <article class="docs-content">
+      <section id="what-is-goalos" class="docs-section">
+        <p class="eyebrow">Overview</p>
+        <h2>What GoalOS actually is</h2>
+        <p>
+          GoalOS is a protocol and package surface for representing human intent in a structured graph that AI systems can reason over. It models goals, dependencies, permissions, status, priorities, and time horizons so multiple tools stop acting like isolated copilots and start coordinating against the same operational picture.
+        </p>
+        <div class="docs-callout">
+          <strong>Important:</strong>
+          <span>GoalOS is not just memory and not just task tracking. It is the intent layer that sits above both.</span>
+        </div>
+      </section>
+
+      <section id="quickstart" class="docs-section">
+        <p class="eyebrow">Quickstart</p>
+        <h2>Install the surface that matches your stack</h2>
+
+        <div class="docs-snippet-grid">
+          <article class="docs-snippet">
+            <div class="docs-snippet__topline">
+              <span>TypeScript core</span>
+              <button class="chip-button chip-button--small" type="button" data-copy="npm install @goalos/core">Copy</button>
+            </div>
+            <pre><code>npm install @goalos/core</code></pre>
+          </article>
+
+          <article class="docs-snippet">
+            <div class="docs-snippet__topline">
+              <span>Python SDK</span>
+              <button class="chip-button chip-button--small" type="button" data-copy="pip install goalos">Copy</button>
+            </div>
+            <pre><code>pip install goalos</code></pre>
+          </article>
+
+          <article class="docs-snippet">
+            <div class="docs-snippet__topline">
+              <span>CLI</span>
+              <button class="chip-button chip-button--small" type="button" data-copy="npm install -g goalos">Copy</button>
+            </div>
+            <pre><code>npm install -g goalos</code></pre>
+          </article>
+
+          <article class="docs-snippet">
+            <div class="docs-snippet__topline">
+              <span>MCP server</span>
+              <button class="chip-button chip-button--small" type="button" data-copy="npm install -g @goalos/mcp-server">Copy</button>
+            </div>
+            <pre><code>npm install -g @goalos/mcp-server</code></pre>
+          </article>
+        </div>
+
+        <div class="docs-codeblock">
+          <div class="docs-codeblock__topline">
+            <span>TypeScript example</span>
+            <button class="chip-button chip-button--small" type="button" data-copy-source="ts-example">Copy</button>
+          </div>
+          <pre><code id="ts-example">import { IntentGraphClass } from '@goalos/core';
+
+const graph = IntentGraphClass.create('founder@abteex.com', 'Launch Board');
+
+const launch = graph.addGoal({
+  title: 'Launch GoalOS public demo',
+  status: 'active',
+  priority: { level: 'critical' },
+  domain: 'product',
+  successCriteria: ['Space is live', 'Docs are public'],
+});
+
+graph.addGoal({
+  title: 'Ship Hugging Face cinematic demo',
+  parentId: launch.id,
+  status: 'active',
+  priority: { level: 'high' },
+  tags: ['launch', 'demo'],
+});</code></pre>
+        </div>
+
+        <div class="docs-codeblock">
+          <div class="docs-codeblock__topline">
+            <span>Python example</span>
+            <button class="chip-button chip-button--small" type="button" data-copy-source="py-example">Copy</button>
+          </div>
+          <pre><code id="py-example">from goalos import IntentGraphManager, Priority
+
+graph = IntentGraphManager.create(owner="abteex", name="Personal Chief of Staff")
+
+graph.add_goal(
+    title="Protect deep work block",
+    priority=Priority(level="high", score=80),
+    domain="personal_ops",
+)</code></pre>
+        </div>
+      </section>
+
+      <section id="surfaces" class="docs-section">
+        <p class="eyebrow">Surfaces</p>
+        <h2>Package surfaces</h2>
+        <div class="docs-card-grid">
+          <article class="docs-card">
+            <h3>@goalos/core</h3>
+            <p>The canonical TypeScript engine for goals, graphs, priority, validation, merge logic, permissions, and queries.</p>
+          </article>
+          <article class="docs-card">
+            <h3>goalos CLI</h3>
+            <p>Terminal-first graph creation, inspection, status review, prioritization, validation, import/export, and serving.</p>
+          </article>
+          <article class="docs-card">
+            <h3>@goalos/mcp-server</h3>
+            <p>Connect GoalOS to Claude Desktop and other MCP clients so they can read and update intent-aware context.</p>
+          </article>
+          <article class="docs-card">
+            <h3>goalos Python SDK</h3>
+            <p>Python-native graph modeling and automation workflows with strong typing and API-friendly data structures.</p>
+          </article>
+        </div>
+      </section>
+
+      <section id="graph-model" class="docs-section">
+        <p class="eyebrow">Model</p>
+        <h2>Core graph semantics</h2>
+        <ul class="docs-list">
+          <li><strong>Goal:</strong> a unit of intent with status, domain, priority, time horizon, and success criteria.</li>
+          <li><strong>Hierarchy:</strong> parent-child relationships for strategic goals and execution work.</li>
+          <li><strong>Dependency:</strong> explicit blockers, enablers, and related goals across teams or tools.</li>
+          <li><strong>Permissions:</strong> scoped capabilities so agents do not get global write access by default.</li>
+          <li><strong>Priority engine:</strong> dynamic urgency based on deadlines, blockers, and current execution state.</li>
+        </ul>
+      </section>
+
+      <section id="transport" class="docs-section">
+        <p class="eyebrow">Transport</p>
+        <h2>How GoalOS reaches other systems</h2>
+        <div class="docs-card-grid">
+          <article class="docs-card">
+            <h3>CLI</h3>
+            <p>Ideal for local graphs, shell-driven workflows, and automation glue.</p>
+          </article>
+          <article class="docs-card">
+            <h3>MCP</h3>
+            <p>Ideal for AI desktop clients and tool-calling agents that need structured context.</p>
+          </article>
+          <article class="docs-card">
+            <h3>OpenAPI</h3>
+            <p>Ideal for hosted clients, custom GPT actions, and HTTP-native orchestrators.</p>
+          </article>
+        </div>
+
+        <div class="docs-codeblock">
+          <div class="docs-codeblock__topline">
+            <span>MCP config sketch</span>
+            <button class="chip-button chip-button--small" type="button" data-copy-source="mcp-example">Copy</button>
+          </div>
+          <pre><code id="mcp-example">{
+  "mcpServers": {
+    "goalos": {
+      "command": "npx",
+      "args": ["@goalos/mcp-server"]
+    }
+  }
+}</code></pre>
+        </div>
+      </section>
+
+      <section id="deploy" class="docs-section">
+        <p class="eyebrow">Publish</p>
+        <h2>How this Hugging Face Space is deployed</h2>
+        <p>
+          This repo includes a self-contained Static Space bundle in <code>hf/space/</code> plus helper scripts for verification and publishing.
+        </p>
+
+        <div class="docs-codeblock">
+          <div class="docs-codeblock__topline">
+            <span>Local commands</span>
+            <button class="chip-button chip-button--small" type="button" data-copy-source="publish-example">Copy</button>
+          </div>
+          <pre><code id="publish-example">node scripts/verify-hf-space.mjs
+node scripts/publish-hf-space.mjs</code></pre>
+        </div>
+
+        <p>
+          The publish helper creates or reuses <code>AbteeXAILab/GoalOS</code> as a public Static Space and uploads the contents of <code>hf/space/</code>.
+        </p>
+      </section>
+
+      <section id="deeper-links" class="docs-section">
+        <p class="eyebrow">More</p>
+        <h2>Go deeper</h2>
+        <div class="docs-link-grid">
+          <a class="docs-link-card" href="https://github.com/Aimaghsoodi/GoalOS" target="_blank" rel="noopener noreferrer">
+            <strong>Canonical GitHub repository</strong>
+            <span>Source, packages, issues, and release history.</span>
+          </a>
+          <a class="docs-link-card" href="https://github.com/Aimaghsoodi/GoalOS/tree/main/spec" target="_blank" rel="noopener noreferrer">
+            <strong>Spec directory</strong>
+            <span>OpenAPI, schema files, examples, and protocol references.</span>
+          </a>
+          <a class="docs-link-card" href="https://github.com/Aimaghsoodi/GoalOS/tree/main/examples" target="_blank" rel="noopener noreferrer">
+            <strong>Examples</strong>
+            <span>Cloudflare Worker, Claude Desktop, LangChain, and CrewAI integrations.</span>
+          </a>
+          <a class="docs-link-card" href="https://aimaghsoodi.github.io/GoalOS/" target="_blank" rel="noopener noreferrer">
+            <strong>Existing website</strong>
+            <span>The broader public website this Space complements.</span>
+          </a>
+        </div>
+      </section>
+    </article>
+  </main>
+
+  <div class="toast" aria-live="polite" aria-atomic="true" data-toast></div>
+
+  <script src="../assets/app.js"></script>
+</body>
+</html>
