@@ -1,7 +1,7 @@
 :root {
   --bg: #0b0d12;
-  --panel: #12161d;
-  --panel-soft: #171c24;
+  --panel: #11151b;
+  --panel-soft: #151a22;
   --line: #232a35;
   --text: #eef2f7;
   --muted: #9aa5b4;
@@ -9,8 +9,8 @@
   --link: #c7d6e9;
   --font-body: "IBM Plex Sans", sans-serif;
   --font-mono: "IBM Plex Mono", monospace;
-  --shell: 980px;
-  --radius: 14px;
+  --shell: 920px;
+  --radius: 12px;
 }
 
 *,
@@ -83,10 +83,9 @@ pre {
 
 .site-header {
   border-bottom: 1px solid var(--line);
-  background: rgba(11, 13, 18, 0.94);
+  background: var(--bg);
   position: sticky;
   top: 0;
-  backdrop-filter: blur(8px);
 }
 
 .header-row,
@@ -95,7 +94,7 @@ pre {
   align-items: center;
   justify-content: space-between;
   gap: 16px;
-  min-height: 64px;
+  min-height: 58px;
 }
 
 .brand {
@@ -106,20 +105,20 @@ pre {
 
 .brand strong {
   display: block;
-  font-size: 0.96rem;
+  font-size: 0.92rem;
 }
 
 .brand span span {
   display: block;
   color: var(--muted);
-  font-size: 0.82rem;
+  font-size: 0.78rem;
 }
 
 .brand-mark {
-  width: 18px;
-  height: 18px;
-  border-radius: 4px;
-  background: linear-gradient(135deg, #f0f5fb, #9eb2c9);
+  width: 16px;
+  height: 16px;
+  border-radius: 3px;
+  background: linear-gradient(135deg, #dbe5f1, #91a6bd);
   box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.16);
 }
 
@@ -134,7 +133,7 @@ pre {
 .site-nav a,
 .footer-links a {
   color: var(--muted);
-  font-size: 0.92rem;
+  font-size: 0.88rem;
 }
 
 .site-nav a:hover,
@@ -147,12 +146,12 @@ pre {
 }
 
 .page {
-  padding: 32px 0 56px;
+  padding: 24px 0 48px;
 }
 
 .hero,
 .section {
-  padding: 20px 0 24px;
+  padding: 16px 0 20px;
 }
 
 .eyebrow {
@@ -174,7 +173,7 @@ h3 {
 
 .hero h1,
 .page-title {
-  font-size: clamp(1.9rem, 4vw, 2.8rem);
+  font-size: clamp(1.7rem, 3.6vw, 2.35rem);
   max-width: 15ch;
 }
 
@@ -183,7 +182,7 @@ h3 {
 }
 
 .section-head h2 {
-  font-size: 1.25rem;
+  font-size: 1.14rem;
 }
 
 .lede,
@@ -193,15 +192,15 @@ h3 {
 .card p {
   margin: 12px 0 0;
   color: var(--muted);
-  font-size: 0.98rem;
+  font-size: 0.94rem;
 }
 
 .button {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  min-height: 36px;
-  padding: 0 12px;
+  min-height: 34px;
+  padding: 0 10px;
   border: 1px solid var(--line);
   border-radius: 10px;
   background: var(--panel);
@@ -216,16 +215,16 @@ h3 {
 }
 
 .button-small {
-  min-height: 30px;
-  font-size: 0.84rem;
+  min-height: 28px;
+  font-size: 0.8rem;
 }
 
 .hero-grid,
 .demo-body {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 14px;
-  margin-top: 18px;
+  gap: 12px;
+  margin-top: 16px;
 }
 
 .panel,
@@ -240,7 +239,7 @@ h3 {
 .panel,
 .card,
 .link-card {
-  padding: 16px;
+  padding: 14px;
 }
 
 .panel-code,
@@ -254,7 +253,7 @@ h3 {
   align-items: center;
   justify-content: space-between;
   gap: 12px;
-  margin-bottom: 10px;
+  margin-bottom: 8px;
 }
 
 .panel-head span,
@@ -276,6 +275,36 @@ h3 {
   margin-top: 8px;
 }
 
+.mini-table {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+  margin-top: 12px;
+}
+
+.mini-table div {
+  padding: 10px 11px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: var(--panel-soft);
+}
+
+.mini-table span {
+  display: block;
+  color: var(--muted);
+  font-family: var(--font-mono);
+  font-size: 0.74rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.mini-table strong {
+  display: block;
+  margin-top: 6px;
+  font-size: 0.92rem;
+  font-weight: 600;
+}
+
 .card-grid,
 .link-grid {
   display: grid;
@@ -284,8 +313,8 @@ h3 {
 }
 
 .card h3 {
-  font-size: 1rem;
-  margin-bottom: 10px;
+  font-size: 0.96rem;
+  margin-bottom: 8px;
 }
 
 .card pre,
@@ -298,9 +327,9 @@ h3 {
 .card code,
 .panel code {
   display: block;
-  padding: 12px;
+  padding: 10px;
   color: #e8edf6;
-  font-size: 0.9rem;
+  font-size: 0.88rem;
 }
 
 .demo {
@@ -314,18 +343,18 @@ h3 {
   display: flex;
   gap: 8px;
   flex-wrap: wrap;
-  padding: 12px;
+  padding: 10px;
   border-bottom: 1px solid var(--line);
 }
 
 .demo-body {
-  padding: 12px;
+  padding: 10px;
   margin-top: 0;
 }
 
 .demo-tab {
-  min-height: 32px;
-  padding: 0 10px;
+  min-height: 30px;
+  padding: 0 9px;
   border-radius: 999px;
   border: 1px solid var(--line);
   background: var(--panel-soft);
@@ -349,7 +378,7 @@ h3 {
 
 .info-table th,
 .info-table td {
-  padding: 12px 14px;
+  padding: 10px 12px;
   text-align: left;
   vertical-align: top;
   border-bottom: 1px solid var(--line);
@@ -368,7 +397,7 @@ h3 {
 .link-card strong {
   display: block;
   margin-bottom: 6px;
-  font-size: 0.98rem;
+  font-size: 0.94rem;
 }
 
 .site-footer {
@@ -401,7 +430,8 @@ h3 {
   .hero-grid,
   .demo-body,
   .card-grid,
-  .link-grid {
+  .link-grid,
+  .mini-table {
     grid-template-columns: 1fr;
     flex-direction: column;
     align-items: flex-start;
