@@ -3,41 +3,22 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="GoalOS by AbteeX AI Labs. A futurist Hugging Face Space for the intent layer that coordinates people, teams, and AI agents.">
-  <meta name="theme-color" content="#060816">
+  <meta name="description" content="GoalOS by AbteeX AI Labs. Shared goal graph for agents, tools, and teams.">
+  <meta name="theme-color" content="#0b0d12">
   <meta name="color-scheme" content="dark">
   <title>GoalOS by AbteeX AI Labs</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600;700&family=Syne:wght@500;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="./assets/styles.css">
 </head>
-<body class="space-home">
+<body>
   <a class="skip-link" href="#main">Skip to content</a>
-  <div class="aurora aurora-a"></div>
-  <div class="aurora aurora-b"></div>
-  <div class="aurora aurora-c"></div>
-  <div class="grid-noise"></div>
 
-  <header class="site-header" id="top">
-    <div class="shell site-header__inner">
-      <a class="brand" href="#top" aria-label="GoalOS by AbteeX AI Labs">
-        <span class="brand__mark">
-          <svg viewBox="0 0 64 64" aria-hidden="true">
-            <defs>
-              <linearGradient id="brandGradient" x1="8" y1="8" x2="56" y2="56" gradientUnits="userSpaceOnUse">
-                <stop offset="0%" stop-color="#00d1ff"></stop>
-                <stop offset="55%" stop-color="#ff7a18"></stop>
-                <stop offset="100%" stop-color="#ffd166"></stop>
-              </linearGradient>
-            </defs>
-            <path d="M32 4 56 18v28L32 60 8 46V18Z" fill="none" stroke="url(#brandGradient)" stroke-width="3"></path>
-            <circle cx="32" cy="20" r="6" fill="url(#brandGradient)"></circle>
-            <circle cx="19" cy="37" r="4" fill="#00d1ff"></circle>
-            <circle cx="45" cy="37" r="4" fill="#ff7a18"></circle>
-            <path d="M32 26 19 33M32 26l13 7M19 41h26" stroke="url(#brandGradient)" stroke-width="3" stroke-linecap="round"></path>
-          </svg>
-        </span>
+  <header class="site-header">
+    <div class="shell header-row">
+      <a class="brand" href="./">
+        <span class="brand-mark" aria-hidden="true"></span>
         <span>
           <strong>GoalOS</strong>
           <span>by AbteeX AI Labs</span>
@@ -45,292 +26,176 @@
       </a>
 
       <nav class="site-nav" aria-label="Primary">
+        <a href="#install">Install</a>
         <a href="#demo">Demo</a>
-        <a href="#surfaces">Surfaces</a>
         <a href="./docs/index.html">Docs</a>
         <a href="https://github.com/Aimaghsoodi/GoalOS" target="_blank" rel="noopener noreferrer">GitHub</a>
       </nav>
     </div>
   </header>
 
-  <main id="main">
+  <main id="main" class="shell page">
     <section class="hero">
-      <div class="shell hero__grid">
-        <div class="hero__copy reveal">
-          <p class="eyebrow">Hugging Face Launch Surface</p>
-          <h1>One intent layer for teams, humans, and every AI agent in the loop.</h1>
-          <p class="hero__lede">
-            GoalOS gives engineering, research, marketing, founders, and AI copilots one shared graph of what matters now, what is blocked, and what must happen next.
-          </p>
+      <p class="eyebrow">Hugging Face Space</p>
+      <h1>Shared goal state for agents, tools, and teams.</h1>
+      <p class="lede">
+        GoalOS stores goals, dependencies, priorities, permissions, and status in one machine-readable graph so every connected system can reason against the same current state.
+      </p>
 
-          <div class="hero__actions">
-            <a class="button button--primary" href="#demo">Play Cinematic Demo</a>
-            <a class="button button--ghost" href="./docs/index.html">Open Docs</a>
-            <a class="button button--ghost" href="https://github.com/Aimaghsoodi/GoalOS" target="_blank" rel="noopener noreferrer">View GitHub</a>
+      <div class="button-row">
+        <a class="button button-primary" href="./docs/index.html">Open docs</a>
+        <a class="button" href="https://github.com/Aimaghsoodi/GoalOS" target="_blank" rel="noopener noreferrer">View GitHub</a>
+      </div>
+
+      <div class="hero-grid">
+        <article class="panel">
+          <h2>What is included</h2>
+          <ul class="key-list">
+            <li>TypeScript core library</li>
+            <li>Python SDK</li>
+            <li>CLI for local graph workflows</li>
+            <li>MCP server for client integrations</li>
+            <li>OpenAPI and schema references in GitHub</li>
+          </ul>
+        </article>
+
+        <article class="panel panel-code">
+          <div class="panel-head">
+            <span>Quick example</span>
+            <button class="button button-small" type="button" data-copy-source="hero-example">Copy</button>
           </div>
+          <pre><code id="hero-example">import { IntentGraphClass } from '@goalos/core';
 
-          <div class="hero__stats">
-            <article class="metric-card">
-              <span class="metric-card__label">Team alignment</span>
-              <strong>Cross-agent context without prompt drift</strong>
-            </article>
-            <article class="metric-card">
-              <span class="metric-card__label">Surfaces</span>
-              <strong>TypeScript, Python, CLI, MCP, OpenAPI</strong>
-            </article>
-            <article class="metric-card">
-              <span class="metric-card__label">Launch mode</span>
-              <strong>Public HF Space + cinematic product demo</strong>
-            </article>
-          </div>
-        </div>
+const graph = IntentGraphClass.create('team@abteex.ai', 'Launch board');
 
-        <div class="hero__stage reveal reveal-delay-1">
-          <div class="stage-frame">
-            <div class="stage-frame__chrome">
-              <span></span>
-              <span></span>
-              <span></span>
-            </div>
-
-            <div class="stage-frame__content">
-              <div class="stage-kicker">
-                <span class="status-dot"></span>
-                Mission board online
-              </div>
-
-              <div class="orbital-board">
-                <div class="orbital-board__center">
-                  <span>Intent Core</span>
-                  <strong>GoalOS</strong>
-                </div>
-                <div class="orbital-node orbital-node--cyan">Product</div>
-                <div class="orbital-node orbital-node--orange">Research</div>
-                <div class="orbital-node orbital-node--gold">Marketing</div>
-                <div class="orbital-node orbital-node--magenta">Personal Ops</div>
-              </div>
-
-              <div class="stage-tape">
-                <span>claude-desktop</span>
-                <span>langchain</span>
-                <span>crewai</span>
-                <span>custom openapi client</span>
-              </div>
-
-              <div class="stage-panels">
-                <article class="stage-panel">
-                  <span>Today</span>
-                  <strong>6 critical moves</strong>
-                  <p>GoalOS ranks the graph using blockers, deadlines, and team-level dependencies.</p>
-                </article>
-                <article class="stage-panel">
-                  <span>Now playing</span>
-                  <strong>Team Command Center</strong>
-                  <p>AI tools stop optimizing in isolation and start coordinating against the same launch graph.</p>
-                </article>
-              </div>
-            </div>
-          </div>
-        </div>
+graph.addGoal({
+  title: 'Ship public docs',
+  status: 'active',
+  priority: { level: 'critical' },
+  domain: 'product',
+});</code></pre>
+        </article>
       </div>
     </section>
 
-    <section class="section section--demo" id="demo">
-      <div class="shell">
-        <div class="section-heading reveal">
-          <p class="eyebrow">Cinematic Demo</p>
-          <h2>Two stories. One graph. Zero context loss.</h2>
-          <p>
-            This demo is scripted to show the exact shift GoalOS creates: first at team level, then at personal level.
-          </p>
-        </div>
+    <section id="install" class="section">
+      <div class="section-head">
+        <h2>Install</h2>
+        <p>Use the surface that matches your stack.</p>
+      </div>
 
-        <div class="demo-console reveal reveal-delay-1" data-demo-root>
-          <div class="demo-console__toolbar">
-            <div class="demo-console__tabs" data-act-buttons></div>
-            <div class="demo-console__controls">
-              <button class="chip-button" type="button" data-demo-action="toggle">Pause</button>
-              <button class="chip-button" type="button" data-demo-action="replay">Replay</button>
-            </div>
+      <div class="card-grid">
+        <article class="card">
+          <div class="card-top">
+            <span>TypeScript core</span>
+            <button class="button button-small" type="button" data-copy="npm install @goalos/core">Copy</button>
           </div>
+          <h3>@goalos/core</h3>
+          <pre><code>npm install @goalos/core</code></pre>
+        </article>
 
-          <div class="demo-console__progress">
-            <div class="demo-console__progress-fill" data-demo-progress></div>
+        <article class="card">
+          <div class="card-top">
+            <span>Python SDK</span>
+            <button class="button button-small" type="button" data-copy="pip install goalos">Copy</button>
           </div>
+          <h3>goalos</h3>
+          <pre><code>pip install goalos</code></pre>
+        </article>
 
-          <div class="demo-console__body">
-            <div class="demo-narrative">
-              <p class="demo-label" data-scene-label></p>
-              <h3 data-scene-title></h3>
-              <p class="demo-summary" data-scene-summary></p>
-              <p class="demo-highlight" data-scene-highlight></p>
-
-              <div class="demo-metrics" data-scene-metrics></div>
-
-              <div class="demo-code">
-                <div class="demo-code__topline">
-                  <span>Live action</span>
-                  <button class="chip-button chip-button--small" type="button" data-copy-source="demo-code">Copy</button>
-                </div>
-                <pre><code id="demo-code" data-scene-code></code></pre>
-              </div>
-            </div>
-
-            <div class="demo-wall">
-              <div class="demo-graph-panel">
-                <div class="panel-heading">
-                  <span>Intent graph snapshot</span>
-                  <strong data-scene-counter></strong>
-                </div>
-                <div class="graph-grid" data-scene-graph></div>
-              </div>
-
-              <div class="demo-events-panel">
-                <div class="panel-heading">
-                  <span>Agent event stream</span>
-                  <strong>Live coordination</strong>
-                </div>
-                <ul class="event-stream" data-scene-events></ul>
-              </div>
-            </div>
+        <article class="card">
+          <div class="card-top">
+            <span>CLI</span>
+            <button class="button button-small" type="button" data-copy="npm install -g goalos">Copy</button>
           </div>
+          <h3>goalos</h3>
+          <pre><code>npm install -g goalos</code></pre>
+        </article>
 
-          <div class="demo-console__timeline" data-scene-buttons></div>
-        </div>
+        <article class="card">
+          <div class="card-top">
+            <span>MCP server</span>
+            <button class="button button-small" type="button" data-copy="npm install -g @goalos/mcp-server">Copy</button>
+          </div>
+          <h3>@goalos/mcp-server</h3>
+          <pre><code>npm install -g @goalos/mcp-server</code></pre>
+        </article>
       </div>
     </section>
 
-    <section class="section" id="surfaces">
-      <div class="shell">
-        <div class="section-heading reveal">
-          <p class="eyebrow">Package Surfaces</p>
-          <h2>Everything you need to wire GoalOS into a real stack.</h2>
-          <p>
-            GoalOS is packaged for application code, automation pipelines, terminal workflows, MCP clients, and custom integrations.
-          </p>
-        </div>
+    <section id="demo" class="section">
+      <div class="section-head">
+        <h2>Compact demo</h2>
+        <p>Two small examples showing the same graph pattern at team and personal scope.</p>
+      </div>
 
-        <div class="surface-grid reveal reveal-delay-1">
-          <article class="surface-card">
-            <div class="surface-card__meta">TypeScript core</div>
-            <h3>@goalos/core</h3>
-            <p>Use the intent graph engine directly inside product code, orchestration services, or server-side workflows.</p>
-            <pre><code>npm install @goalos/core</code></pre>
-            <button class="chip-button" type="button" data-copy="npm install @goalos/core">Copy install</button>
+      <div class="demo">
+        <div class="demo-tabs" data-demo-tabs></div>
+        <div class="demo-body">
+          <article class="panel">
+            <p class="demo-label" data-demo-label></p>
+            <h3 data-demo-title></h3>
+            <p class="demo-text" data-demo-text></p>
+            <ul class="key-list" data-demo-points></ul>
           </article>
 
-          <article class="surface-card">
-            <div class="surface-card__meta">Python SDK</div>
-            <h3>goalos</h3>
-            <p>Mirror GoalOS primitives in Python with typed models and API-friendly graph operations.</p>
-            <pre><code>pip install goalos</code></pre>
-            <button class="chip-button" type="button" data-copy="pip install goalos">Copy install</button>
-          </article>
-
-          <article class="surface-card">
-            <div class="surface-card__meta">CLI</div>
-            <h3>goalos</h3>
-            <p>Create, inspect, prioritize, validate, and serve your graph from the terminal.</p>
-            <pre><code>npm install -g goalos</code></pre>
-            <button class="chip-button" type="button" data-copy="npm install -g goalos">Copy install</button>
-          </article>
-
-          <article class="surface-card">
-            <div class="surface-card__meta">MCP server</div>
-            <h3>@goalos/mcp-server</h3>
-            <p>Expose GoalOS as a structured context provider to Claude Desktop and any MCP-compatible client.</p>
-            <pre><code>npm install -g @goalos/mcp-server</code></pre>
-            <button class="chip-button" type="button" data-copy="npm install -g @goalos/mcp-server">Copy install</button>
-          </article>
-
-          <article class="surface-card">
-            <div class="surface-card__meta">OpenAPI + spec</div>
-            <h3>spec/openapi.yaml</h3>
-            <p>Bring GoalOS into custom GPT actions, orchestrators, and HTTP-native integrations.</p>
-            <pre><code>spec/openapi.yaml</code></pre>
-            <a class="chip-button chip-button--link" href="https://github.com/Aimaghsoodi/GoalOS/tree/main/spec" target="_blank" rel="noopener noreferrer">Open spec</a>
+          <article class="panel panel-code">
+            <div class="panel-head">
+              <span>Example action</span>
+              <button class="button button-small" type="button" data-copy-source="demo-code">Copy</button>
+            </div>
+            <pre><code id="demo-code" data-demo-code></code></pre>
           </article>
         </div>
       </div>
     </section>
 
-    <section class="section section--how">
-      <div class="shell">
-        <div class="section-heading reveal">
-          <p class="eyebrow">How It Works</p>
-          <h2>Define intent once. Let every tool reason against the same operating picture.</h2>
-        </div>
-
-        <div class="step-grid reveal reveal-delay-1">
-          <article class="step-card">
-            <span>01</span>
-            <h3>Model the graph</h3>
-            <p>Encode goals, sub-goals, deadlines, blockers, permissions, and success criteria in a structured graph.</p>
-          </article>
-          <article class="step-card">
-            <span>02</span>
-            <h3>Connect agents</h3>
-            <p>Expose GoalOS via code, CLI, MCP, or OpenAPI so your tools read from a shared context layer.</p>
-          </article>
-          <article class="step-card">
-            <span>03</span>
-            <h3>Resolve collisions</h3>
-            <p>Priorities shift automatically when blockers appear, deadlines move, or team focus changes.</p>
-          </article>
-          <article class="step-card">
-            <span>04</span>
-            <h3>Coordinate outcomes</h3>
-            <p>Founders, operators, and AI systems now act against one stateful picture instead of isolated prompts.</p>
-          </article>
-        </div>
+    <section class="section">
+      <div class="section-head">
+        <h2>References</h2>
+        <p>Use the Space for a fast overview. Use GitHub for the full repository, examples, and spec files.</p>
       </div>
-    </section>
 
-    <section class="section section--docs">
-      <div class="shell">
-        <div class="docs-cta reveal">
-          <div>
-            <p class="eyebrow">Docs Hub</p>
-            <h2>Walk from launch page into real implementation detail.</h2>
-            <p>
-              The in-Space docs cover quickstart installs, package surfaces, CLI and MCP setup, graph semantics, and the Hugging Face publish flow used for this launch.
-            </p>
-          </div>
-
-          <div class="docs-cta__actions">
-            <a class="button button--primary" href="./docs/index.html">Read the docs</a>
-            <a class="button button--ghost" href="https://github.com/Aimaghsoodi/GoalOS/tree/main/examples" target="_blank" rel="noopener noreferrer">Open examples</a>
-          </div>
-        </div>
+      <div class="link-grid">
+        <a class="link-card" href="./docs/index.html">
+          <strong>Docs</strong>
+          <span>Quickstart, package surfaces, MCP setup, and publish flow.</span>
+        </a>
+        <a class="link-card" href="https://github.com/Aimaghsoodi/GoalOS/tree/main/spec" target="_blank" rel="noopener noreferrer">
+          <strong>Spec</strong>
+          <span>OpenAPI, schema files, and examples.</span>
+        </a>
+        <a class="link-card" href="https://github.com/Aimaghsoodi/GoalOS/tree/main/examples" target="_blank" rel="noopener noreferrer">
+          <strong>Examples</strong>
+          <span>Cloudflare Worker, Claude Desktop, LangChain, and CrewAI examples.</span>
+        </a>
+        <a class="link-card" href="https://aimaghsoodi.github.io/GoalOS/" target="_blank" rel="noopener noreferrer">
+          <strong>Website</strong>
+          <span>The broader GoalOS site.</span>
+        </a>
       </div>
     </section>
   </main>
 
   <footer class="site-footer">
-    <div class="shell site-footer__grid">
-      <div>
-        <div class="brand brand--footer">
-          <span class="brand__mark brand__mark--small"></span>
-          <span>
-            <strong>GoalOS</strong>
-            <span>by AbteeX AI Labs</span>
-          </span>
-        </div>
-        <p>
-          Public Hugging Face launch surface for the open-source intent layer that keeps people and AI agents aligned.
-        </p>
+    <div class="shell footer-row">
+      <div class="brand brand-footer">
+        <span class="brand-mark" aria-hidden="true"></span>
+        <span>
+          <strong>GoalOS</strong>
+          <span>by AbteeX AI Labs</span>
+        </span>
       </div>
 
       <div class="footer-links">
         <a href="./docs/index.html">Docs</a>
         <a href="https://github.com/Aimaghsoodi/GoalOS" target="_blank" rel="noopener noreferrer">GitHub</a>
-        <a href="https://aimaghsoodi.github.io/GoalOS/" target="_blank" rel="noopener noreferrer">Website</a>
-        <a href="https://github.com/Aimaghsoodi/GoalOS/blob/main/LICENSE" target="_blank" rel="noopener noreferrer">MIT License</a>
+        <a href="https://huggingface.co/spaces/AbteeXAILab/GoalOS" target="_blank" rel="noopener noreferrer">Hugging Face</a>
       </div>
     </div>
   </footer>
 
-  <div class="toast" aria-live="polite" aria-atomic="true" data-toast></div>
+  <div class="toast" data-toast aria-live="polite" aria-atomic="true"></div>
 
   <script src="./assets/app.js"></script>
 </body>

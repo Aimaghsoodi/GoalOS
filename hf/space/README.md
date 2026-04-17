@@ -6,20 +6,19 @@ colorTo: pink
 sdk: static
 app_file: index.html
 pinned: false
-short_description: Cinematic demo and docs for the GoalOS intent layer.
+short_description: Docs, install, and a compact demo for GoalOS.
 ---
 
 # GoalOS by AbteeX AI Labs
 
-GoalOS is the intent layer for AI agents: a structured, machine-readable graph of goals, priorities, blockers, permissions, and progress that every connected tool can read from the same source of truth.
+GoalOS is a shared goal graph for agents, tools, and teams.
 
-This Space is a launch-grade product surface for GoalOS:
+This Space keeps the Hugging Face view short:
 
-- cinematic demo
-- package and install surfaces
-- docs hub
+- install commands
+- compact demo
+- short docs page
 - GitHub links
-- deployable static bundle
 
 ## Included in this Space
 
